@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
+import { observer, inject } from "mobx-react";
 import SearchBar from 'material-ui-search-bar';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import MovieList from './components/MovieList.js';
-//styles
 import './App.css';
 
+@inject('movieStore')
+@observer
 class App extends Component {
   constructor(props){
     super(props);
@@ -16,6 +18,8 @@ class App extends Component {
     document.getElementById("resultText").innerHTML = "Showing results for '" + search + "'";
     document.getElementById("movieList").style.display = "flex";
     console.log(search);
+    this.props.movieStore.addMovieToList();
+        this.props.movieStore.findMovie(document.getElementById("inputTest").value);
   }
 
   //Change searchValue to equal the input text

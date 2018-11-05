@@ -1,3 +1,10 @@
+.inputTest{
+    border-radius: 5px;
+    width:100%;
+    padding: 10px 0;
+    font-size: 20px;
+}
+
 #resultText{
   margin-top: 2%;
   font-size: 20px;
