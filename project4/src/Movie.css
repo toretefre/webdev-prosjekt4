@@ -1,0 +1,19 @@
+.movieContainer{
+  min-width: 250px;
+  max-width: 250px;
+  min-height: 350px;
+  max-height: 350px;
+  margin-left: 2%;
+  margin-bottom: 2%;
+}
+
+.movieImage{
+  max-width: 90%;
+  max-height: 80%;
+  margin-left: 5%;
+  margin-top: 2%;
+}
+
+.movieTitle{
+  margin-top: 2%;
+}
