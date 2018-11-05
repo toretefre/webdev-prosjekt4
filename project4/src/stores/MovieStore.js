@@ -1,15 +1,28 @@
 import { observable, action } from "mobx";
-import React, { Component } from 'react';
+import { Component } from 'react';
 
-class Movies extends Component {
-    @observable movies = ({
-        titleID : 1,
-        title : "Terkel i knipe",
-    });
+class MovieStore extends Component {
+    @observable movies = [];
+    @action findMovie = (searchText) => {
+        //På linje 12 skal filmene hentes ut og vises på skjermen
+        let moviesToShow = [];
+        if(searchText){
+            this.movies
+                .filter(movie => movie.title.toLowerCase().includes(searchText.toLowerCase()))
+                .map((movie) => {
+                    moviesToShow.push({
+                        title:movie.title,
+                        imgSrc:"http:www.lol.no"
+                    })
+                })
 
-    @action findMovie = (titleID) => {
-        console.log(this.movies.filter(movie => movie.id === titleID));
+        }
+        moviesToShow = [];
     };
+
+    @action addMovieToList(title){
+        this.movies.push({title : "Titanic"},{title : "Terkel i knipe"},{title: "Tenner et lys"});
+    }
 }
 
-export default new Movies();
+export default new MovieStore();

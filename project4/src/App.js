@@ -1,18 +1,26 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
+import { observer, inject } from "mobx-react";
+import './App.css';
 
-//components
-import Emoji from './Emoji';
-
-//styles
-import './App.scss';
-
+@inject('movieStore')
+@observer
 class App extends Component {
-  render() {
-    return (
-      <div className="App">
-        Tester:)
-      </div>
+    constructor(props){
+        super(props);
+        let inputText = "";
+    }
+
+    handleOnChange = (text) => {
+        this.props.movieStore.addMovieToList();
+        this.props.movieStore.findMovie(document.getElementById("inputTest").value);
+    };
+    render() {
+        return (
+        <React.Fragment>
+            {/*<input className="inputTest" id="inputTest" type="text" onChange={(text) => this.handleOnChange(text)}/>*/}
+
+
+        </React.Fragment>
     );
   }
 }

@@ -1,8 +1,15 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
 import App from './App';
 import registerServiceWorker from './registerServiceWorker';
+import MovieStore from "./stores/MovieStore";
+import {Provider} from "mobx-react";
 
-ReactDOM.render(<App />, document.getElementById('root'));
+const Root = (
+    <Provider movieStore = {MovieStore}>
+        <App/>
+    </Provider>
+);
+
+ReactDOM.render(Root, document.getElementById('root'));
 registerServiceWorker();
