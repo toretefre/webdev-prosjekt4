@@ -17,6 +17,8 @@ class App extends Component {
   getResults(search){
     document.getElementById("resultText").innerHTML = "Showing results for '" + search + "'";
     document.getElementById("movieList").style.display = "flex";
+    document.getElementById("displayGrid").style.display = "inline-block";
+    document.getElementById("displayList").style.display = "inline-block";
     console.log(search);
   }
 
@@ -24,6 +26,10 @@ class App extends Component {
   changeValue(text){
     this.searchValue = text;
     this.props.movieStore.findMovie(text);
+  }
+
+  changeDisplay(value){
+    document.getElementById("movieList").style.flexDirection = value;
   }
 
   //-----RENDER----------
@@ -45,6 +51,8 @@ class App extends Component {
           <div id="resultText">
             Search for something
           </div>
+          <button id="displayGrid" onClick={() => this.changeDisplay("row")}>Grid</button>
+          <button id="displayList" onClick={() => this.changeDisplay("column")}>List</button>
         </center>
         <MovieList id="movieList"/>
       </div>
