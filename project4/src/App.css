@@ -13,3 +13,9 @@
 #movieList{
   display: none;
 }
+
+#displayGrid, #displayList{
+  display: none;
+  margin-top: 1%;
+  
+}

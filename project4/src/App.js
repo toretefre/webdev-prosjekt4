@@ -8,24 +8,28 @@ import './App.css';
 @inject('movieStore')
 @observer
 class App extends Component {
-  constructor(props){
-    super(props);
-    const searchValue="";
+
+  componentDidMount(){
+      this.props.movieStore.addMovieToList();
   }
 
   //Function that is fired when serach button is clicked
   getResults(search){
     document.getElementById("resultText").innerHTML = "Showing results for '" + search + "'";
     document.getElementById("movieList").style.display = "flex";
+    document.getElementById("displayGrid").style.display = "inline-block";
+    document.getElementById("displayList").style.display = "inline-block";
     console.log(search);
-    this.props.movieStore.addMovieToList();
-        this.props.movieStore.findMovie(document.getElementById("inputTest").value);
   }
 
   //Change searchValue to equal the input text
   changeValue(text){
     this.searchValue = text;
-    //console.log(this.searchValue);
+    this.props.movieStore.findMovie(text);
+  }
+
+  changeDisplay(value){
+    document.getElementById("movieList").style.flexDirection = value;
   }
 
   //-----RENDER----------
@@ -47,6 +51,8 @@ class App extends Component {
           <div id="resultText">
             Search for something
           </div>
+          <button id="displayGrid" onClick={() => this.changeDisplay("row")}>Grid</button>
+          <button id="displayList" onClick={() => this.changeDisplay("column")}>List</button>
         </center>
         <MovieList id="movieList"/>
       </div>

@@ -4,9 +4,7 @@ import Movie from './Movie';
 import '../MovieList.css';
 
 class MovieList extends Component {
-  constructor(props){
-    super(props);
-  }
+
 
   //-----RENDER----------
   render() {

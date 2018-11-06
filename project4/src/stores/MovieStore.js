@@ -12,16 +12,20 @@ class MovieStore extends Component {
                 .map((movie) => {
                     moviesToShow.push({
                         title:movie.title,
-                        imgSrc:"http:www.lol.no"
+                        imgSrc: movie.imgSrc,
                     })
                 })
 
         }
+        console.log(moviesToShow);
         moviesToShow = [];
     };
 
     @action addMovieToList(title){
-        this.movies.push({title : "Titanic"},{title : "Terkel i knipe"},{title: "Tenner et lys"});
+        this.movies.push(
+            {title : "Titanic", imgSrc: "noe1.png"},
+            {title : "Terkel i knipe", imgSrc: "noe2.png"},
+            {title: "Tenner et lys", imgSrc: "noe3.png"});
     }
 }
 
