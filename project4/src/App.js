@@ -8,6 +8,12 @@ import './App.css';
 @inject('movieStore')
 @observer
 class App extends Component {
+  constructor(props){
+    super(props);
+
+    let resultMovies = [];
+  }
+
 
   componentDidMount(){
       this.props.movieStore.addMovieToList();
@@ -17,8 +23,7 @@ class App extends Component {
   getResults(search){
     document.getElementById("resultText").innerHTML = "Showing results for '" + search + "'";
     document.getElementById("movieList").style.display = "flex";
-    document.getElementById("displayGrid").style.display = "inline-block";
-    document.getElementById("displayList").style.display = "inline-block";
+    document.getElementById("displayButtons").style.display = "inline-block";
     console.log(search);
   }
 
@@ -30,6 +35,42 @@ class App extends Component {
 
   changeDisplay(value){
     document.getElementById("movieList").style.flexDirection = value;
+    //Get all movieInfo boxes
+    let movieInfo = document.getElementsByClassName("movieInfo");
+    //Get all titles
+    let titles = document.getElementsByClassName("movieTitle");
+    //Get all movie containers
+    let movies = document.getElementsByClassName("movieContainer");
+    //If list will be shown, make movieinfo visible
+    if(value==="column"){
+      //Hide titles below images
+      for(let i=0; i<titles.length; i++){
+        titles[i].style.display = "none";
+      }
+      //Set height and widht of movieContainer
+      for(let i=0; i<movies.length; i++){
+        movies[i].style.height = "350px";
+        movies[i].style.width = "900px";
+      }
+      for(let i=0; i<movieInfo.length; i++){
+        movieInfo[i].style.display = "flex";
+      }
+    }
+    //If grid will be shown, hide movie info
+    else{
+      for(let i=0; i<movieInfo.length; i++){
+        movieInfo[i].style.display = "none";
+      }
+      //Show titles below image
+      for(let i=0; i<titles.length; i++){
+        titles[i].style.display = "block";
+      }
+      //Set height and widht of movieContainer
+      for(let i=0; i<movies.length; i++){
+        movies[i].style.height = "350px";
+        movies[i].style.width = "250px";
+      }
+    }
   }
 
   //-----RENDER----------
@@ -47,13 +88,15 @@ class App extends Component {
             }}
           />
         </MuiThemeProvider>
-        <center>
+        <div id="infoContainer">
           <div id="resultText">
-            Search for something
+            No results to show.
           </div>
-          <button id="displayGrid" onClick={() => this.changeDisplay("row")}>Grid</button>
-          <button id="displayList" onClick={() => this.changeDisplay("column")}>List</button>
-        </center>
+          <div id="displayButtons">
+            <button id="displayGrid" onClick={() => this.changeDisplay("row")}>Grid</button>
+            <button id="displayList" onClick={() => this.changeDisplay("column")}>List</button>
+          </div>
+        </div>
         <MovieList id="movieList"/>
       </div>
     );

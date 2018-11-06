@@ -3,5 +3,5 @@
   display: flex;
   flex-wrap: wrap;
   margin-top: 3%;
-  max-width: 90%;
+  width: 90%;
 }
