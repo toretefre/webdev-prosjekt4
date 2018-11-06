@@ -8,9 +8,9 @@ import './App.css';
 @inject('movieStore')
 @observer
 class App extends Component {
-  constructor(props){
-    super(props);
-    const searchValue="";
+
+  componentDidMount(){
+      this.props.movieStore.addMovieToList();
   }
 
   //Function that is fired when serach button is clicked
@@ -18,14 +18,12 @@ class App extends Component {
     document.getElementById("resultText").innerHTML = "Showing results for '" + search + "'";
     document.getElementById("movieList").style.display = "flex";
     console.log(search);
-    this.props.movieStore.addMovieToList();
-        this.props.movieStore.findMovie(document.getElementById("inputTest").value);
   }
 
   //Change searchValue to equal the input text
   changeValue(text){
     this.searchValue = text;
-    //console.log(this.searchValue);
+    this.props.movieStore.findMovie(text);
   }
 
   //-----RENDER----------
