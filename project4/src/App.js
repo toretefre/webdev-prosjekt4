@@ -16,11 +16,11 @@ class App extends Component {
 
   //Function that is fired when serach button is clicked
   getResults(search){
+    console.log(search);
     document.getElementById("resultText").innerHTML = "Showing results for '" + search + "'";
     document.getElementById("movieList").style.display = "flex";
     document.getElementById("movieList").style.justifyContent = "flex-start";
     document.getElementById("displayButtons").style.display = "inline-block";
-    console.log(search);
   }
 
   //Change searchValue to equal the input text
@@ -41,7 +41,6 @@ class App extends Component {
       this.changeDisplay("row");
     }
   }
-
 
   changeDisplay(value){
     document.getElementById("movieList").style.flexDirection = value;
@@ -94,7 +93,7 @@ class App extends Component {
       //Set height and widht of movieContainer
       for(let i=0; i<movies.length; i++){
         movies[i].style.height = "300px";
-        movies[i].style.width = "200px";
+        movies[i].style.width = "19%";
       }
     }
   }

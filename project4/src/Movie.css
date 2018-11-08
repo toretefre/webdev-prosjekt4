@@ -1,5 +1,5 @@
 .movieContainer{
-  min-width: 19%;
+  min-width: 200px;
   width: 19%;
   min-height: 300px;
   max-height: 300px;
@@ -40,8 +40,7 @@
 }
 
 .movieImage{
-  max-width: 90%;
-  max-height: 250px;
+  max-width: 175px;
 }
 
 .movieDescription{
