@@ -3,13 +3,14 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "axios": "^0.18.0",
     "custom-react-scripts": "0.2.2",
+    "material-ui": "latest",
+    "material-ui-search-bar": "latest",
     "mobx": "^5.5.2",
     "mobx-react": "^5.3.6",
     "react": "^16.6.0",
-    "react-dom": "^16.6.0",
-    "material-ui": "latest",
-    "material-ui-search-bar": "latest"
+    "react-dom": "^16.6.0"
   },
   "scripts": {
     "start": "react-scripts start",
