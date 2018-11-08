@@ -6,11 +6,13 @@ class Movie extends Component {
   //-----RENDER----------
   render() {
     return (
-      <a className="movieLink" href={"#"+this.props.movieID}>
-        <div className="movieContainer" onClick={this.props.showInfo} id={this.props.movieID}>
-          <center className="movieTitle">
-            {this.props.title}
-          </center>
+        <div className="movieContainer" id={this.props.movieID}>
+          <div className="movieTitle">
+            <div className="titleText">{this.props.title}</div>
+            <a className="movieLink" href={"#"+this.props.movieID}>
+              <img onClick={this.props.showInfo} className="expandImage" src={require("../assets/images/expand-arrow.png")}/>
+            </a>
+          </div>
           <div className="imageAndInfo">
             <img className="movieImage" src={this.props.imgsrc}/>
             <div className="movieInfo">
@@ -20,10 +22,16 @@ class Movie extends Component {
               <div className="movieDescription">
                 {this.props.description}
               </div>
+              <div className="movieGenre">
+                Genre: {this.props.genre}
+              </div>
+              <div className="movieActors">
+                Actors: {this.props.actors}
+              </div>
             </div>
           </div>
+          <div className="rating">Rating: {this.props.imdb}/10</div>
         </div>
-      </a>
     );
   }
 }

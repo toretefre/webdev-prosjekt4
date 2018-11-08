@@ -10,6 +10,12 @@
   margin-left: 0;
 }
 
+/* The animation code */
+@keyframes example {
+    from {flex-direction : row;}
+    to {flex-direction: column;}
+}
+
 #movieList{
   display: none;
 }
@@ -18,12 +24,21 @@
   margin-top: 2%;
   display: flex;
   justify-content: flex-start;
-  width: 80%;
-  margin-left: 10%;
+  width: 70%;
+  margin-left: 15%;
   color: grey;
 }
 
 #displayButtons{
   display: none;
   margin-left: auto;
+}
+
+#displayGrid, #displayList{
+  background: none;
+  cursor: pointer;
+}
+
+#displayGrid{
+  background-color: lightgreen;
 }

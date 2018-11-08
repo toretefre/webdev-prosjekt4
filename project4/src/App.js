@@ -18,6 +18,7 @@ class App extends Component {
   getResults(search){
     document.getElementById("resultText").innerHTML = "Showing results for '" + search + "'";
     document.getElementById("movieList").style.display = "flex";
+    document.getElementById("movieList").style.justifyContent = "flex-start";
     document.getElementById("displayButtons").style.display = "inline-block";
     console.log(search);
   }
@@ -29,29 +30,39 @@ class App extends Component {
   }
 
   movieClicked(){
+    let expandButtons = document.getElementsByClassName("expandImage");
     const view = document.getElementById("movieList").style.flexDirection;
     console.log(view);
     //If view is grid, change to list
     if(view==="row"){
       this.changeDisplay("column");
+      for(let i=0; i<expandButtons.length; i++){
+        expandButtons[i].src=require("./assets/images/expanded.png");
+      }
     }
     //If view is list, change to grid
     else{
       this.changeDisplay("row");
+      for(let i=0; i<expandButtons.length; i++){
+        expandButtons[i].src=require("./assets/images/expand-arrow.png");
+      }
     }
-    
   }
+
 
   changeDisplay(value){
     document.getElementById("movieList").style.flexDirection = value;
     //Get all movieInfo boxes
     let movieInfo = document.getElementsByClassName("movieInfo");
     //Get all titles
-    let titles = document.getElementsByClassName("movieTitle");
+    let titles = document.getElementsByClassName("titleText");
     //Get all movie containers
     let movies = document.getElementsByClassName("movieContainer");
     //If list will be shown, make movieinfo visible
     if(value==="column"){
+      //Change button colors
+      document.getElementById("displayGrid").style.background="none";
+      document.getElementById("displayList").style.backgroundColor="lightgreen";
       //Hide titles below images
       for(let i=0; i<titles.length; i++){
         titles[i].style.display = "none";
@@ -59,7 +70,7 @@ class App extends Component {
       //Set height and widht of movieContainer
       for(let i=0; i<movies.length; i++){
         movies[i].style.height = "350px";
-        movies[i].style.width = "900px";
+        movies[i].style.width = "100%";
       }
       for(let i=0; i<movieInfo.length; i++){
         movieInfo[i].style.display = "flex";
@@ -67,12 +78,15 @@ class App extends Component {
     }
     //If grid will be shown, hide movie info
     else{
+      //Change button colors
+      document.getElementById("displayList").style.background="none";
+      document.getElementById("displayGrid").style.backgroundColor="lightgreen";
       for(let i=0; i<movieInfo.length; i++){
         movieInfo[i].style.display = "none";
       }
       //Show titles below image
       for(let i=0; i<titles.length; i++){
-        titles[i].style.display = "block";
+        titles[i].style.display = "flex";
       }
       //Set height and widht of movieContainer
       for(let i=0; i<movies.length; i++){
@@ -106,7 +120,7 @@ class App extends Component {
             <button id="displayList" onClick={() => this.changeDisplay("column")}>List</button>
           </div>
         </div>
-        <MovieList id="movieList" showInfo={() => this.movieClicked("8")}/>
+        <MovieList id="movieList" showInfo={() => this.movieClicked()}/>
       </div>
     );
   }
