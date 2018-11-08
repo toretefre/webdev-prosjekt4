@@ -8,15 +8,10 @@ import './App.css';
 @inject('movieStore')
 @observer
 class App extends Component {
-  constructor(props){
-    super(props);
-
-    let resultMovies = [];
-  }
-
 
   componentDidMount(){
       this.props.movieStore.addMovieToList();
+      document.getElementById("movieList").style.flexDirection = "row";
   }
 
   //Function that is fired when serach button is clicked
@@ -31,6 +26,20 @@ class App extends Component {
   changeValue(text){
     this.searchValue = text;
     this.props.movieStore.findMovie(text);
+  }
+
+  movieClicked(){
+    const view = document.getElementById("movieList").style.flexDirection;
+    console.log(view);
+    //If view is grid, change to list
+    if(view==="row"){
+      this.changeDisplay("column");
+    }
+    //If view is list, change to grid
+    else{
+      this.changeDisplay("row");
+    }
+    
   }
 
   changeDisplay(value){
@@ -97,7 +106,7 @@ class App extends Component {
             <button id="displayList" onClick={() => this.changeDisplay("column")}>List</button>
           </div>
         </div>
-        <MovieList id="movieList"/>
+        <MovieList id="movieList" showInfo={() => this.movieClicked("8")}/>
       </div>
     );
   }

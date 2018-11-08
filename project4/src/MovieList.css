@@ -1,7 +1,7 @@
 #movieList{
-  margin-left: 5%;
+  margin-left: 10%;
   display: flex;
   flex-wrap: wrap;
   margin-top: 3%;
-  width: 90%;
+  width: 80%;
 }
