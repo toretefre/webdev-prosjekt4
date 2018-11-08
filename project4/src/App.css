@@ -6,16 +6,39 @@
 }
 
 #resultText{
-  margin-top: 2%;
   font-size: 20px;
+  margin-left: 0;
+}
+
+/* The animation code */
+@keyframes example {
+    from {flex-direction : row;}
+    to {flex-direction: column;}
 }
 
 #movieList{
   display: none;
 }
 
-#displayGrid, #displayList{
+#infoContainer{
+  margin-top: 2%;
+  display: flex;
+  justify-content: flex-start;
+  width: 70%;
+  margin-left: 15%;
+  color: grey;
+}
+
+#displayButtons{
   display: none;
-  margin-top: 1%;
-  
+  margin-left: auto;
+}
+
+#displayGrid, #displayList{
+  background: none;
+  cursor: pointer;
+}
+
+#displayGrid{
+  background-color: lightgreen;
 }
