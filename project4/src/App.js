@@ -30,28 +30,23 @@ class App extends Component {
   }
 
   movieClicked(){
-    let expandButtons = document.getElementsByClassName("expandImage");
     const view = document.getElementById("movieList").style.flexDirection;
     console.log(view);
     //If view is grid, change to list
     if(view==="row"){
       this.changeDisplay("column");
-      for(let i=0; i<expandButtons.length; i++){
-        expandButtons[i].src=require("./assets/images/expanded.png");
-      }
     }
     //If view is list, change to grid
     else{
       this.changeDisplay("row");
-      for(let i=0; i<expandButtons.length; i++){
-        expandButtons[i].src=require("./assets/images/expand-arrow.png");
-      }
     }
   }
 
 
   changeDisplay(value){
     document.getElementById("movieList").style.flexDirection = value;
+    //Get all expand buttons
+    let expandButtons = document.getElementsByClassName("expandImage");
     //Get all movieInfo boxes
     let movieInfo = document.getElementsByClassName("movieInfo");
     //Get all titles
@@ -60,6 +55,10 @@ class App extends Component {
     let movies = document.getElementsByClassName("movieContainer");
     //If list will be shown, make movieinfo visible
     if(value==="column"){
+      //Change expand button
+      for(let i=0; i<expandButtons.length; i++){
+        expandButtons[i].src=require("./assets/images/expanded.png");
+      }
       //Change button colors
       document.getElementById("displayGrid").style.background="none";
       document.getElementById("displayList").style.backgroundColor="lightgreen";
@@ -69,7 +68,7 @@ class App extends Component {
       }
       //Set height and widht of movieContainer
       for(let i=0; i<movies.length; i++){
-        movies[i].style.height = "350px";
+        movies[i].style.height = "300px";
         movies[i].style.width = "100%";
       }
       for(let i=0; i<movieInfo.length; i++){
@@ -78,6 +77,10 @@ class App extends Component {
     }
     //If grid will be shown, hide movie info
     else{
+      //Change expand button
+      for(let i=0; i<expandButtons.length; i++){
+        expandButtons[i].src=require("./assets/images/expand-arrow.png");
+      }
       //Change button colors
       document.getElementById("displayList").style.background="none";
       document.getElementById("displayGrid").style.backgroundColor="lightgreen";
@@ -90,8 +93,8 @@ class App extends Component {
       }
       //Set height and widht of movieContainer
       for(let i=0; i<movies.length; i++){
-        movies[i].style.height = "350px";
-        movies[i].style.width = "250px";
+        movies[i].style.height = "300px";
+        movies[i].style.width = "200px";
       }
     }
   }
