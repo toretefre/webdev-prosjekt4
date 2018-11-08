@@ -8,29 +8,36 @@ import './App.css';
 @inject('movieStore')
 @observer
 class App extends Component {
+    constructor(props){
+        super(props);
+        this.searchValue = "";
+    }
 
   componentDidMount(){
-      this.props.movieStore.addMovieToList();
+
+
+  }
+
+  async fetchMovies(searchParam){
+      await this.props.movieStore.fetchMovieData(searchParam);
+      this.props.movieStore.movies.map(movie => {
+          console.log(movie.title);
+      })
   }
 
   //Function that is fired when serach button is clicked
-  getResults(search){
+  getResults = (search) => {
+
     document.getElementById("resultText").innerHTML = "Showing results for '" + search + "'";
     document.getElementById("movieList").style.display = "flex";
     document.getElementById("displayGrid").style.display = "inline-block";
     document.getElementById("displayList").style.display = "inline-block";
     console.log(search);
-  }
+  };
 
-  //Change searchValue to equal the input text
-  changeValue(text){
-    this.searchValue = text;
-    this.props.movieStore.findMovie(text);
-  }
-
-  changeDisplay(value){
+  changeDisplay = (value) => {
     document.getElementById("movieList").style.flexDirection = value;
-  }
+  };
 
   //-----RENDER----------
   render() {
@@ -38,8 +45,8 @@ class App extends Component {
       <div>
         <MuiThemeProvider className="App">
           <SearchBar
-            onChange={(text) => this.changeValue(text)}
-            onRequestSearch={() => this.getResults(this.searchValue)}
+            onChange={(text) => this.searchText = text}
+            onRequestSearch={() => this.fetchMovies(this.searchText)}
             placeholder={'Search for movies'}
             style={{
               margin: '0 auto',

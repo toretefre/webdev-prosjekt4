@@ -1,31 +1,18 @@
-import { observable, action } from "mobx";
+import { observable, action, computed, toJS } from "mobx";
 import { Component } from 'react';
+import axios from "axios";
 
 class MovieStore extends Component {
     @observable movies = [];
-    @action findMovie = (searchText) => {
-        //På linje 12 skal filmene hentes ut og vises på skjermen
-        let moviesToShow = [];
-        if(searchText){
-            this.movies
-                .filter(movie => movie.title.toLowerCase().includes(searchText.toLowerCase()))
-                .map((movie) => {
-                    moviesToShow.push({
-                        title:movie.title,
-                        imgSrc: movie.imgSrc,
-                    })
-                })
-
-        }
-        console.log(moviesToShow);
-        moviesToShow = [];
-    };
-
-    @action addMovieToList(title){
-        this.movies.push(
-            {title : "Titanic", imgSrc: "noe1.png"},
-            {title : "Terkel i knipe", imgSrc: "noe2.png"},
-            {title: "Tenner et lys", imgSrc: "noe3.png"});
+    @action async fetchMovieData(searchParam) {
+        const endpoint = 'http://it2810-32.idi.ntnu.no:8080/movies/'+searchParam;
+        await axios.get(endpoint)
+            .then(res => {
+                if(res.data.error){
+                    throw res.data.error;
+                }
+                this.movies = res.data;
+            });
     }
 }
 
