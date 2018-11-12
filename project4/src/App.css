@@ -1,44 +1,76 @@
-.inputTest{
-    border-radius: 5px;
-    width:100%;
-    padding: 10px 0;
-    font-size: 20px;
+*{
+    font-family: Calibri, "sans-serif";
+}
+body, html{
+    margin: 0;
+    padding: 0;
+    background: url("./assets/images/Bakgrunn.png") repeat;
+    overflow-x: hidden;
 }
 
-#resultText{
-  font-size: 20px;
-  margin-left: 0;
+#headerContainer{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #26373a;
 }
 
-/* The animation code */
-@keyframes example {
-    from {flex-direction : row;}
-    to {flex-direction: column;}
+#optionBar{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    background-color: #2f5356;
+    width: 100%;
+    padding: 10px;
+    border-top: 1px solid #1d2b2d;
+    border-bottom: 1px solid #1d2b2d;
 }
 
-#movieList{
-  display: none;
+#infoTextContainer{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    background-color: #26373a;
+    padding: 4px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 15px 20px 0 rgba(0, 0, 0, 0.5);
 }
 
-#infoContainer{
-  margin-top: 2%;
-  display: flex;
-  justify-content: flex-start;
-  width: 70%;
-  margin-left: 15%;
-  color: grey;
+#infoText{
+  font-size: 15px;
+  color: #ccc;
 }
 
-#displayButtons{
-  display: none;
-  margin-left: auto;
-}
-
-#displayGrid, #displayList{
+#displayList{
   background: none;
   cursor: pointer;
+    border-color: rgba(224,224,224,0.2);
+    padding: 10px 20px;
+    border-top-right-radius: 3px;
+    border-bottom-right-radius: 3px;
+    font-size: 15px;
+}
+
+#displayList:active, #displayGrid:active{
+    border:none;
+    outline: none;
 }
 
 #displayGrid{
   background-color: lightgreen;
+    cursor: pointer;
+    border-color: rgba(224,224,224,0.2);
+    padding: 10px 20px;
+    border-top-left-radius: 3px;
+    border-bottom-left-radius: 3px;
+    font-size: 15px;
+}
+
+#moviesContainer{
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
 }
