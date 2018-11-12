@@ -12,19 +12,29 @@ class MovieList extends Component {
     return (
       <div id="movieList">
         <div id="movieListInner">
-          {this.props.movieStore.movies.map(movie =>
-              <Movie key = {movie._id}
-                     id = {movie._id}
-                     title = {movie.title}
-                     plot = {movie.plot}
-                     poster = {movie.poster}
-                     genres = {movie.genres.map(genre => genre + ", ")}
-                     changeView={() => this.props.changeView()}
-                     imdbRating = {movie.imdb.rating}
-                     imdbId = {movie.imdb.id}
-                     //tomatoRating = {movie.tomato.rating}
-              />
-          )}
+          {this.props.movieStore.movies.filter(movie => {
+              if(this.props.genre==="All" && movie.imdb.rating >= this.props.minRating){
+                  return movie
+              }
+              else{
+                  return movie.genres.includes(this.props.genre) && movie.imdb.rating >= this.props.minRating
+              }
+          }
+          ).map(movie => {
+                  return(
+                      <Movie key={movie._id}
+                             id={movie._id}
+                             title={movie.title}
+                             plot={movie.plot}
+                             poster={movie.poster}
+                             genres={movie.genres.map(genre => genre + " ")}
+                             changeView={() => this.props.changeView()}
+                             imdbRating={movie.imdb.rating}
+                             imdbId={movie.imdb.id}
+                          //tomatoRating = {movie.tomato.rating}
+                      />);
+              })
+          }
         </div>
       </div>
     );
