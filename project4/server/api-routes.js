@@ -1,5 +1,3 @@
-// Based on https://medium.com/@dinyangetoh/how-to-build-simple-restful-api-with-nodejs-expressjs-and-mongodb-99348012925d
-
 // Initialize express router
 let router = require('express').Router();
 // Imports MongoClient
@@ -55,46 +53,10 @@ router.get('/', function (req, res) {
 });
 
 
-// Search after title (:8080/movies/numberofMovies/title)
-router.get('/:fetchedMovies/:title/', function (req, res) {
-    console.log("søk igang!")
-    // connects to MongoDB
-    MongoClient.connect('mongodb://localhost:27017/', { useNewUrlParser: true }, function (err, client) {
-        // error handling
-        if (err) {
-            throw err
-        }
-
-        // explains which db to look in
-        let db = client.db('movieDB')
-        // movieDetails is the name of the collection
-
-        let argument = ".*" + req.params.title + ".*";
-        console.log(argument);
-
-        let selected_genre = req.query.genre;
-        let selected_imdb_threshold = req.query.threshold;
-
-        db.collection('movieDetails').find({"title":{"$regex":argument, "$options":"i"}}).skip(parseInt(req.params.fetchedMovies)).limit(20).toArray(
-            function (err, result) {
-                // error handling
-                if (err) {
-                    res.sendStatus(500);
-                    console.log(err)
-                }
-        
-                // returns json if successful
-                else {
-                    res.json(result);
-                }
-            }
-        )
-    })
-});
-
-// Routing for movies/0/Titanic/Drama
-router.get('/:fetchedMovies/:title/', function (req, res) {
-    console.log("søk igang!")
+// Routing for movie search (:8080/0/titanic?genre=Documentary&threshold=5&startindex=0)
+router.get('/:title', function (req, res) {
+    let date = new Date()
+    console.log(date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds() + ": Searched for", req.params.title);
     // connects to MongoDB
     MongoClient.connect('mongodb://localhost:27017/', { useNewUrlParser: true }, function (err, client) {
         // error handling
@@ -108,44 +70,36 @@ router.get('/:fetchedMovies/:title/', function (req, res) {
 
         let title_argument = ".*" + req.params.title + ".*";
         let genre_argument = ".*" + req.query.genre + ".*";
-        console.log("title: " + title_argument + " genre: " + genre_argument);
 
-        db.collection('movieDetails').find({"title":{"$regex":title_argument, "$options":"i"}, "genres":{"$regex":genre_argument, "$options":"i"}}).skip(parseInt(req.params.fetchedMovies)).limit(20).toArray(
-            function (err, result) {
-                // error handling
-                if (err) {
-                    res.sendStatus(500);
-                    console.log(err)
-                }
-        
-                // returns json if successful
-                else {
-                    res.json(result);
-                }
-            }
-        )
-    })
-});
+        let searchstring = "";
 
-
-router.get('/:fetchedMovies/:title/:genres/:ratingthreshold', function (req, res) {
-    console.log("søk igang!")
-    // connects to MongoDB
-    MongoClient.connect('mongodb://localhost:27017/', { useNewUrlParser: true }, function (err, client) {
-        // error handling
-        if (err) {
-            throw err
+        if (req.query.startindex === undefined) {
+            startindex = 0;
+            console.log("Startindex undefined, setting to 0");
+        }
+        else {
+            startindex = req.query.startindex;
+            console.log("Startindex: " + req.query.startindex);
         }
 
-        // explains which db to look in
-        let db = client.db('movieDB')
-        // movieDetails is the name of the collection
+        if (req.query.genre === undefined && req.query.threshold === undefined) {
+            console.log(req.params.title + " requested with no queries");
+            searchstring = {"title":{"$regex":title_argument, "$options":"i"}};
+        }
+        else if (req.query.genre && req.query.threshold === undefined) {
+            console.log(req.params.title + " requested with genre " + req.query.genre);
+            searchstring = {"title":{"$regex":title_argument, "$options":"i"}, "genres":{"$regex":genre_argument, "$options":"i"}};
+        }
+        else if (req.query.genre === undefined && req.query.threshold) {
+            console.log(req.params.title + " requested with threshold " + req.query.threshold);
+            searchstring = {"title":{"$regex":title_argument, "$options":"i"}, "imdb.rating":{$gte: req.query.threshold}};
+        }
+        else {
+            console.log(req.params.title + " requested with genre " + req.query.genre + " and threshold " + req.query.threshold);
+            searchstring = {"title":{"$regex":title_argument, "$options":"i"}, "genres":{"$regex":genre_argument, "$options":"i"}, "imdb.rating":{$gte: req.query.threshold}};
+        }
 
-        let title_argument = ".*" + req.params.title + ".*";
-        let genre_argument = ".*" + req.params.genres + ".*";
-        console.log("title: " + title_argument + " genre: " + genre_argument);
-
-        db.collection('movieDetails').find({"title":{"$regex":title_argument, "$options":"i"}, "genres":{"$regex":genre_argument, "$options":"i"}}).skip(parseInt(req.params.fetchedMovies)).limit(20).toArray(
+        db.collection('movieDetails').find(searchstring).skip(parseInt(req.query.startindex)).limit(20).toArray(
             function (err, result) {
                 // error handling
                 if (err) {
@@ -161,6 +115,7 @@ router.get('/:fetchedMovies/:title/:genres/:ratingthreshold', function (req, res
         )
     })
 });
+
 
 // Export API routes
 module.exports = router;
