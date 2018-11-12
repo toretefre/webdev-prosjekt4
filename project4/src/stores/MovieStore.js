@@ -6,6 +6,8 @@ import axios from "axios";
 class MovieStore extends Component {
     @observable expandMovie = false;
     @observable movies = [];
+    @observable genre = "All";
+    @observable minRating = 1;
 
     //Function to retrieve data from our api.
     //It fetches data together a given searchparam from the user.
@@ -23,6 +25,14 @@ class MovieStore extends Component {
 
     @action setExpandMovie(val){
         this.expandMovie = val;
+    }
+
+    @action setGenre(val){
+        this.genre = val;
+    }
+
+    @action setMinRating(val){
+        this.minRating = val;
     }
 }
 
