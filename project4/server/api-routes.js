@@ -35,7 +35,36 @@ router.get('/', function (req, res) {
         // explains which db to look in
         let db = client.db('movieDB')
         // movieDetails is the name of the collection
-        db.collection('movieDetails').find().toArray(
+
+        let genre_argument = ".*" + req.query.genre + ".*";
+
+        if (req.query.startindex === undefined) {
+            startindex = 0;
+            console.log("Startindex undefined, setting to 0");
+        }
+        else {
+            startindex = req.query.startindex;
+            console.log("Startindex: " + req.query.startindex);
+        }
+
+        if (req.query.genre === undefined && req.query.threshold === undefined) {
+            console.log("All movies requested with no queries");
+            searchstring = "";
+        }
+        else if (req.query.genre && req.query.threshold === undefined) {
+            console.log("All movies requested with genre " + Number(req.query.genre));
+            searchstring = {"genres":{"$regex":genre_argument, "$options":"i"}};
+        }
+        else if (req.query.genre === undefined && req.query.threshold) {
+            console.log("All movies requested with threshold " + req.query.threshold);
+            searchstring = {"imdb.rating": {$gte: Number(req.query.threshold) }};
+        }
+        else {
+            console.log("All movies requested with genre " + req.query.genre + " and threshold " + Number(req.query.threshold));
+            searchstring = {"genres":{"$regex":genre_argument, "$options":"i"}, "imdb.rating": {$gte: Number(req.query.threshold) }};
+        }
+
+        db.collection('movieDetails').find(searchstring).skip(parseInt(req.query.startindex)).limit(20).toArray(
             function (err, result) {
                 // error handling
                 if (err) {
@@ -87,7 +116,7 @@ router.get('/:title', function (req, res) {
             searchstring = {"title":{"$regex":title_argument, "$options":"i"}};
         }
         else if (req.query.genre && req.query.threshold === undefined) {
-            console.log(req.params.title + " requested with genre " + req.query.genre);
+            console.log(req.params.title + " requested with genre " + Number(req.query.genre));
             searchstring = {"title":{"$regex":title_argument, "$options":"i"}, "genres":{"$regex":genre_argument, "$options":"i"}};
         }
         else if (req.query.genre === undefined && req.query.threshold) {
@@ -95,7 +124,7 @@ router.get('/:title', function (req, res) {
             searchstring = {"title":{"$regex":title_argument, "$options":"i"}, "imdb.rating": {$gte: Number(req.query.threshold) }};
         }
         else {
-            console.log(req.params.title + " requested with genre " + req.query.genre + " and threshold " + req.query.threshold);
+            console.log(req.params.title + " requested with genre " + req.query.genre + " and threshold " + Number(req.query.threshold));
             searchstring = {"title":{"$regex":title_argument, "$options":"i"}, "genres":{"$regex":genre_argument, "$options":"i"}, "imdb.rating": {$gte: Number(req.query.threshold) }};
         }
 
