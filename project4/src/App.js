@@ -48,9 +48,19 @@ class App extends Component {
   //Detects whether the user is scrolled to the bottom or not
   //If the user is scrolled to the bottom, it will increase the number of movie fetched.
   handleScroll = () =>{
+      if (document.body.scrollTop > 100 || document.documentElement.scrollTop > 100) {
+          document.getElementById("goToTopBtn").style.opacity = "1";
+      } else {
+          document.getElementById("goToTopBtn").style.opacity = "0";
+      }
       if((document.documentElement.scrollTop + document.documentElement.clientHeight + 1) >= document.documentElement.scrollHeight){
           this.props.movieStore.increaseFetchedMovies();
       }
+  };
+
+  goToTop = () =>{
+      document.body.scrollTop = 0; // For Safari
+      document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
   };
 
 
@@ -116,12 +126,19 @@ class App extends Component {
                   </div>
                 <div id="infoTextContainer">
                   <div id="infoText">
-                    No results to show.
+                    Showing all movies
                   </div>
                 </div>
               </div>
             <div id="moviesContainer">
                 <MovieList fetchMoreData = {() => this.fetchMovies()} changeView = {() => this.changeView()} minRating={this.props.movieStore.minRating} genre={this.props.movieStore.genre}/>
+                <aside
+                    id={"goToTopBtn"}
+                    role={"button"}
+                    onClick={this.goToTop}
+                >
+                    <img className="toTopImg" alt="Go to top" src={require("./assets/images/up.png")}/>
+                </aside>
             </div>
         </React.Fragment>
     );
