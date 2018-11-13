@@ -51,6 +51,10 @@ med.
 
 # Backend
 
+Vår backend er basert på [Node.js](https://nodejs.org/en/), med 
+[Express](https://expressjs.com/) for håndtering av webforespørsler og 
+[MongoDB](https://www.mongodb.com/) for databaseoperasjoner.
+
 ## API
 
 Dersom du er tilkoblet NTNU-nett, enten gjennom kabel, eduroam eller VPN, 
@@ -72,18 +76,32 @@ som har sjangeren Dokumentar med over 8.1 i IMDb-rating.
 
 ### Valg av komponenter
 
-Vi valgte våre komponenter fordi de var godt dokumenterte og enkle å komme i
-gang med.
+Vi valgte våre backend-komponenter fordi de var godt dokumenterte og enkle 
+å komme i gang med. Express var definert som i kravspesifikasjon, og var derfor
+et opplagt valg. Arbeidet med Express har egentlig gått greit, og programmet er
+enket å komme i gang med. 
+
+MongoDB har også fungert bra, og har håndtert våre
+volumer uten problem. Etter litt lesing av dokumentasjon fungerer også 
+funksjonalitet som filtrering og oppdatering greit.
+
+Vi har i perioder brukt programmet [Postman](https://www.getpostman.com) til å
+teste APiene våre, noe som anbefales ettersom man får veldig god oversikt over
+hva som skjer ved API-kall og enkelt kan endre på kallene sine.
 
 ### Funksjonalitet
+
+#### Sjekke API-status
 APIene er tilgjengelig i nettleser, og du kan sjekke status slik:
 
 ```GET ít2810-32.idi.ntnu.no:8080```
 
+#### Hente alle filmer
 Du kan hente ut en komplett JSON over alle oppføringer i databasen med:
 
 ```GET ít2810-32.idi.ntnu.no:8080/movies```
 
+#### Søke etter tittel
 Dersom du vil søke i databasen, kan dette utføres med:
 
 ```GET ít2810-32.idi.ntnu.no:8080/movies/søketerm``` 
@@ -91,25 +109,24 @@ Dersom du vil søke i databasen, kan dette utføres med:
 Søketerm er ikke casesensitiv, og sjekker om noen titler inneholder strengen 
 du søker etter.
 
+#### Filtrere på sjanger
 Dersom du vil filtrere på sjanger kan dette gjøres ved å sette queries som 
 vist under:
 
 ```GET ít2810-32.idi.ntnu.no:8080/movies/søketerm?genre=sjanger```
 
+#### Filtrere på IMDb-rating
 Dersom du vil filtrere på IMDb-rating, der argumentet er minimumsvurdering 
 gjøres det slik:
 
 ```GET ít2810-32.idi.ntnu.no:8080/movies/søketerm?threshold=minimumsvurdering```
 
+#### Infinite scroll
 APIet støtter også infinite scrolling, dette løses ved å gi argumentet 
 startindex. Hvis du vil laste de 20 første treffene kan denne droppes. 
 Dersom du vil laste de neste 20 setter du startindex til 20, som vist under:
 
 ```GET ít2810-32.idi.ntnu.no:8080/movies/søketerm?startindex=20```
-
-Vår backend er basert på [Node.js](https://nodejs.org/en/), med 
-[Express](https://expressjs.com/) for håndtering av web requests og 
-[MongoDB](https://www.mongodb.com/) for databaseoperasjoner.
 
 ## Express
 ### Beskrivelse
@@ -117,6 +134,8 @@ Vår backend er basert på [Node.js](https://nodejs.org/en/), med
 server og router disse videre.
 
 ### Oppsett
+
+#### Starte server
 Dersom APIene ikke svarer, kan du starte disse ved å logge på server og 
 kjøre kommandoen:
 
@@ -126,13 +145,31 @@ og deretter:
 
 ```node server.js```
 
+Dersom du vil sørge for at serveren kjører i bakgrunnen legger du til &:
+
+```node server.js &```
+
 I terminalvinduet ditt burde det da dukke opp en melding som forteller deg:
 
 ```Running express on port 8080```
 
 Du kan deretter begynne å bruke våre [APIer](Api).
 
+#### Stoppe server
+
+Hvis du vil stoppe en serverinstans som kjører i bakgrunnen, logger du på 
+serveren, og taster inn en kommando for å vise alle prosesser som kjører på 
+sereren:
+
+```ps ax```
+
+Her noterer du PID for node-prosessen merket server.js, og setter inn denne i 
+kommandoen:
+
+```kill -9 PID```
+
 ## MongoDB
+
 ### Beskrivelse
 
 [MongoDB](https://www.mongodb.com/) er et NoSQL-databasesystem som 
@@ -176,6 +213,7 @@ Dette bør gi deg et svar som ligner på dette:
 ```
 
 ### Brukergenererte vurderinger
+
 APIet vårt støtter brukergenererte vurderinger av filmer på en skala 
 der 1 er dårligst og 5 er best. Dette kan testes f.eks. i programmet 
 [Postman](https://www.getpostman.com/).
