@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { observer, inject } from "mobx-react";
 import SearchBar from 'material-ui-search-bar';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import Slider from '@material-ui/lab/Slider';
+import ReactSimpleRange from 'react-simple-range';
 import MovieList from './components/MovieList.js';
 import './App.css';
 
@@ -45,7 +45,7 @@ class App extends Component {
       this.props.movieStore.setGenre(selectedGenre)
   }
 
-  handleRatingChange = (event, value) => {
+  handleRatingChange = (value) => {
     this.props.movieStore.setMinRating(value);
   };
 
@@ -80,21 +80,26 @@ class App extends Component {
                       width: "60%",
                       borderRadius: "7px",
                     }}
+
                   />
                 </MuiThemeProvider>
                   <div id="optionBar">
                       <div id={"filtersContainer"}>
                           <div id={"sliderContainer"}>
                               <div>Minimum IMDB Rating:</div>
-                              <MuiThemeProvider>
-                                  <Slider
-                                      value={this.props.movieStore.minRating}
+                              <div id={"mySlider"}>
+                                  <ReactSimpleRange
+                                      onChange={(element) => this.handleRatingChange(element.value)}
                                       min={1}
                                       max={10}
-                                      step={0.5}
-                                      onChange={this.handleRatingChange}
+                                      step={1}
+                                      style={{widht: "100px"}}
+                                      defaultValue={this.props.movieStore.minRating}
+                                      trackColor={"black"}
+                                      thumbColor={"lightgreen"}
+                                      sliderColor={"white"}
                                   />
-                              </MuiThemeProvider>
+                              </div>
                               <div id="label">{this.props.movieStore.minRating}</div>
                           </div>
                           <div id={"genreContainer"}>
