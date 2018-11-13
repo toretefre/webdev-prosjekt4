@@ -213,3 +213,23 @@ select.genrePicker{
     max-height: 30px;
     margin: 0 10px;
 }
+
+#goToTopBtn{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 35px;
+    position:fixed;
+    right:50px;
+    bottom:50px;
+    height:64px;
+    width:64px;
+    background-color:yellow;
+    opacity: 0;
+    cursor: pointer;
+}
+
+.toTopImg{
+    width: 65px;
+    height: 65px;
+}
