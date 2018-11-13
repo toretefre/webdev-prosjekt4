@@ -67,7 +67,7 @@ router.get('/', function (req, res) {
         }
         // Sets searchstring if only genre is given
         else if (req.query.genre && req.query.threshold === undefined) {
-            console.log("All movies requested with genre " + Number(req.query.genre));
+            console.log("All movies requested with genre " + req.query.genre);
             searchstring = {"genres":{"$regex":genre_argument, "$options":"i"}};
         }
         // Sets searchstring if only IMDb-rating threshold is given
