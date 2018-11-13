@@ -34,6 +34,10 @@ router.put('/:movieid/:rating', function (req, res) {
 
 // Set default API response for (:8080/movies)
 router.get('/', function (req, res) {
+    // Simple logging for debugging
+    let date = new Date()
+    console.log(date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds() + ": Searched for all movies");
+
     // connects to MongoDB
     MongoClient.connect('mongodb://localhost:27017/', { useNewUrlParser: true }, function (err, client) {
         // error handling
@@ -141,7 +145,7 @@ router.get('/:title', function (req, res) {
         }
         // Sets searchstring if only genre is given in request
         else if (req.query.genre && req.query.threshold === undefined) {
-            console.log(req.params.title + " requested with genre " + Number(req.query.genre));
+            console.log(req.params.title + " requested with genre " + req.query.genre);
             searchstring = {"title":{"$regex":title_argument, "$options":"i"}, "genres":{"$regex":genre_argument, "$options":"i"}};
         }
         // Sets searchstring if only IMDb-rating threshold is given in request
