@@ -3,9 +3,10 @@ on-premise version?
 
 # Frontend
 
-## React
-
-Shit is made with React yo, also used some really really nice and sweaty MobX
+Brukergrensesnittet vårt er i hovedsak basert på React og MobX, der React er
+valgt ut fra læringsmålene, mens MobX er valgt for state management fordi vi 
+etter undersøkelser på interett antok at det var enklere å komme i gang med
+enn Redux.
 
 ## MobX
 
@@ -31,6 +32,15 @@ For å hente ut data fra apiet bruker vi axios. Følgende kode kjøres:
     }
 ```
 Axios sjekker først om det går an å hente ut, og dersom det ikke går blir det sendt ut en feilmelding (i console?). Ellers så blir observable-variabelen movies satt til å være det som hentes ut.
+
+## Biblioteker
+
+Axios ble valgt fordi !!!!!!
+
+React-simple-range ble valgt fordi !!!!!!
+
+Material-UI-searchbar ble valgt fordi !!!!!!
+
 
 ### Valg av komponenter
 
