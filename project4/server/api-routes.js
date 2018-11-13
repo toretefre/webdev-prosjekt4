@@ -92,11 +92,11 @@ router.get('/:title', function (req, res) {
         }
         else if (req.query.genre === undefined && req.query.threshold) {
             console.log(req.params.title + " requested with threshold " + req.query.threshold);
-            searchstring = {"title":{"$regex":title_argument, "$options":"i"}, "imdb.rating":{$gte: req.query.threshold}};
+            searchstring = {"title":{"$regex":title_argument, "$options":"i"}, "imdb.rating": {$gte: Number(req.query.threshold) }};
         }
         else {
             console.log(req.params.title + " requested with genre " + req.query.genre + " and threshold " + req.query.threshold);
-            searchstring = {"title":{"$regex":title_argument, "$options":"i"}, "genres":{"$regex":genre_argument, "$options":"i"}, "imdb.rating":{$gte: req.query.threshold}};
+            searchstring = {"title":{"$regex":title_argument, "$options":"i"}, "genres":{"$regex":genre_argument, "$options":"i"}, "imdb.rating": {$gte: Number(req.query.threshold) }};
         }
 
         db.collection('movieDetails').find(searchstring).skip(parseInt(req.query.startindex)).limit(20).toArray(
