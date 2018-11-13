@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-//styles
 import '../Movie.css';
 import {inject, observer} from "mobx-react";
+import ReplacementImage from "../assets/images/noimage.png";
 
 @inject('movieStore')
 @observer
@@ -17,10 +17,13 @@ class Movie extends Component {
   //-----RENDER----------
   render() {
     return (
-        <a href={"#"+this.props.id} className={this.props.movieStore.expandMovie ? "movieContainerBig" : "movieContainerSmall"} >
+        <div className={this.props.movieStore.expandMovie ? "movieContainerBig" : "movieContainerSmall"} >
             <div onClick={() => this.handleExpandMovie()} className={this.props.movieStore.expandMovie ? "innerMovieContainerBig" : "innerMovieContainerSmall"} id={this.props.id}>
-                <img alt=""  className={this.props.movieStore.expandMovie ? "expandImageBig" : "expandImageSmall"}/>
-                <img alt="" className={this.props.movieStore.expandMovie ? "movieImageBig" : "movieImageSmall"} src={this.props.poster}/>
+                <a className="movieLink" href={"#"+this.props.id}>
+                    <img alt="Img not found.." onError={(e) => {
+                        e.target.src = ReplacementImage; //replacement image imported above
+                    }} className={this.props.movieStore.expandMovie ? "movieImageBig" : "movieImageSmall"} src={this.props.poster}/>
+                </a>
                 <div className={this.props.movieStore.expandMovie ? "movieInfoShow" : "movieInfoHide"}>
                   <div className="bigMovieTitle">
                     {this.props.title}
@@ -34,8 +37,8 @@ class Movie extends Component {
                     {/*<div className="movieActors">
                     Actors: {this.props.actors}
                   </div>*/}
-                  <div className="movieRatings">
-                      <a href={"https://www.imdb.com/title/" + this.props.imdbId}>
+                  <div onClick={() => this.handleExpandMovie()} className="movieRatings">
+                      <a href={"https://www.imdb.com/title/" + this.props.imdbId} target="_blank" rel="noopener noreferrer">
                           <img className="ratingImage" alt="" src={require("../assets/images/imdb.png")}/>
                       </a>
                       {" - " + this.props.imdbRating}
@@ -43,10 +46,12 @@ class Movie extends Component {
                       {" - " + this.props.tomatoRating}
                   </div>
                 </div>
-                <div className={this.props.movieStore.expandMovie ? "titleTextSmallShow" : "titleTextSmallHide"}>{this.props.title}</div>
+                <a className="movieLink" href={"#"+this.props.id}>
+                    <div className={this.props.movieStore.expandMovie ? "titleTextSmallHide" : "titleTextSmallShow"}>{this.props.title}</div>
+                </a>
                 <div className="rating">{this.props.imdb}</div>
             </div>
-        </a>
+        </div>
     )
   }
 }

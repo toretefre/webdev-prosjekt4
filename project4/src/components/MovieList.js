@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Movie from './Movie';
 import '../MovieList.css';
 import {inject, observer} from "mobx-react";
+import ReplacementImage from "../assets/images/noimage.png";
 
 @inject('movieStore')
 @observer
@@ -12,29 +13,21 @@ class MovieList extends Component {
     return (
       <div id="movieList">
         <div id="movieListInner">
-          {this.props.movieStore.movies.filter(movie => {
-              if(this.props.genre==="All" && movie.imdb.rating >= this.props.minRating){
-                  return movie
-              }
-              else{
-                  return movie.genres.includes(this.props.genre) && movie.imdb.rating >= this.props.minRating
-              }
-          }
-          ).map(movie => {
+              {this.props.movieStore.movies.map(movie => {
                   return(
                       <Movie key={movie._id}
                              id={movie._id}
                              title={movie.title}
                              plot={movie.plot}
-                             poster={movie.poster}
+                             poster={movie.poster === null ? ReplacementImage : movie.poster}
                              genres={movie.genres.map(genre => genre + " ")}
                              changeView={() => this.props.changeView()}
                              imdbRating={movie.imdb.rating}
                              imdbId={movie.imdb.id}
                           //tomatoRating = {movie.tomato.rating}
                       />);
-              })
-          }
+                  })
+              }
         </div>
       </div>
     );
