@@ -7,32 +7,39 @@ class MovieStore extends Component {
     @observable fetchedMovies = 0;
     @observable expandMovie = false;
     @observable movies = [];
-    @observable tempList = [];
-    @observable resList = [];
-    @observable genre = "All";
+    @observable genre  = "All";
+    @observable genres =
+        ["All", "Western","Comedy", "Action", "Crime", "Drama", "Musical", "Thriller", "Animation", "Adventure", "Family",
+            "Fantasy", "Documentary", "Sci-Fi", "Romance", "Biography", "Mystery", "Horror", "Music", "History",
+            "War", "Short", "Film-Noir", "Sport", "Talk-Show", "News", "Reality-TV", "Adult", "Game-Show"];
     @observable minRating = 1;
     @observable tempSearchString = "";
+    @observable endpoint = "";
+    @observable searchParam = "";
 
     //Function to retrieve data from our api.
     //It fetches data together a given searchparam from the user.
     //Axios will try to retrieve data, and then store the data in the "movies"-list
-    @action async fetchMovieData(searchParam) {
-        if (!searchParam){
-            searchParam = "";
-        }
-        if (this.tempSearchString !== searchParam){
+    @action async fetchMovieData() {
+        if (!this.searchParam){this.searchParam = "";}
+        if (this.tempSearchString !== this.searchParam){
             this.fetchedMovies = 0;
             this.movies = [];
-            this.tempSearchString = searchParam;
+            this.tempSearchString = this.searchParam;
         }
-        let endpoint = 'http://it2810-32.idi.ntnu.no:8080/movies/'+ searchParam+ "?startindex="+this.fetchedMovies;
-        /*if(genreslece) {
-            endpoint += "&genre="+this.valggjasner;
+
+        if(this.genre === "All"){
+            this.endpoint = 'http://it2810-32.idi.ntnu.no:8080/movies/' + this.searchParam + "?startindex=" + this.fetchedMovies;
         }
-        if(thresholdnoe){
+        else{
+            this.endpoint = 'http://it2810-32.idi.ntnu.no:8080/movies/' + this.searchParam + "?startindex=" + this.fetchedMovies + '&genre='+this.genre;
+        }
+
+        /*if(thresholdnoe){
             endpoint += "&threshold="+this.novalgt;
         }*/
-        await axios.get(endpoint)
+
+        await axios.get(this.endpoint)
             .then(res => {
                 if(res.data.error){
                     throw res.data.error;
@@ -42,12 +49,31 @@ class MovieStore extends Component {
 
     }
 
+    @action setSearchParam(val){
+        this.searchParam = val;
+        this.fetchedMovies = 0;
+        this.endpoint = 'http://it2810-32.idi.ntnu.no:8080/movies/'+ this.searchParam+ "?startindex="+this.fetchedMovies;
+        this.fetchMovieData();
+    }
+
     @action setExpandMovie(val){
         this.expandMovie = val;
     }
 
     @action setGenre(val){
         this.genre = val;
+        console.log("New genre: " + this.genre);
+        if(this.genre !== "All") {
+            this.movies = [];
+            this.fetchedMovies = 0;
+            this.endpoint += '&genre='+this.genre;
+            console.log("Ny endpoint etter endret sjanger: " + this.endpoint);
+        }
+        else{
+            this.movies = [];
+            this.endpoint = 'http://it2810-32.idi.ntnu.no:8080/movies/'+ this.searchParam+ "?startindex="+this.fetchedMovies;
+        }
+        this.fetchMovieData();
     }
 
     @action setMinRating(val){
@@ -56,6 +82,7 @@ class MovieStore extends Component {
 
     @action increaseFetchedMovies(){
         this.fetchedMovies += 20;
+        this.fetchMovieData();
     }
 }
 

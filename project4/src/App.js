@@ -1,11 +1,10 @@
-import React, { Component } from 'react';
-import { observer, inject } from "mobx-react";
+import React, {Component} from 'react';
+import {inject, observer} from "mobx-react";
 import SearchBar from 'material-ui-search-bar';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import ReactSimpleRange from 'react-simple-range';
 import MovieList from './components/MovieList.js';
 import './App.css';
-
 
 
 @inject('movieStore')
@@ -15,7 +14,7 @@ class App extends Component {
    //ComponentDidMount loads 20 movies when the user enters the code
    //Adding eventlistener for scrolling (which is being used in handlescroll)
    componentDidMount() {
-        this.props.movieStore.fetchMovieData("");
+        this.props.movieStore.fetchMovieData();
         document.addEventListener('scroll', this.handleScroll);
    }
 
@@ -40,27 +39,25 @@ class App extends Component {
   };
 
   //Gets the chosen genre from the the dropdown and passes this to the moviestore, which retrieves a new set of movies based on the genre
-  setGenre(){
-      let selectedGenre = document.getElementById("genrePicker").value;
-      this.props.movieStore.setGenre(selectedGenre)
-  }
+  setGenre = () => {
+      this.props.movieStore.setGenre(document.getElementById("genrePicker").value);
+  };
 
   handleRatingChange = (value) => {
     this.props.movieStore.setMinRating(value);
   };
 
   //Function to fetch movies from API
-  async fetchMovies(searchText){
+  fetchMovies = (searchText) => {
       document.getElementById("infoText").innerHTML = "Showing results for '" + searchText + "'";
-      await this.props.movieStore.fetchMovieData(searchText);
-  }
+      this.props.movieStore.setSearchParam(searchText);
+  };
 
   //Detects whether the user is scrolled to the bottom or not
   //If the user is scrolled to the bottom, it will increase the number of movie fetched.
   handleScroll = () =>{
       if((document.documentElement.scrollTop + document.documentElement.clientHeight + 1) >= document.documentElement.scrollHeight){
           this.props.movieStore.increaseFetchedMovies();
-          this.props.movieStore.fetchMovieData(this.searchText);
       }
   };
 
@@ -93,9 +90,8 @@ class App extends Component {
                                       min={1}
                                       max={10}
                                       step={1}
-                                      style={{widht: "100px"}}
                                       defaultValue={this.props.movieStore.minRating}
-                                      trackColor={"black"}
+                                      trackColor={"lightgreen"}
                                       thumbColor={"lightgreen"}
                                       sliderColor={"white"}
                                   />
@@ -104,11 +100,9 @@ class App extends Component {
                           </div>
                           <div id={"genreContainer"}>
                               <select className="genrePicker" id={"genrePicker"} onChange={() => this.setGenre()}>
-                                  <option value="All">All genres</option>
-                                  <option value="Action">Action</option>
-                                  <option value="Adult">Adult</option>
-                                  <option value="Comedy">Comedy</option>
-                                  <option value="Drama">Drama</option>
+                                  {this.props.movieStore.genres.map((genre) =>
+                                      <option value={genre} label={genre}/>
+                                  )}
                               </select>
                           </div>
                       </div>

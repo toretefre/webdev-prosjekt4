@@ -64,6 +64,7 @@ select{
     color: black;
     width: 150px;
     height: 40px;
+    max-height: 200px;
     /* styling */
     background-color: white;
     border: thin solid black;
