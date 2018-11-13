@@ -4,7 +4,7 @@
 let express = require('express');
 // Import routes
 let apiRoutes = require("./api-routes");
-// Import Body parser
+// Import parsing tool
 let bodyParser = require('body-parser');
 // Enable CORS for all requests
 let cors = require('cors');
@@ -17,8 +17,9 @@ app.use(cors());
 // Setup server port
 const port = process.env.PORT || 8080;
 
-// Send message for default URL
+// Send status message for default URL
 app.get('/', (req, res) => res.send('The mighty API of group 32 is running and responding. Check out the <a href="https://gitlab.stud.iie.ntnu.no/it2810-h18/prosjekt3/gruppe32/wikis/API">Gitlab Wiki</a> for instructions ;)'));
+// Specifies that movie requests are handled in separate file
 app.use('/movies', apiRoutes);
 
 // Launch app to listen to specified port
