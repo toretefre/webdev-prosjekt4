@@ -9,6 +9,14 @@ body, html{
     overflow-x: hidden;
 }
 
+.searchDiv{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
 #headerContainer{
     display: flex;
     flex-direction: column;
@@ -20,8 +28,7 @@ body, html{
 #optionBar{
     display: flex;
     flex-direction: row;
-    justify-content: space-around;
-    align-items: center;
+    justify-content: center;
     background-color: #2f5356;
     width: 100%;
     padding: 10px;
@@ -30,28 +37,40 @@ body, html{
     color: white;
 }
 
-#mySlider{
-    width:100%;
-}
-
-#filtersContainer{
+#filterAndButtonContainer{
+    width: 80%;
     display: flex;
     flex-direction: row;
-    justify-content: flex-start;
+}
+
+#mySlider{
+    margin: 0 10px;
     width: 30%;
+}
+
+#filtersContainer {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 50%;
+    padding: 10px;
+    background-color: #26373a;
+    border-radius: 5px;
+    box-shadow: inset 0 0 3px #1c1c1c;
 }
 
 #sliderContainer{
-    width: 50%;
+    width: 60%;
     display:flex;
-    flex-direction: column;
+    flex-direction: row;
     align-items: center;
-    justify-content: center;
+    justify-content: space-evenly;
     min-width: 150px;
+    margin-right: 10px;
 }
 
 #genreContainer{
-    width: 30%;
     display: flex;
     align-items: center;
     margin-left: 10px;
@@ -133,29 +152,52 @@ select.genrePicker{
   color: #ccc;
 }
 
+#displayButtons{
+    width: 55%;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    padding: 5px;
+}
+
 #displayList{
-  background: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  background-color: #26373a;
   cursor: pointer;
-    border-color: rgba(224,224,224,0.2);
     padding: 10px 20px;
     border-top-right-radius: 3px;
     border-bottom-right-radius: 3px;
     font-size: 15px;
+    border: 1px solid #000;
+    color:white;
+    box-shadow: inset 0 0 3px #1c1c1c;
 }
 
-#displayList:active, #displayGrid:active{
-    border:none;
-    outline: none;
+#displayList:focus, #displayGrid:focus{
+    border: none;
+    outline: 0;
 }
 
 #displayGrid{
-  background-color: lightgreen;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  background-color: #f5de50;
     cursor: pointer;
-    border-color: rgba(224,224,224,0.2);
+    border: 1px solid #000;
     padding: 10px 20px;
     border-top-left-radius: 3px;
     border-bottom-left-radius: 3px;
     font-size: 15px;
+    font-weight: bold;
+    box-shadow: inset 0 0 3px #1c1c1c;
+
+}
+
+.displayImg{
+    width: 20px;
 }
 
 #moviesContainer{
@@ -163,4 +205,10 @@ select.genrePicker{
     width: 100%;
     justify-content: center;
     align-items: center;
+}
+
+.ratingImage{
+    max-width: 50px;
+    max-height: 30px;
+    margin: 0 10px;
 }
