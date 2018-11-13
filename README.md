@@ -1,5 +1,5 @@
-Table of Content would have been really nice here, but seems like it doesn't
-in Gitlab on-premise.
+Table of content missing due to normal Gitlab syntax not working in this
+on-premise version?
 
 # Frontend
 
