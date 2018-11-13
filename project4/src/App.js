@@ -83,25 +83,34 @@ class App extends Component {
                   />
                 </MuiThemeProvider>
                   <div id="optionBar">
-                      IMDB Rating:
-                      <Slider
-                        value={this.props.movieStore.minRating}
-                        min={1}
-                        max={10}
-                        step={0.5}
-                        onChange={this.handleRatingChange}
-                        style={{width:'10%', margin: '1%'}}
-                      />
-                       Genre:
-                      <select id="genrePicker" onChange={() => this.setGenre()}>
-                          <option value="All">All</option>
-                          <option value="Action">Action</option>
-                          <option value="Adult">Adult</option>
-                          <option value="Comedy">Comedy</option>
-                          <option value="Drama">Drama</option>
-                      </select>
-                      <button id="displayGrid" onClick={() => this.changeView()}>Grid</button>
-                      <button id="displayList" onClick={() => this.changeView()}>List</button>
+                      <div id={"filtersContainer"}>
+                          <div id={"sliderContainer"}>
+                              <div>Minimum IMDB Rating:</div>
+                              <MuiThemeProvider>
+                                  <Slider
+                                      value={this.props.movieStore.minRating}
+                                      min={1}
+                                      max={10}
+                                      step={0.5}
+                                      onChange={this.handleRatingChange}
+                                  />
+                              </MuiThemeProvider>
+                              <div id="label">{this.props.movieStore.minRating}</div>
+                          </div>
+                          <div id={"genreContainer"}>
+                              <select className="genrePicker" id={"genrePicker"} onChange={() => this.setGenre()}>
+                                  <option value="All">All genres</option>
+                                  <option value="Action">Action</option>
+                                  <option value="Adult">Adult</option>
+                                  <option value="Comedy">Comedy</option>
+                                  <option value="Drama">Drama</option>
+                              </select>
+                          </div>
+                      </div>
+                      <div id={"displayButtons"}>
+                          <button id="displayGrid" onClick={() => this.changeView()}>Grid</button>
+                          <button id="displayList" onClick={() => this.changeView()}>List</button>
+                      </div>
                   </div>
                 <div id="infoTextContainer">
                   <div id="infoText">
