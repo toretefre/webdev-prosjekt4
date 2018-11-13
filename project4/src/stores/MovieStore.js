@@ -48,6 +48,7 @@ class MovieStore extends Component {
     @action setSearchParam(val){
         this.searchParam = val;
         this.fetchedMovies = 0;
+        this.movies = [];
         this.endpoint = 'http://it2810-32.idi.ntnu.no:8080/movies/'+ this.searchParam+ "?startindex="+this.fetchedMovies;
         this.fetchMovieData();
     }

@@ -46,6 +46,7 @@ body, html{
 #mySlider{
     margin: 0 10px;
     width: 30%;
+    color:black;
 }
 
 #filtersContainer {
