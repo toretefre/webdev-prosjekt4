@@ -36,7 +36,7 @@ class App extends Component {
   };
 
   handleRatingChange = (value) => {
-    this.props.movieStore.setMinRating(value);
+      this.props.movieStore.setMinRating(value);
   };
 
   //Function to fetch movies from API
@@ -87,14 +87,15 @@ class App extends Component {
                                   <div>Rating:</div>
                                   <div id={"mySlider"}>
                                       <ReactSimpleRange
-                                          onChange={(element) => this.handleRatingChange(element.value)}
+                                          label
+                                          onChangeComplete={(element) => this.handleRatingChange(element.value)}
                                           min={1}
                                           max={10}
                                           step={1}
                                           defaultValue={this.props.movieStore.minRating}
-                                          trackColor={"#f5de50"}
+                                          trackColor={"#000000"}
                                           thumbColor={"#f5de50"}
-                                          sliderColor={"white"}
+                                          sliderColor={"#f5de50"}
                                           sliderSize={6}
                                           thumbSize={13}
                                       />
