@@ -5,11 +5,10 @@ in Gitlab on-premise.
 
 ## React
 
-Shit is made with React yo
+Shit is made with React yo, also used some really really nice and sweaty MobX
 
 ## MobX
 
-Also used some really really nice and sweaty MobX
 Vi bruker MobX og dekoratorsyntaks for lagring av state. I strukturen vår har 
 vi en fil som heter `MovieStore.js`. Her lagres alt av state.
 
@@ -33,6 +32,13 @@ For å hente ut data fra apiet bruker vi axios. Følgende kode kjøres:
 ```
 Axios sjekker først om det går an å hente ut, og dersom det ikke går blir det sendt ut en feilmelding (i console?). Ellers så blir observable-variabelen movies satt til å være det som hentes ut.
 
+### Valg av komponenter
+
+Vi valgte våre frontend-komponenter fordi de var godt dokumenterte og enkle
+å komme i gang med. MobX ble særlig valgt over Redux, da Redux mange steder
+på internett ble fremstilt som mer omfattende og vanskeligere å komme i gang 
+med.
+
 # Backend
 
 ## API
@@ -53,6 +59,11 @@ IMDb-rating og startindex. Spørringen under returnerer trekk 40-60 av filmene
 som har sjangeren Dokumentar med over 8.1 i IMDb-rating.
 
 ```ít2810-32.idi.ntnu.no:8080/movies/?genre=Documentary&threshold=8.1&startindex=40```
+
+### Valg av komponenter
+
+Vi valgte våre komponenter fordi de var godt dokumenterte og enkle å komme i
+gang med.
 
 ### Funksjonalitet
 APIene er tilgjengelig i nettleser, og du kan sjekke status slik:
@@ -174,3 +185,22 @@ ikke er en prioritet, men dette er begrenset i frontend, slik at en vanlig
 bruker ikke kan gjøre annet enn å sende inn 1-5. Dersom vi hadde prioritert 
 sikkerhet ville vi først og fremst ordnet en form for autentisering 
 og deretter lagt på validering.
+
+# Testing
+
+Test driven development, see Blackboard for currently only test which is
+reaching 20/20 in score
+
+# Kommentering og kodestruktur
+
+Vi har fokusert svært mye på å gjøre koden lett lesbar, og enkel å inspisere
+for eksterne. Dette mener vi er oppnådd gjennom mange og presise kommentarer
+der vi mener dette har vært nødvendig, og en gjennomtenkt kodestruktur som skal
+gjøre det enkelt å skjønne hva som er gjort hvor.
+
+I Gitlab har vi også fokusert på å holde god struktur, f.eks. gjennom konsis
+bruk av Merge Requests og linking mellom issues, commits og merge requests.
+
+Koden for backenden ble i begynnelsen av prosjektet holdt utenfor 
+versjonskontroll (Gitlab) da mye av koden ikke var fungerende eller relevant
+for de oppgavene vi faktisk skulle løse.
