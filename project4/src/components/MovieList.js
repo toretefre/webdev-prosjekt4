@@ -24,7 +24,6 @@ class MovieList extends Component {
                              changeView={() => this.props.changeView()}
                              imdbRating={movie.imdb.rating}
                              imdbId={movie.imdb.id}
-                          //tomatoRating = {movie.tomato.rating}
                       />);
                   })
               }

@@ -29,15 +29,11 @@ class MovieStore extends Component {
         }
 
         if(this.genre === "All"){
-            this.endpoint = 'http://it2810-32.idi.ntnu.no:8080/movies/' + this.searchParam + "?startindex=" + this.fetchedMovies;
+            this.endpoint = 'http://it2810-32.idi.ntnu.no:8080/movies/' + this.searchParam + "?startindex=" + this.fetchedMovies + '&threshold='+this.minRating;
         }
         else{
-            this.endpoint = 'http://it2810-32.idi.ntnu.no:8080/movies/' + this.searchParam + "?startindex=" + this.fetchedMovies + '&genre='+this.genre;
+            this.endpoint = 'http://it2810-32.idi.ntnu.no:8080/movies/' + this.searchParam + "?startindex=" + this.fetchedMovies + '&genre='+this.genre + '&threshold='+this.minRating;
         }
-
-        /*if(thresholdnoe){
-            endpoint += "&threshold="+this.novalgt;
-        }*/
 
         await axios.get(this.endpoint)
             .then(res => {
@@ -62,12 +58,10 @@ class MovieStore extends Component {
 
     @action setGenre(val){
         this.genre = val;
-        console.log("New genre: " + this.genre);
         if(this.genre !== "All") {
             this.movies = [];
             this.fetchedMovies = 0;
             this.endpoint += '&genre='+this.genre;
-            console.log("Ny endpoint etter endret sjanger: " + this.endpoint);
         }
         else{
             this.movies = [];
@@ -78,6 +72,9 @@ class MovieStore extends Component {
 
     @action setMinRating(val){
         this.minRating = val;
+        this.fetchedMovies = 0;
+        this.movies = [];
+        this.fetchMovieData();
     }
 
     @action increaseFetchedMovies(){

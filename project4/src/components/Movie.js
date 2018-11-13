@@ -42,8 +42,6 @@ class Movie extends Component {
                           <img className="ratingImage" alt="" src={require("../assets/images/imdb.png")}/>
                       </a>
                       {" - " + this.props.imdbRating}
-                      <img className="ratingImage" alt="" src={require("../assets/images/tomato.png")}/>
-                      {" - " + this.props.tomatoRating}
                   </div>
                 </div>
                 <a className="movieLink" href={"#"+this.props.id}>

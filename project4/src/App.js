@@ -28,14 +28,6 @@ class App extends Component {
   //Changes the color of the grid and list buttons.
   changeView = () => {
     this.props.movieStore.setExpandMovie(!this.props.movieStore.expandMovie);
-    if (this.props.movieStore.expandMovie){
-        document.getElementById("displayGrid").style.backgroundColor="transparent";
-        document.getElementById("displayList").style.backgroundColor="lightgreen";
-    }
-    else{
-        document.getElementById("displayGrid").style.backgroundColor="lightgreen";
-        document.getElementById("displayList").style.backgroundColor="transparent";
-    }
   };
 
   //Gets the chosen genre from the the dropdown and passes this to the moviestore, which retrieves a new set of movies based on the genre
@@ -81,34 +73,44 @@ class App extends Component {
                   />
                 </MuiThemeProvider>
                   <div id="optionBar">
-                      <div id={"filtersContainer"}>
-                          <div id={"sliderContainer"}>
-                              <div>Minimum IMDB Rating:</div>
-                              <div id={"mySlider"}>
-                                  <ReactSimpleRange
-                                      onChange={(element) => this.handleRatingChange(element.value)}
-                                      min={1}
-                                      max={10}
-                                      step={1}
-                                      defaultValue={this.props.movieStore.minRating}
-                                      trackColor={"lightgreen"}
-                                      thumbColor={"lightgreen"}
-                                      sliderColor={"white"}
-                                  />
+                      <div id="filterAndButtonContainer">
+                          <div id="filtersContainer">
+                              <div id="genreContainer">
+                                  <select className="genrePicker" id={"genrePicker"} onChange={() => this.setGenre()}>
+                                      {this.props.movieStore.genres.map((genre) =>
+                                          <option value={genre} label={genre}/>
+                                      )}
+                                  </select>
                               </div>
-                              <div id="label">{this.props.movieStore.minRating}</div>
+                              <div id="sliderContainer">
+                                  <img className="ratingImage" alt="" src={require("./assets/images/imdb.png")}/>
+                                  <div>Rating:</div>
+                                  <div id={"mySlider"}>
+                                      <ReactSimpleRange
+                                          onChange={(element) => this.handleRatingChange(element.value)}
+                                          min={1}
+                                          max={10}
+                                          step={1}
+                                          defaultValue={this.props.movieStore.minRating}
+                                          trackColor={"#f5de50"}
+                                          thumbColor={"#f5de50"}
+                                          sliderColor={"white"}
+                                          sliderSize={6}
+                                          thumbSize={13}
+                                      />
+                                  </div>
+                                  <div id="label">{this.props.movieStore.minRating} / 10</div>
+                              </div>
+
                           </div>
-                          <div id={"genreContainer"}>
-                              <select className="genrePicker" id={"genrePicker"} onChange={() => this.setGenre()}>
-                                  {this.props.movieStore.genres.map((genre) =>
-                                      <option value={genre} label={genre}/>
-                                  )}
-                              </select>
+                          <div id={"displayButtons"}>
+                              <button id={this.props.movieStore.expandMovie ? "displayList" : "displayGrid"} onClick={() => this.changeView()}>
+                                  <img className="displayImg" alt="" src={this.props.movieStore.expandMovie ? require("./assets/images/gridwhite.png") : require("./assets/images/gridblack.png")}/>
+                              </button>
+                              <button id={this.props.movieStore.expandMovie ? "displayGrid" : "displayList"} onClick={() => this.changeView()}>
+                                  <img className="displayImg" alt="" src={this.props.movieStore.expandMovie ? require("./assets/images/listblack.png") : require("./assets/images/listwhite.png")}/>
+                              </button>
                           </div>
-                      </div>
-                      <div id={"displayButtons"}>
-                          <button id="displayGrid" onClick={() => this.changeView()}>Grid</button>
-                          <button id="displayList" onClick={() => this.changeView()}>List</button>
                       </div>
                   </div>
                 <div id="infoTextContainer">
