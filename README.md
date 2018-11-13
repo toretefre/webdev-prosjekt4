@@ -1,4 +1,5 @@
-{:toc}
+Table of Content would have been really nice here, but seems like it doesn't
+in Gitlab on-premise.
 
 # Frontend
 
@@ -9,9 +10,13 @@ Shit is made with React yo
 ## MobX
 
 Also used some really really nice and sweaty MobX
-Vi bruker MobX og dekoratorsyntaks for lagring av state. I strukturen vår har vi en fil som heter `MovieStore.js`. Her lagres alt av state.
+Vi bruker MobX og dekoratorsyntaks for lagring av state. I strukturen vår har 
+vi en fil som heter `MovieStore.js`. Her lagres alt av state.
 
-Det som skal lagres i state har dekoratoren `@observable` foran seg. Denne variablene kan hentes ut fra movieStore når som helst. Dersom man endrer en slik variabel, vil dette føre til en re-rendring, på samme måte som setState gjør.
+Det som skal lagres i state har dekoratoren `@observable` foran seg. Denne 
+variablene kan hentes ut fra movieStore når som helst. Dersom man endrer en 
+slik variabel, vil dette føre til en re-rendring, på samme måte som 
+setState gjør.
 
 For å hente ut data fra apiet bruker vi axios. Følgende kode kjøres:
 ```js
@@ -32,14 +37,20 @@ Axios sjekker først om det går an å hente ut, og dersom det ikke går blir de
 
 ## API
 
-Dersom du er tilkoblet NTNU-nett, enten gjennom kabel, eduroam eller VPN, har du tilgang til våre APIer. APIene er REST-baserte, og gir deg filmdata fra et begrenset utvalg av IMDb sin enorme database. Databasen er hentet fra [docs.mongodb.com](https://docs.mongodb.com/charts/master/tutorial/movie-details/prereqs-and-import-data/#download-the-data).
+Dersom du er tilkoblet NTNU-nett, enten gjennom kabel, eduroam eller VPN, 
+har du tilgang til våre APIer. APIene er REST-baserte, og gir deg filmdata 
+fra et begrenset utvalg av IMDb sin enorme database. Databasen er hentet fra 
+[docs.mongodb.com](https://docs.mongodb.com/charts/master/tutorial/movie-details/prereqs-and-import-data/#download-the-data).
 
 ### Eksempler
-Spørringen under bør gi deg treff 20-40 for filmer med tittel Battlefield, som har sjangeren Action og en IMDb-rating over eller lik 5.4:
+Spørringen under bør gi deg treff 20-40 for filmer med tittel Battlefield, 
+som har sjangeren Action og en IMDb-rating over eller lik 5.4:
 
 ```ít2810-32.idi.ntnu.no:8080/movies/battlefield?genre=action&threshold=5.4&startindex=20```
 
-Du kan også spørre etter alle filmer som tilfredsstiller krav om sjanger, IMDb-rating og startindex. Spørringen under returnerer trekk 40-60 av filmene som har sjangeren Dokumentar med over 8.1 i IMDb-rating.
+Du kan også spørre etter alle filmer som tilfredsstiller krav om sjanger, 
+IMDb-rating og startindex. Spørringen under returnerer trekk 40-60 av filmene 
+som har sjangeren Dokumentar med over 8.1 i IMDb-rating.
 
 ```ít2810-32.idi.ntnu.no:8080/movies/?genre=Documentary&threshold=8.1&startindex=40```
 
@@ -56,28 +67,37 @@ Dersom du vil søke i databasen, kan dette utføres med:
 
 ```GET ít2810-32.idi.ntnu.no:8080/movies/søketerm``` 
 
-Søketerm er ikke casesensitiv, og sjekker om noen titler inneholder strengen du søker etter.
+Søketerm er ikke casesensitiv, og sjekker om noen titler inneholder strengen 
+du søker etter.
 
-Dersom du vil filtrere på sjanger kan dette gjøres ved å sette queries som vist under:
+Dersom du vil filtrere på sjanger kan dette gjøres ved å sette queries som 
+vist under:
 
 ```GET ít2810-32.idi.ntnu.no:8080/movies/søketerm?genre=sjanger```
 
-Dersom du vil filtrere på IMDb-rating, der argumentet er minimumsvurdering gjøres det slik:
+Dersom du vil filtrere på IMDb-rating, der argumentet er minimumsvurdering 
+gjøres det slik:
 
 ```GET ít2810-32.idi.ntnu.no:8080/movies/søketerm?threshold=minimumsvurdering```
 
-APIet støtter også infinite scrolling, dette løses ved å gi argumentet startindex. Hvis du vil laste de 20 første treffene kan denne droppes. Dersom du vil laste de neste 20 setter du startindex til 20, som vist under:
+APIet støtter også infinite scrolling, dette løses ved å gi argumentet 
+startindex. Hvis du vil laste de 20 første treffene kan denne droppes. 
+Dersom du vil laste de neste 20 setter du startindex til 20, som vist under:
 
 ```GET ít2810-32.idi.ntnu.no:8080/movies/søketerm?startindex=20```
 
-Vår backend er basert på [Node.js](https://nodejs.org/en/), med [Express](https://expressjs.com/) for håndtering av web requests og [MongoDB](https://www.mongodb.com/) for databaseoperasjoner.
+Vår backend er basert på [Node.js](https://nodejs.org/en/), med 
+[Express](https://expressjs.com/) for håndtering av web requests og 
+[MongoDB](https://www.mongodb.com/) for databaseoperasjoner.
 
 ## Express
 ### Beskrivelse
-[Express](https://expressjs.com/) håndterer forespørsler som kommer til server og router disse videre.
+[Express](https://expressjs.com/) håndterer forespørsler som kommer til 
+server og router disse videre.
 
 ### Oppsett
-Dersom APIene ikke svarer, kan du starte disse ved å logge på server og kjøre kommandoen:
+Dersom APIene ikke svarer, kan du starte disse ved å logge på server og 
+kjøre kommandoen:
 
 ```cd ../torestef/prosjekt4/server``` 
 
@@ -94,12 +114,14 @@ Du kan deretter begynne å bruke våre [APIer](Api).
 ## MongoDB
 ### Beskrivelse
 
-[MongoDB](https://www.mongodb.com/) er et NoSQL-databasesystem som strukturerer data og lagrer den i JSON-format.
+[MongoDB](https://www.mongodb.com/) er et NoSQL-databasesystem som 
+strukturerer data og lagrer den i JSON-format.
 
 ### Oppsett
 MongoDB er satt opp på server med sti ``lhome/torestef/prosjekt4``
 
-Vi har brukt mongoimport for å importerere en .tsv-fil fra ImDB som inneholder massevis av filmtitler og informasjon om region og språk.
+Vi har brukt mongoimport for å importerere en .tsv-fil fra ImDB som 
+inneholder massevis av filmtitler og informasjon om region og språk.
 
 ### Kom i gang
 
@@ -115,12 +137,14 @@ For å gå til riktig database skriver du:
 
 ``use movieDB``
 
-Under databaser har vi en collection som heter "movieDetails". For å liste litt derfra kan du skrive:
+Under databaser har vi en collection som heter "movieDetails". 
+For å liste litt derfra kan du skrive:
 ``db.movieDetails.findOne()`` eller ``db.movieDetails.find()``.
 
 ### Eksempel
 
-Vi har også en eksempelspørring. Den gir deg alle filmer med tittel som inneholder "west side story":
+Vi har også en eksempelspørring. 
+Den gir deg alle filmer med tittel som inneholder "west side story":
 
 ```db.movieDetails.find({{ "title" : "west side story" }})```
 
@@ -131,9 +155,13 @@ Dette bør gi deg et svar som ligner på dette:
 ```
 
 ### Brukergenererte vurderinger
-APIet vårt støtter brukergenererte vurderinger av filmer på en skala der 1 er dårligst og 5 er best. Dette kan testes f.eks. i programmet [Postman](https://www.getpostman.com/).
+APIet vårt støtter brukergenererte vurderinger av filmer på en skala 
+der 1 er dårligst og 5 er best. Dette kan testes f.eks. i programmet 
+[Postman](https://www.getpostman.com/).
 
-For å legge inn en brukervurdering av en film er vi avhengige av å ha ObjectID for filmen som skal vurderes. Dette kan du finne ved å titte etter "_id" i JSON-objektet som returneres om du sender en vanlig GET forespørsel til 
+For å legge inn en brukervurdering av en film er vi avhengige av å ha ObjectID 
+for filmen som skal vurderes. Dette kan du finne ved å titte etter "_id" i 
+JSON-objektet som returneres om du sender en vanlig GET forespørsel til 
 
 ```GET it2810-32.idi.ntnu.no/movies/%tittel_på_film_du_søker_etter%```
 
@@ -141,4 +169,8 @@ Når du da skal vurdere filmen sender du en PUT forespørsel til
 
 ```PUT it2810-32.idi.ntnu.no/movies/%ObjectID_for_filmen%/%Rating_mellom_1_og_5%```
 
-APIet validerer foreløpig ikke at man gir gyldig input (1-5) ettersom sikkerhet ikke er en prioritet, men dette er begrenset i frontend, slik at en vanlig bruker ikke kan gjøre annet enn å sende inn 1-5. Dersom vi hadde prioritert sikkerhet ville vi først og fremst ordnet en form for autentisering og deretter lagt på validering.
+APIet validerer foreløpig ikke at man gir gyldig input (1-5) ettersom sikkerhet 
+ikke er en prioritet, men dette er begrenset i frontend, slik at en vanlig 
+bruker ikke kan gjøre annet enn å sende inn 1-5. Dersom vi hadde prioritert 
+sikkerhet ville vi først og fremst ordnet en form for autentisering 
+og deretter lagt på validering.
