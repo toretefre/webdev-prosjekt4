@@ -66,13 +66,17 @@ fra et begrenset utvalg av IMDb sin enorme database. Databasen er hentet fra
 Spørringen under bør gi deg treff 20-40 for filmer med tittel Battlefield, 
 som har sjangeren Action og en IMDb-rating over eller lik 5.4:
 
-```ít2810-32.idi.ntnu.no:8080/movies/battlefield?genre=action&threshold=5.4&startindex=20```
+```
+ít2810-32.idi.ntnu.no:8080/movies/battlefield?genre=action&threshold=5.4&startindex=20
+```
 
 Du kan også spørre etter alle filmer som tilfredsstiller krav om sjanger, 
 IMDb-rating og startindex. Spørringen under returnerer trekk 40-60 av filmene 
 som har sjangeren Dokumentar med over 8.1 i IMDb-rating.
 
-```ít2810-32.idi.ntnu.no:8080/movies/?genre=Documentary&threshold=8.1&startindex=40```
+```
+ít2810-32.idi.ntnu.no:8080/movies/?genre=Documentary&threshold=8.1&startindex=40
+```
 
 ### Valg av komponenter
 
@@ -89,46 +93,67 @@ Vi har i perioder brukt programmet [Postman](https://www.getpostman.com) til å
 teste APiene våre, noe som anbefales ettersom man får veldig god oversikt over
 hva som skjer ved API-kall og enkelt kan endre på kallene sine.
 
+
 ### Funksjonalitet
 
-#### Sjekke API-status
 APIene er tilgjengelig i nettleser, og du kan sjekke status slik:
 
-```GET ít2810-32.idi.ntnu.no:8080```
+```
+GET ít2810-32.idi.ntnu.no:8080
+```
 
-#### Hente alle filmer
 Du kan hente ut en komplett JSON over alle oppføringer i databasen med:
 
-```GET ít2810-32.idi.ntnu.no:8080/movies```
+```
+GET ít2810-32.idi.ntnu.no:8080/movies
+```
 
-#### Søke etter tittel
+
+#### Søking
+
 Dersom du vil søke i databasen, kan dette utføres med:
 
-```GET ít2810-32.idi.ntnu.no:8080/movies/søketerm``` 
+```
+GET ít2810-32.idi.ntnu.no:8080/movies/søketerm
+``` 
 
-Søketerm er ikke casesensitiv, og sjekker om noen titler inneholder strengen 
-du søker etter.
+Søketerm er ikke casesensitiv, og sjekker om noen titler inneholder strengen du søker etter.
 
-#### Filtrere på sjanger
-Dersom du vil filtrere på sjanger kan dette gjøres ved å sette queries som 
-vist under:
 
-```GET ít2810-32.idi.ntnu.no:8080/movies/søketerm?genre=sjanger```
+#### Filtrering
 
-#### Filtrere på IMDb-rating
-Dersom du vil filtrere på IMDb-rating, der argumentet er minimumsvurdering 
-gjøres det slik:
+Dersom du vil filtrere på sjanger kan dette gjøres ved å sette queries som vist under:
 
-```GET ít2810-32.idi.ntnu.no:8080/movies/søketerm?threshold=minimumsvurdering```
+```
+GET ít2810-32.idi.ntnu.no:8080/movies/søketerm?genre=sjanger
+```
 
-#### Infinite scroll
-APIet støtter også infinite scrolling, dette løses ved å gi argumentet 
-startindex. Hvis du vil laste de 20 første treffene kan denne droppes. 
-Dersom du vil laste de neste 20 setter du startindex til 20, som vist under:
+Dersom du vil filtrere på IMDb-rating, der argumentet er minimumsvurdering gjøres det slik:
 
-```GET ít2810-32.idi.ntnu.no:8080/movies/søketerm?startindex=20```
+```
+GET ít2810-32.idi.ntnu.no:8080/movies/søketerm?threshold=minimumsvurdering
+```
+
+APIet støtter også infinite scrolling, dette løses ved å gi argumentet startindex. Hvis du vil laste de 20 første treffene kan denne droppes. Dersom du vil laste de neste 20 setter du startindex til 20, som vist under:
+
+```
+GET ít2810-32.idi.ntnu.no:8080/movies/søketerm?startindex=20
+```
+
+
+#### Sortering
+
+APIet støtter sortering. Standardsortering er alfabetisk etter tittel, starter fra A.
+
+Dersom du heller vil sortere på IMDb-rating, i synkende rekkefølge legger du til "sort=imdb":
+
+```
+GET it2810-32.idi.ntnu.no:8080/movies?sort=imdb
+```
+
 
 ## Express
+
 ### Beskrivelse
 [Express](https://expressjs.com/) håndterer forespørsler som kommer til 
 server og router disse videre.
@@ -139,19 +164,27 @@ server og router disse videre.
 Dersom APIene ikke svarer, kan du starte disse ved å logge på server og 
 kjøre kommandoen:
 
-```cd ../torestef/prosjekt4/server``` 
+```
+cd ../torestef/prosjekt4/server
+``` 
 
 og deretter:
 
-```node server.js```
+```
+node server.js
+```
 
 Dersom du vil sørge for at serveren kjører i bakgrunnen legger du til &:
 
-```node server.js &```
+```
+node server.js &
+```
 
 I terminalvinduet ditt burde det da dukke opp en melding som forteller deg:
 
-```Running express on port 8080```
+```
+Running express on port 8080
+```
 
 Du kan deretter begynne å bruke våre [APIer](Api).
 
@@ -161,12 +194,16 @@ Hvis du vil stoppe en serverinstans som kjører i bakgrunnen, logger du på
 serveren, og taster inn en kommando for å vise alle prosesser som kjører på 
 sereren:
 
-```ps ax```
+```
+ps ax
+```
 
 Her noterer du PID for node-prosessen merket server.js, og setter inn denne i 
 kommandoen:
 
-```kill -9 PID```
+```
+kill -9 PID
+```
 
 ## MongoDB
 
@@ -183,28 +220,38 @@ inneholder massevis av filmtitler og informasjon om region og språk.
 
 ### Kom i gang
 
-For å koble til serveren kjører du (med Terminal eller PuTTY):
+For å koble til serveren med NTNU-bruker kjører du (med Terminal eller PuTTY):
 
-``ssh brukernavn@it2810-32.idi.ntnu.no`` og taster inn NTNU-passordet ditt.
+```
+ssh brukernavn@it2810-32.idi.ntnu.no
+```
 
 For å komme til MongoDB sitt shell skriver du:
 
-``mongo``
+```
+mongo
+```
 
 For å gå til riktig database skriver du:
 
-``use movieDB``
+```
+use movieDB
+```
 
 Under databaser har vi en collection som heter "movieDetails". 
 For å liste litt derfra kan du skrive:
-``db.movieDetails.findOne()`` eller ``db.movieDetails.find()``.
+```
+db.movieDetails.findOne()`` eller ``db.movieDetails.find()
+```
 
 ### Eksempel
 
 Vi har også en eksempelspørring. 
 Den gir deg alle filmer med tittel som inneholder "west side story":
 
-```db.movieDetails.find({{ "title" : "west side story" }})```
+```
+db.movieDetails.find({{ "title" : "west side story" }})
+```
 
 Dette bør gi deg et svar som ligner på dette:
 
@@ -222,11 +269,15 @@ For å legge inn en brukervurdering av en film er vi avhengige av å ha ObjectID
 for filmen som skal vurderes. Dette kan du finne ved å titte etter "_id" i 
 JSON-objektet som returneres om du sender en vanlig GET forespørsel til 
 
-```GET it2810-32.idi.ntnu.no/movies/%tittel_på_film_du_søker_etter%```
+```
+GET it2810-32.idi.ntnu.no/movies/%tittel_på_film_du_søker_etter%
+```
 
 Når du da skal vurdere filmen sender du en PUT forespørsel til 
 
-```PUT it2810-32.idi.ntnu.no/movies/%ObjectID_for_filmen%/%Rating_mellom_1_og_5%```
+```
+PUT it2810-32.idi.ntnu.no/movies/%ObjectID_for_filmen%/%Rating_mellom_1_og_5%
+```
 
 APIet validerer foreløpig ikke at man gir gyldig input (1-5) ettersom sikkerhet 
 ikke er en prioritet, men dette er begrenset i frontend, slik at en vanlig 
