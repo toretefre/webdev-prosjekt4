@@ -24,6 +24,12 @@ class MovieList extends Component {
                              changeView={() => this.props.changeView()}
                              imdbRating={movie.imdb.rating}
                              imdbId={movie.imdb.id}
+                             userRating={movie.ratings !== undefined
+                                 ? movie.ratings.reduce(function(a,b){return a+b;}) / movie.ratings.length
+                                 : 0}
+                             userRatingLength={movie.ratings !== undefined
+                                 ? movie.ratings.length
+                                 : 0}
                       />);
                   })
               }

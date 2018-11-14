@@ -11,17 +11,22 @@ import './App.css';
 @observer
 class App extends Component {
 
-   //ComponentDidMount loads 20 movies when the user enters the code
-   //Adding eventlistener for scrolling (which is being used in handlescroll)
-   componentDidMount() {
-        this.props.movieStore.fetchMovieData();
-        document.addEventListener('scroll', this.handleScroll);
-   }
+    constructor(props){
+        super(props);
+        this.searchText = "";
+    }
 
-   //ComponentWillUnmount is removing the eventlistener
-   componentWillUnmount() {
-        document.removeEventListener('scroll', this.handleScroll);
-   }
+  //ComponentDidMount loads 20 movies when the user enters the code
+  //Adding eventlistener for scrolling (which is being used in handlescroll)
+  componentDidMount() {
+      this.props.movieStore.fetchMovieData();
+      document.addEventListener('scroll', this.handleScroll);
+  }
+
+  //ComponentWillUnmount is removing the eventlistener
+  componentWillUnmount() {
+      document.removeEventListener('scroll', this.handleScroll);
+  }
 
   //Function to change the view between grid and list.
   //The function sets the value of the observable variable "expandmovie" to the opposite value (true/false)
@@ -63,12 +68,16 @@ class App extends Component {
       }
   };
 
+  //Function to clear searchparam and all filters
+  clearAll = () => {
+      this.props.movieStore.clearAll();
+  };
+
   //Function that goes to the top of the page
   goToTop = () =>{
       document.body.scrollTop = 0; // For Safari
       document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
   };
-
 
   //-----RENDER----------
   render() {
@@ -94,7 +103,7 @@ class App extends Component {
                               <div id="genreContainer">
                                   <select className="genrePicker" id={"genrePicker"} onChange={() => this.setGenre()}>
                                       {this.props.movieStore.genres.map((genre) =>
-                                          <option value={genre} label={genre}/>
+                                          <option key={genre} value={genre} label={genre}/>
                                       )}
                                   </select>
                               </div>
@@ -134,6 +143,10 @@ class App extends Component {
                   <div id="infoText">
                     Showing all movies
                   </div>
+                    <div onClick={() => this.clearAll()} id="clearSearchContainer">
+                        <img id="infoContainerImg" alt="" src={require("./assets/images/waste-bin.png")}/>
+                        Clear search
+                    </div>
                 </div>
               </div>
             <div id="moviesContainer">
