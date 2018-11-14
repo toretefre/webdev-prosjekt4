@@ -156,7 +156,7 @@ class App extends Component {
                     role={"button"}
                     onClick={this.goToTop}
                 >
-                    <img className="toTopImg" alt="Go to top" src={require("./assets/images/up.png")}/>
+                    <img className="toTopImg" alt="Go to top" src={require("./assets/images/arrow-up.png")}/>
                 </aside>
             </div>
         </React.Fragment>
