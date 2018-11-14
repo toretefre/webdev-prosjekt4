@@ -43,9 +43,15 @@ body, html{
     }
     #filterAndButtonContainer{
         width: 100% !important;
+        min-width: 1vw;
+        align-items: center;
+        justify-content: center;
     }
     .movieContainerSmall{
         width: 100%;
+    }
+    #sliderContainer{
+        width: 80% !important;
     }
     .filtersContainer{
         flex-direction: column !important;
