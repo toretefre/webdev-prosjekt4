@@ -48,7 +48,8 @@ body, html{
         justify-content: center;
     }
     .movieContainerSmall{
-        width: 100%;
+        width: 90%;
+        margin-left: 2%;
     }
     #sliderContainer{
         width: 80% !important;
@@ -60,16 +61,36 @@ body, html{
         width: 100% !important;
     }
     #displayButtons{
-        visibility: hidden;
-        opacity: 0;
         display: none !important;
-        width: 0%;
+    }
+    #movieList{
+        margin-left: 7.5%;
+        align-items: center;
+        justify-content: center;
     }
     .innerMovieContainerBig{
         flex-direction: column;
+        width: 80%;
+        margin-left: 0;
     }
     .movieInfoShow{
         min-height: 50px;
+    }
+    .expandImage{
+        display:none;
+    }
+    .movieRatings{
+        flex-direction: column;
+        padding-top: 10px;
+    }
+    .imdbRatings{
+        padding-bottom: 5px;
+    }
+    .userRatings{
+        border-bottom: 1px solid grey;
+        border-top: 1px solid grey;
+        border-left: 0;
+        border-right: 0;
     }
 
 }
@@ -92,7 +113,7 @@ body, html{
     justify-content: space-between;
     align-items: center;
     width: 40%;
-    min-width: 50vh;
+    min-width: 450px;
     padding: 10px;
     background-color: #26373a;
     border-radius: 5px;
@@ -231,8 +252,6 @@ select.genrePicker{
   background-color: #26373a;
   cursor: pointer;
     padding: 10px 20px;
-    border-top-right-radius: 5px;
-    border-bottom-right-radius: 5px;
     font-size: 15px;
     border: 1px solid #000;
     color:white;
@@ -252,8 +271,6 @@ select.genrePicker{
     cursor: pointer;
     border: 1px solid #000;
     padding: 10px 20px;
-    border-top-left-radius: 5px;
-    border-bottom-left-radius: 5px;
     font-size: 15px;
     font-weight: bold;
     box-shadow: inset 0 0 3px #1c1c1c;
@@ -287,12 +304,13 @@ select.genrePicker{
     bottom:50px;
     height:64px;
     width:64px;
-    background-color:yellow;
+    background-color: #f5de50;
     opacity: 0;
     cursor: pointer;
+    box-shadow: inset 0 0 10px #1c1c1c;
 }
 
 .toTopImg{
-    width: 65px;
-    height: 65px;
+    width: 45px;
+    height: 45px;
 }
