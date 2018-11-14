@@ -83,7 +83,7 @@ class App extends Component {
   render() {
     return (
         <React.Fragment>
-              <div id="headerContainer">
+             <div id="headerContainer">
                 <MuiThemeProvider className="App">
                   <SearchBar
                     onChange={(text) => this.searchText = text}
@@ -97,7 +97,7 @@ class App extends Component {
 
                   />
                 </MuiThemeProvider>
-                  <div id="optionBar">
+                 1 <div id="optionBar">
                       <div id="filterAndButtonContainer">
                           <div className="filtersContainer">
                               <div id="genreContainer">
@@ -139,7 +139,7 @@ class App extends Component {
                           </div>
                       </div>
                   </div>
-                <div id="infoTextContainer">
+               2 <div id="infoTextContainer">
                   <div id="infoText">
                     Showing all movies
                   </div>

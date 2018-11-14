@@ -14,12 +14,17 @@
     "react-dom": "^16.6.0",
     "react-simple-range": "^1.6.0",
     "react-star-ratings": "^2.3.0",
-    "react-notifications-component": "latest"
+    "react-notifications-component": "latest",
+    "react-test-renderer": "^16.6.3"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
+  },
+  "devDependencies": {
+    "axios-mock-adapter": "^1.15.0",
+    "jest": "^23.6.0"
   }
 }
