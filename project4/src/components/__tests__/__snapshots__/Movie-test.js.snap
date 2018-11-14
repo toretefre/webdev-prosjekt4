@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`MovieStore Movie renders correctly? 1`] = `
+exports[`MovieStore Movie Snapshot 1`] = `
 Array [
   <div
     className="react-notification-root"
@@ -108,7 +108,7 @@ Array [
               >
                 <defs>
                   <linearGradient
-                    id="starGrad145431135508366"
+                    id="starGrad628053093050857"
                     x1="0%"
                     x2="100%"
                     y1="0%"
@@ -240,7 +240,7 @@ Array [
               >
                 <defs>
                   <linearGradient
-                    id="starGrad264697042354166"
+                    id="starGrad845174690763637"
                     x1="0%"
                     x2="100%"
                     y1="0%"
@@ -521,7 +521,7 @@ Array [
           >
             <defs>
               <linearGradient
-                id="starGrad860924933330522"
+                id="starGrad834844241919150"
                 x1="0%"
                 x2="100%"
                 y1="0%"

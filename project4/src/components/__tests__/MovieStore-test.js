@@ -1,28 +1,11 @@
 import React from 'react';
-import renderer from 'react-test-renderer';
 import MovieStore from "../../stores/MovieStore";
-import App from "../../App";
-import {Provider} from "mobx-react";
-import ShallowRenderer from "react-test-renderer/shallow";
 import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
-
-
-
 
 describe("MovieStore", () => {
     //Creating an instance of MovieStore
     const movieStore = MovieStore;
-    const appInstance =
-        <Provider movieStore = {movieStore}>
-            <App/>
-        </Provider>;
-    const appComponent = renderer.create(appInstance).getInstance();
-
-    //Shallowrenderer
-    const shallow = new ShallowRenderer();
-    shallow.render(<App movieStore = {movieStore}/>);
-    const appResult = shallow.getRenderOutput();
 
     /*//Simple snapshot testing
     test('Movie renders correctly?', () => {
@@ -55,25 +38,16 @@ describe("MovieStore", () => {
         expect(movieStore.minRating).toBe(8);
     });
 
-    /*test("function clearAll()", () => {
+    test("function clearAll()", () => {
         movieStore.setGenre("Family");
         movieStore.setMinRating(8);
         movieStore.setSearchParam("test");
-        document.body.innerHTML =
-            '<div id="infoText">'+
-            '</div>';
-
-        const app = App;
-        app.mockImplementation(e => {
-            e("test");
-        });
 
         movieStore.clearAll();
-        expect(document.body.innerHTML).toBe("test");
-        expect(movieStore.genre).toBe("All");
+        expect(movieStore.genre).toBe("All genres");
         expect(movieStore.minRating).toBe(1);
         expect(movieStore.searchParam).toBe("");
-    });*/
+    });
 
     test("function increaseFetchedMovies", () =>{
         movieStore.increaseFetchedMovies();
@@ -82,26 +56,22 @@ describe("MovieStore", () => {
 
     //Testing Axios
     test("function fetchMovieData", () => {
-
         const testAPI = {
-            _id: "5b107bec1d2952d0da904a42",
-            title: "'Ei se mitään!' sanoi Eemeli",
+            _id: "testID",
+            title: "test",
             year: 1962,
             rated: "S",
             runtime: 99,
             countries: [ ],
             genres: [
-                "Comedy"
+                "test"
             ],
-            director: "Åke Lindman",
+            director: "test",
             writers: [
-                "Reino Helismaa"
+                "test"
             ],
             actors: [
-                "Siiri Angerkoski",
-                "Eemeli",
-                "Paavo Hukkinen",
-                "Pentti Irjala"
+                "test",
             ],
             plot: null,
             poster: null,
@@ -115,7 +85,7 @@ describe("MovieStore", () => {
                 nominations: 0,
                 text: ""
             },
-            type: "movie"
+            type: "test"
         };
 
         //Setting values to variables in MovieStore
@@ -123,8 +93,7 @@ describe("MovieStore", () => {
         movieStore.setMinRating(1);
         movieStore.setSearchParam("");
 
-        //Creating endpoint to our server and mocking an Axiosadapter
-        const endpoint = "http://it2810-32.idi.ntnu.no:8080/movies/";
+        //Mocking an Axiosadapter
         let mock = new MockAdapter(axios);
 
         //Creating a variable (data), where the response is set to true
@@ -135,7 +104,7 @@ describe("MovieStore", () => {
         movieStore.fetchMovieData()
             .then(res => {
                 expect(res).toEqual(data);
-            })
+            });
     });
 
     test("function putMovieRating", () => {
@@ -150,8 +119,7 @@ describe("MovieStore", () => {
         mock.onPut(putEndpoint).reply(200, data);
         movieStore.putMovieRating("testID", 5)
             .then(res => {
-                console.log(res);
-                expect(res).toEqual(data);
+                expect(res.status).toEqual(data);
             })
     });
 });

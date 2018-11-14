@@ -11,14 +11,10 @@ import './App.css';
 @observer
 class App extends Component {
 
-    constructor(props){
-        super(props);
-        this.searchText = "";
-    }
-
   //ComponentDidMount loads 20 movies when the user enters the code
   //Adding eventlistener for scrolling (which is being used in handlescroll)
   componentDidMount() {
+      console.log(document.getElementById("searchBar").value);
       this.props.movieStore.fetchMovieData();
       document.addEventListener('scroll', this.handleScroll);
   }
@@ -70,6 +66,8 @@ class App extends Component {
 
   //Function to clear searchparam and all filters
   clearAll = () => {
+      document.getElementById("genrePicker").value = "All genres";
+      this.props.movieStore.searchBarValue = "";
       this.props.movieStore.clearAll();
   };
 
@@ -85,9 +83,10 @@ class App extends Component {
         <React.Fragment>
              <div id="headerContainer">
                 <MuiThemeProvider className="App">
-                  <SearchBar
-                    onChange={(text) => this.searchText = text}
-                    onRequestSearch={() => this.fetchMovies(this.searchText)}
+                  <SearchBar id="searchBar"
+                    value={this.props.movieStore.searchBarValue}
+                    onChange={(text) => this.props.movieStore.searchBarValue = text}
+                    onRequestSearch={() => this.fetchMovies(this.props.movieStore.searchBarValue)}
                     hintText='Search for movies'
                     style={{
                       margin: '5px 0',
@@ -97,7 +96,7 @@ class App extends Component {
 
                   />
                 </MuiThemeProvider>
-                 1 <div id="optionBar">
+                  <div id="optionBar">
                       <div id="filterAndButtonContainer">
                           <div className="filtersContainer">
                               <div id="genreContainer">
@@ -139,7 +138,7 @@ class App extends Component {
                           </div>
                       </div>
                   </div>
-               2 <div id="infoTextContainer">
+                <div id="infoTextContainer">
                   <div id="infoText">
                     Showing all movies
                   </div>
