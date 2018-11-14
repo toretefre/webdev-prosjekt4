@@ -37,6 +37,19 @@
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.8), 0 10px 30px 0 rgba(0, 0, 0, 0.8);
 }
 
+.expandImage{
+  max-width: 20px;
+  align-self: flex-start;
+  margin-top: -20px;
+  margin-right: -20px;
+}
+
+.hideExpandImage{
+  display: none;
+
+}
+
+
 .movieImageSmall{
   height: 280px;
   width: 190px;
@@ -110,19 +123,53 @@
   display: flex;
   align-items: center;
   background-color: #e5e5e5;
-  padding: 7px 0;
   font-weight: bold;
-  border-radius: 4px;
+  border-radius: 5px;
+  cursor: default;
+}
+
+.imdbRatings{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
 }
 
 .ratingImage{
   max-width: 50px;
   max-height: 30px;
-  margin: 0 10px;
 }
 
-/*.imageAndInfo{
+.userRatings{
   display: flex;
-  max-width: 100%;
-  max-height: 85%;
-}*/
+  align-items: center;
+  justify-content: space-around;
+  background-color: #e5e5e5;
+  font-size: 28px;
+  margin-left: 0.5em;
+  margin-bottom: 3px;
+  border-right: 1px solid #ccc;
+  border-left: 1px solid #ccc;
+  padding: 0 10px;
+}
+
+.userRatingText{
+  font-size: 15px;
+  margin-right: 5px;
+  margin-left: 5px;
+}
+
+.giveUserRating{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 0 10px;
+}
+
+.smallImgStarHide{
+  display: none;
+}
+
+.smallImgStarShow{
+  display: block;
+}
