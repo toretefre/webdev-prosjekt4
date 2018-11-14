@@ -32,6 +32,23 @@ router.put('/:movieid/:rating', function (req, res) {
 });
 
 
+function determineSort(_req) {
+    // default sort is alphabetical after title
+    let sortparameter = {title:1};
+    
+    // sorts descending based on IMDb rating
+    if (_req.query.sort === "imdb") {
+        console.log("IMDb sort");
+        sortparameter = {"imdb.rating":-1};
+    }
+    // By default sorts alphabetically from A to Z
+    else {
+        console.log("Alphabetical sort");
+    }
+    return sortparameter;
+}
+
+
 // Set default API response for (:8080/movies)
 router.get('/', function (req, res) {
     // Simple logging for debugging
@@ -84,9 +101,10 @@ router.get('/', function (req, res) {
             console.log("All movies requested with genre " + req.query.genre + " and threshold " + Number(req.query.threshold));
             searchstring = {"genres":{"$regex":genre_argument, "$options":"i"}, "imdb.rating": {$gte: Number(req.query.threshold) }};
         }
+        
 
         // Performs MongoDB lookup limited to 20 results starting from startindex
-        db.collection('movieDetails').find(searchstring).skip(parseInt(req.query.startindex)).limit(20).toArray(
+        db.collection('movieDetails').find(searchstring).sort(determineSort(req)).skip(parseInt(req.query.startindex)).limit(20).toArray(
             function (err, result) {
                 // error handling, returns HTTP 500
                 if (err) {
@@ -160,7 +178,7 @@ router.get('/:title', function (req, res) {
         }
 
         // Performs MongoDB lookup limited to 20 results starting from startindex
-        db.collection('movieDetails').find(searchstring).skip(parseInt(req.query.startindex)).limit(20).toArray(
+        db.collection('movieDetails').find(searchstring).sort(determineSort(req)).skip(parseInt(req.query.startindex)).limit(20).toArray(
             function (err, result) {
                 // error handling, returns HTTP 500 if error
                 if (err) {
