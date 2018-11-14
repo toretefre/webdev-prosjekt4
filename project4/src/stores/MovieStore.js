@@ -11,12 +11,13 @@ class MovieStore extends Component {
     @observable genres =
         ["All genres", "Western","Comedy", "Action", "Crime", "Drama", "Musical", "Thriller", "Animation", "Adventure", "Family",
             "Fantasy", "Documentary", "Sci-Fi", "Romance", "Biography", "Mystery", "Horror", "Music", "History",
-            "War", "Short", "Film-Noir", "Sport", "Talk-Show", "News", "Reality-TV", "Adult", "Game-Show"];
+            "War", "Short", "Film-Noir", "Sport", "Talk-Show", "News", "Reality-TV", "Game-Show"];
     @observable minRating = 1;
     @observable tempSearchString = "";
     @observable endpoint = "";
     @observable putEndpoint = "";
     @observable searchParam = "";
+    @observable sortValue = "title";
 
     //Function to retrieve data from our api.
     //It fetches data together a given searchparam from the user.
@@ -30,10 +31,10 @@ class MovieStore extends Component {
         }
 
         if(this.genre === "All genres"){
-            this.endpoint = 'http://it2810-32.idi.ntnu.no:8080/movies/' + this.searchParam + "?startindex=" + this.fetchedMovies + '&threshold='+this.minRating;
+            this.endpoint = 'http://it2810-32.idi.ntnu.no:8080/movies/' + this.searchParam + "?startindex=" + this.fetchedMovies + '&threshold='+this.minRating + '&sort=' + this.sortValue;
         }
         else{
-            this.endpoint = 'http://it2810-32.idi.ntnu.no:8080/movies/' + this.searchParam + "?startindex=" + this.fetchedMovies + '&genre='+this.genre + '&threshold='+this.minRating;
+            this.endpoint = 'http://it2810-32.idi.ntnu.no:8080/movies/' + this.searchParam + "?startindex=" + this.fetchedMovies + '&genre='+this.genre + '&threshold='+this.minRating + '&sort=' + this.sortValue;
         }
 
         await axios.get(this.endpoint)
@@ -89,6 +90,7 @@ class MovieStore extends Component {
         this.fetchedMovies = 0;
         this.movies = [];
         this.searchParam = "";
+        this.sortValue = "title";
         this.genre = "All genres";
         document.getElementById("infoText").innerHTML = "Showing all movies";
         this.fetchMovieData();
@@ -98,6 +100,15 @@ class MovieStore extends Component {
     @action increaseFetchedMovies(){
         this.fetchedMovies += 20;
         this.fetchMovieData();
+    }
+
+    @action setSortValue(val){
+        console.log("Old sortValue: " + this.sortValue);
+        this.sortValue = val;
+        this.fetchedMovies = 0;
+        this.movies = [];
+        this.fetchMovieData();
+        console.log("Fetched new data. New sortValue: " + this.sortValue);
     }
 }
 
