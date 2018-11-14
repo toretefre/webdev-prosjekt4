@@ -96,7 +96,7 @@ hva som skjer ved API-kall og enkelt kan endre på kallene sine.
 
 ### Funksjonalitet
 
-APIene er tilgjengelig i nettleser, og du kan sjekke status slik:
+APIet er tilgjengelig i nettleser, og du kan sjekke status slik:
 
 ```
 GET ít2810-32.idi.ntnu.no:8080
@@ -150,6 +150,33 @@ Dersom du heller vil sortere på IMDb-rating, i synkende rekkefølge legger du t
 ```
 GET it2810-32.idi.ntnu.no:8080/movies?sort=imdb
 ```
+
+
+#### Brukergenererte vurderinger
+
+APIet vårt støtter brukergenererte vurderinger av filmer på en skala 
+der 1 er dårligst og 5 er best. Dette kan testes f.eks. i programmet 
+[Postman](https://www.getpostman.com/).
+
+For å legge inn en brukervurdering av en film er vi avhengige av å ha ObjectID 
+for filmen som skal vurderes. Dette kan du finne ved å titte etter "_id" i 
+JSON-objektet som returneres om du sender en vanlig GET forespørsel til 
+
+```
+GET it2810-32.idi.ntnu.no/movies/%tittel_på_film_du_søker_etter%
+```
+
+Når du da skal vurdere filmen sender du en PUT forespørsel til 
+
+```
+PUT it2810-32.idi.ntnu.no/movies/%ObjectID_for_filmen%/%Rating_mellom_1_og_5%
+```
+
+APIet validerer foreløpig ikke at man gir gyldig input (1-5) ettersom sikkerhet 
+ikke er en prioritet, men dette er begrenset i frontend, slik at en vanlig 
+bruker ikke kan gjøre annet enn å sende inn 1-5. Dersom vi hadde prioritert 
+sikkerhet ville vi først og fremst ordnet en form for autentisering 
+og deretter lagt på validering.
 
 
 ## Express
@@ -259,31 +286,6 @@ Dette bør gi deg et svar som ligner på dette:
 [{"_id":"5b107bec1d2952d0da9046e3","title":"West Side Story","year":1961,"rated":"UNRATED","runtime":152,"countries":["USA"],"genres":["Crime","Drama","Musical"],"director":"Jerome Robbins, Robert Wise","writers":["Ernest Lehman","Arthur Laurents","Jerome Robbins"],"actors":["Natalie Wood","Richard Beymer","Russ Tamblyn","Rita Moreno"],"plot":"Two youngsters from rival New York City gangs fall in love, but tensions between their respective friends build toward tragedy.","poster":"http://ia.media-imdb.com/images/M/MV5BMTM0NDAxOTI5MF5BMl5BanBnXkFtZTcwNjI4Mjg3NA@@._V1_SX300.jpg","imdb":{"id":"tt0055614","rating":7.6,"votes":67824},"awards":{"wins":18,"nominations":11,"text":"Won 10 Oscars. Another 18 wins & 11 nominations."},"type":"movie"}]
 ```
 
-### Brukergenererte vurderinger
-
-APIet vårt støtter brukergenererte vurderinger av filmer på en skala 
-der 1 er dårligst og 5 er best. Dette kan testes f.eks. i programmet 
-[Postman](https://www.getpostman.com/).
-
-For å legge inn en brukervurdering av en film er vi avhengige av å ha ObjectID 
-for filmen som skal vurderes. Dette kan du finne ved å titte etter "_id" i 
-JSON-objektet som returneres om du sender en vanlig GET forespørsel til 
-
-```
-GET it2810-32.idi.ntnu.no/movies/%tittel_på_film_du_søker_etter%
-```
-
-Når du da skal vurdere filmen sender du en PUT forespørsel til 
-
-```
-PUT it2810-32.idi.ntnu.no/movies/%ObjectID_for_filmen%/%Rating_mellom_1_og_5%
-```
-
-APIet validerer foreløpig ikke at man gir gyldig input (1-5) ettersom sikkerhet 
-ikke er en prioritet, men dette er begrenset i frontend, slik at en vanlig 
-bruker ikke kan gjøre annet enn å sende inn 1-5. Dersom vi hadde prioritert 
-sikkerhet ville vi først og fremst ordnet en form for autentisering 
-og deretter lagt på validering.
 
 # Testing
 
