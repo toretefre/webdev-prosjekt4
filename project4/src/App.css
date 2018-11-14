@@ -37,6 +37,43 @@ body, html{
     color: white;
 }
 
+@media screen and (max-width: 670px) {
+    #optionBar{
+        padding: 5px;
+    }
+    #filterAndButtonContainer{
+        width: 100% !important;
+        min-width: 1vw;
+        align-items: center;
+        justify-content: center;
+    }
+    .movieContainerSmall{
+        width: 100%;
+    }
+    #sliderContainer{
+        width: 80% !important;
+    }
+    .filtersContainer{
+        flex-direction: column !important;
+        align-items: center !important;
+        height: 10vh;
+        width: 100% !important;
+    }
+    #displayButtons{
+        visibility: hidden;
+        opacity: 0;
+        display: none !important;
+        width: 0%;
+    }
+    .innerMovieContainerBig{
+        flex-direction: column;
+    }
+    .movieInfoShow{
+        min-height: 50px;
+    }
+
+}
+
 #filterAndButtonContainer{
     width: 80%;
     display: flex;
@@ -49,12 +86,13 @@ body, html{
     color:black;
 }
 
-#filtersContainer {
+.filtersContainer {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    width: 50%;
+    width: 40%;
+    min-width: 50vh;
     padding: 10px;
     background-color: #26373a;
     border-radius: 5px;

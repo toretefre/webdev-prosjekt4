@@ -35,6 +35,7 @@ class App extends Component {
       this.props.movieStore.setGenre(document.getElementById("genrePicker").value);
   };
 
+  //Function to handle change of selected minimum rating
   handleRatingChange = (value) => {
       this.props.movieStore.setMinRating(value);
   };
@@ -46,18 +47,23 @@ class App extends Component {
   };
 
   //Detects whether the user is scrolled to the bottom or not
-  //If the user is scrolled to the bottom, it will increase the number of movie fetched.
+    // It also checks whether to hide or show the button that navigates to the top
   handleScroll = () =>{
+      //If user scrolls down a little, show the button that navigates to the top
       if (document.body.scrollTop > 100 || document.documentElement.scrollTop > 100) {
           document.getElementById("goToTopBtn").style.opacity = "1";
-      } else {
+      }
+      //If the site is not scrolled down, hide the button that navigates to the top
+      else {
           document.getElementById("goToTopBtn").style.opacity = "0";
       }
+      //If the user is scrolled to the bottom, it will increase the number of movie fetched.
       if((document.documentElement.scrollTop + document.documentElement.clientHeight + 1) >= document.documentElement.scrollHeight){
           this.props.movieStore.increaseFetchedMovies();
       }
   };
 
+  //Function that goes to the top of the page
   goToTop = () =>{
       document.body.scrollTop = 0; // For Safari
       document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
@@ -84,7 +90,7 @@ class App extends Component {
                 </MuiThemeProvider>
                   <div id="optionBar">
                       <div id="filterAndButtonContainer">
-                          <div id="filtersContainer">
+                          <div className="filtersContainer">
                               <div id="genreContainer">
                                   <select className="genrePicker" id={"genrePicker"} onChange={() => this.setGenre()}>
                                       {this.props.movieStore.genres.map((genre) =>
