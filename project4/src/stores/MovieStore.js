@@ -17,6 +17,7 @@ class MovieStore extends Component {
     @observable endpoint = "";
     @observable putEndpoint = "";
     @observable searchParam = "";
+    @observable searchBarValue = "";
     @observable sortValue = "title";
 
     //Function to retrieve data from our api.
@@ -92,7 +93,9 @@ class MovieStore extends Component {
         this.searchParam = "";
         this.sortValue = "title";
         this.genre = "All genres";
-        document.getElementById("infoText").innerHTML = "Showing all movies";
+        if(document.getElementById("infoText")){
+            document.getElementById("infoText").innerHTML = "Showing all movies";
+        }
         this.fetchMovieData();
     }
 

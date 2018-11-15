@@ -52,7 +52,7 @@ class Movie extends Component {
     return (
         <React.Fragment>
             <ReactNotification ref={this.notificationDOMRef} />
-            <div className={this.props.movieStore.expandMovie ? "movieContainerBig" : "movieContainerSmall"} >
+            <div id="mainMovieContainer" className={this.props.movieStore.expandMovie ? "movieContainerBig" : "movieContainerSmall"} >
                 <div onClick={() => this.handleExpandMovie()} className={this.props.movieStore.expandMovie ? "innerMovieContainerBig" : "innerMovieContainerSmall"} id={this.props.id}>
                     <a className="movieLink" href={"#"+this.props.id}>
                         <img alt="Img not found.." onError={(e) => {
