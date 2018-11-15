@@ -17,7 +17,8 @@
     "react-notifications-component": "latest",
     "react-simple-range": "^1.6.0",
     "react-star-ratings": "^2.3.0",
-    "react-test-renderer": "^16.6.3"
+    "react-test-renderer": "^16.6.3",
+    "jsdom": "latest"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -26,6 +27,13 @@
     "eject": "react-scripts eject"
   },
   "setupTestFrameworkScriptFile": "<rootDir>/src/setupTests.js",
+  "jest": {
+    "collectCoverageFrom": [
+      "src/**/*.{js,jsx}",
+      "!src/index.js",
+      "!src/registerServiceWorker.js"
+    ]
+  },
   "devDependencies": {
     "axios-mock-adapter": "^1.15.0",
     "enzyme": "^3.7.0",
