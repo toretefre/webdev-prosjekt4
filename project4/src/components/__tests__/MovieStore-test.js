@@ -4,122 +4,183 @@ import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
 
 describe("MovieStore", () => {
-    //Creating an instance of MovieStore
+    //Creating an instance of MovieStore which is being used throughout the entire test
     const movieStore = MovieStore;
 
-    /*//Simple snapshot testing
-    test('Movie renders correctly?', () => {
-        const stepTree = renderer.create(<Movie movieStore = {movieStore}/>);
-        expect(stepTree).toMatchSnapshot();
-    });*/
-
-    test("function setSearchParam(test)", () =>{
-        movieStore.setSearchParam("test");
+    //Function to test the function setSearchParam, which is being async since it is calling fetchMovieData
+    test("function setSearchParam(test)", async () =>{
+        try{
+            await movieStore.setSearchParam("test");
+        } catch (e) {
+            throw e;
+        }
         expect(movieStore.searchParam).toBe("test");
     });
 
+    //Function to test the function setExpandMovie when the value is true
     test("function setExpandMovie(true)", () => {
         movieStore.setExpandMovie(true);
         expect(movieStore.expandMovie).toBeTruthy();
     });
 
+    //Function to test the function setExpandMovie when the value is false
     test("function setExpandMovie(false)", () => {
         movieStore.setExpandMovie(false);
         expect(movieStore.expandMovie).toBeFalsy();
     });
 
-    test("function setGenre('Family')", () => {
-        movieStore.setGenre("Family");
+    //Function to test the function setGenre, which is being async since it is calling fetchMovieData
+    test("function setGenre('Family')", async () => {
+        try{
+            await movieStore.setGenre("Family");
+        } catch (e) {
+            throw e;
+        }
         expect(movieStore.genre).toBe("Family");
     });
 
-    test("function setMinRating(8)", () => {
-        movieStore.setMinRating(8);
+    //Function to test the function setMinRating, which is being async since it is calling fetchMovieData
+    test("function setMinRating(8)", async () => {
+        try{
+            await movieStore.setMinRating(8);
+        } catch (e) {
+            throw e;
+        }
         expect(movieStore.minRating).toBe(8);
     });
 
-    test("function clearAll()", () => {
-        movieStore.setGenre("Family");
-        movieStore.setMinRating(8);
-        movieStore.setSearchParam("test");
+    //Function to test the function clearAll, which is being async since it is calling fetchMovieData
+    //Setting the variables in MovieStore first to check if they are cleared afterwards.
+    test("function clearAll()", async () => {
+        try{
+            await movieStore.setGenre("Family");
+            await movieStore.setMinRating(8);
+            await movieStore.setSearchParam("test");
+            await movieStore.clearAll();
+        } catch (e) {
+            throw e;
+        }
 
-        movieStore.clearAll();
         expect(movieStore.genre).toBe("All genres");
         expect(movieStore.minRating).toBe(1);
         expect(movieStore.searchParam).toBe("");
     });
 
-    test("function increaseFetchedMovies", () =>{
-        movieStore.increaseFetchedMovies();
+    //Function to test the function increaseFetchedMovies, which is being async since it is calling fetchMovieData
+    //Increasing the value of fetchMovies to 20
+    test("function increaseFetchedMovies", async () =>{
+        try{
+            await movieStore.increaseFetchedMovies();
+        } catch (e) {
+            throw e;
+        }
         expect(movieStore.fetchedMovies).toBe(20);
     });
 
-    //Testing Axios
-    test("function fetchMovieData", () => {
-        const testAPI = {
-            _id: "testID",
-            title: "test",
-            year: 1962,
-            rated: "S",
-            runtime: 99,
-            countries: [ ],
-            genres: [
-                "test"
-            ],
-            director: "test",
-            writers: [
-                "test"
-            ],
-            actors: [
-                "test",
-            ],
-            plot: null,
-            poster: null,
-            imdb: {
-                id: "tt0132936",
-                rating: 5.1,
-                votes: 25
-            },
-            awards: {
-                wins: 0,
-                nominations: 0,
-                text: ""
-            },
-            type: "test"
+    //---------------------------------------//
+    //-------------Testing Axios-------------//
+
+    test("function fetchMovieData", async () => {
+        //--------------------------------------------------------------------------------------------//
+        //Setting values to variables in MovieStore to ensure the endpoint is correct for testing
+        try{
+            await movieStore.setGenre("All genres");
+            await movieStore.setMinRating(1);
+            await movieStore.setSearchParam("testtest");
+            movieStore.fetchedMovies = 20;
+            await movieStore.setSortValue("Title");
+            movieStore.endpoint = 'http://it2810-32.idi.ntnu.no:8080/movies/'
+                + movieStore.searchParam
+                + "?startindex=" + movieStore.fetchedMovies
+                + '&threshold=' + movieStore.minRating
+                + '&sort=' + movieStore.sortValue;
+        } catch (e) {
+            throw e;
+        }
+        //--------------------------------------------------------------------------------------------//
+        //Mocking an Axiosadapter
+        const mock = new MockAdapter(axios);
+
+        //Creating testData, which exists in the database to have something to compare the resultset retrieved from Axios
+        const testData = {
+            _id: "5bed81a049be63e27ce07509",
+            title: "testtest",
         };
 
-        //Setting values to variables in MovieStore
-        movieStore.setGenre("All genres");
-        movieStore.setMinRating(1);
-        movieStore.setSearchParam("");
+        //Mocking Axios
+        mock.onGet(movieStore.endpoint)
+            .reply(200, testData);
 
+        //Triggering fetchMovieData in MovieStore.js
+        try{
+            await movieStore.fetchMovieData();
+        } catch (e) {
+            throw e;
+        }
+
+        //Expecting the @observable this.movies' title to equal the title in the testdata.
+        movieStore.movies.map(movie => {
+            expect(movie.title).toEqual(testData.title);
+        })
+    });
+
+    test("function putMovieRating", async () => {
+        //--------------------------------------------------------------------------------------------//
+        //Setting values to variables in MovieStore to ensure the endpoint is correct for testing
+        try{
+            await movieStore.setGenre("All genres");
+            await movieStore.setMinRating(1);
+            await movieStore.setSearchParam("testtest");
+            movieStore.fetchedMovies = 20;
+            await movieStore.setSortValue("Title");
+            movieStore.endpoint = 'http://it2810-32.idi.ntnu.no:8080/movies/'
+                + movieStore.searchParam
+                + "?startindex=" + movieStore.fetchedMovies
+                + '&threshold=' + movieStore.minRating
+                + '&sort=' + movieStore.sortValue;
+        } catch (e) {
+            throw e;
+        }
+        //--------------------------------------------------------------------------------------------//
         //Mocking an Axiosadapter
-        let mock = new MockAdapter(axios);
+        const mock = new MockAdapter(axios);
 
-        //Creating a variable (data), where the response is set to true
-        const data = { response : true };
+        //Creating testData, which exists in the database to have something to compare the resultset retrieved from Axios
+        const testData = {
+            _id: "5bed81a049be63e27ce07509",
+            title: "testtest",
+            ratings: 5,
+        };
 
-        //Trying to get data from our api and check whether the response is the same or not.
-        mock.onGet(testAPI).reply(200, data);
-        movieStore.fetchMovieData()
-            .then(res => {
-                expect(res).toEqual(data);
-            });
+        //Mocking Axios (put)
+        mock.onPut(movieStore.putEndpoint)
+            .reply(200, testData);
+
+        //Triggering putMovieRating in MovieStore.js with the given parameters to put the rating into the testmovie
+        try{
+            await movieStore.putMovieRating("5bed81a049be63e27ce07509", 5);
+        } catch (e) {
+            throw e;
+        }
+
+        //Mocking Axios (get)
+        mock.onGet(movieStore.endpoint)
+            .reply(200, testData);
+
+        //Triggering fetchMovieData in MovieStore.js to check if the rating actually was put into the database
+        try{
+            await movieStore.fetchMovieData();
+        } catch (e) {
+            throw e;
+        }
+
+        //Expecting the @observable this.movies' rating to equal the title in the testdata.
+        movieStore.movies.map(movie => {
+            if(movie.ratings !== undefined){
+                expect(movie.ratings).toEqual(testData.ratings);
+            }
+        })
     });
 
-    test("function putMovieRating", () => {
-        //Creating endpoint to our server and mocking an Axiosadapter
-        const putEndpoint = 'http://it2810-32.idi.ntnu.no:8080/movies/'+"testID"+'/'+5;
-        let mock = new MockAdapter(axios);
-
-        //Creating a variable (data), where the response is set to true
-        const data = { response : 200 };
-
-        //Trying to get data from our api and check whether the response is the same or not.
-        mock.onPut(putEndpoint).reply(200, data);
-        movieStore.putMovieRating("testID", 5)
-            .then(res => {
-                expect(res.status).toEqual(data);
-            })
-    });
+    //---------------------------------------//
 });

@@ -7,6 +7,7 @@
     "axios": "^0.18.0",
     "custom-react-scripts": "0.2.2",
     "cypress": "^3.1.1",
+    "jest-cli": "^23.6.0",
     "material-ui": "latest",
     "material-ui-search-bar": "latest",
     "mobx": "^5.5.2",
@@ -24,8 +25,12 @@
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
   },
+  "setupTestFrameworkScriptFile": "<rootDir>/src/setupTests.js",
   "devDependencies": {
     "axios-mock-adapter": "^1.15.0",
+    "enzyme": "^3.7.0",
+    "enzyme-adapter-react-16": "^1.0.2",
+    "@types/enzyme": "^3.1.0",
     "jest": "^23.6.0"
   }
 }

@@ -23,7 +23,7 @@ class MovieStore extends Component {
     //Function to retrieve data from our api.
     //It fetches data together a given searchparam from the user.
     //Axios will try to retrieve data, and then store the data in the "movies"-list
-    @action async fetchMovieData() {
+    @action fetchMovieData = async () => {
         if (!this.searchParam){this.searchParam = "";}
         if (this.tempSearchString !== this.searchParam){
             this.fetchedMovies = 0;
@@ -37,56 +37,60 @@ class MovieStore extends Component {
         else{
             this.endpoint = 'http://it2810-32.idi.ntnu.no:8080/movies/' + this.searchParam + "?startindex=" + this.fetchedMovies + '&genre='+this.genre + '&threshold='+this.minRating + '&sort=' + this.sortValue;
         }
-
-        await axios.get(this.endpoint)
-            .then(res => {
-                if(res.data.error){
-                    throw res.data.error;
-                }
-                this.movies = this.movies.slice().concat(res.data);
-            });
-
-    }
+        try{
+            await axios.get(this.endpoint)
+                .then(res => {
+                    this.movies = this.movies.slice().concat(res.data);
+                });
+        } catch (error) {
+            throw error;
+        }
+    };
 
     //Function to post data to the database (ratings)
-    @action async putMovieRating(movieID, rating){
+    @action putMovieRating = async (movieID, rating) => {
         this.putEndpoint = 'http://it2810-32.idi.ntnu.no:8080/movies/'+movieID+'/'+rating;
-        axios.put(this.putEndpoint);
-    }
+        try{
+            axios.put(this.putEndpoint);
+        } catch (error) {
+            throw error;
+        }
+
+    };
 
     //Function to set the searchParameter when the user search for a movie
     //Fetchedmovies, movies are cleared so the user the the first results from the database
-    @action setSearchParam(val){
+    @action setSearchParam = async (val) => {
         this.searchParam = val;
         this.fetchedMovies = 0;
         this.movies = [];
-        this.fetchMovieData();
-    }
+        await this.fetchMovieData();
+    };
 
-    @action setExpandMovie(val){
+    @action setExpandMovie = (val) => {
         this.expandMovie = val;
-    }
+    };
 
     //Function to set the genre when the user filters on a genre
     //Fetchedmovies, movies are cleared so the user the the first results from the database
-    @action setGenre(val){
+    @action setGenre = async (val) => {
         this.genre = val;
         this.fetchedMovies = 0;
         this.movies = [];
-        this.fetchMovieData();
-    }
+        await this.fetchMovieData();
+    };
 
     //Function to set the searchParameter when the sets the minrating for a movie
     //Fetchedmovies, movies are cleared so the user the the first results from the database
-    @action setMinRating(val){
+    @action setMinRating = async (val) => {
         this.minRating = val;
         this.fetchedMovies = 0;
         this.movies = [];
-        this.fetchMovieData();
-    }
+        await this.fetchMovieData();
+    };
 
     //Function to clear all and fetch the first 20 movies from the database
-    @action clearAll(){
+    @action clearAll = async () => {
         this.minRating = 1;
         this.fetchedMovies = 0;
         this.movies = [];
@@ -96,23 +100,21 @@ class MovieStore extends Component {
         if(document.getElementById("infoText")){
             document.getElementById("infoText").innerHTML = "Showing all movies";
         }
-        this.fetchMovieData();
-    }
+        await this.fetchMovieData();
+    };
 
     //Fetchedmovies, movies are cleared so the user the the first results from the database
-    @action increaseFetchedMovies(){
+    @action increaseFetchedMovies = async () =>{
         this.fetchedMovies += 20;
-        this.fetchMovieData();
-    }
+        await this.fetchMovieData();
+    };
 
-    @action setSortValue(val){
-        console.log("Old sortValue: " + this.sortValue);
+    @action setSortValue = async (val) => {
         this.sortValue = val;
         this.fetchedMovies = 0;
         this.movies = [];
-        this.fetchMovieData();
-        console.log("Fetched new data. New sortValue: " + this.sortValue);
-    }
+        await this.fetchMovieData();
+    };
 }
 
 export default new MovieStore();

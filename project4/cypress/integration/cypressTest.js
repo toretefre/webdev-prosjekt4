@@ -1,3 +1,4 @@
+//-----CYPRESSTESTING-----//
 describe('CypressTest - Prosjekt 4', function() {
     it('changes genre', function() {
         cy.visit('/');
@@ -10,7 +11,10 @@ describe('CypressTest - Prosjekt 4', function() {
         cy.visit('/');
         cy.get("#searchBar")
             .type("Star Wars{enter}")
-            .get(".titleTextSmallShow")
+            .get(".titleTextSmallShow").then((title) => {
+                expect(title).to.contain("Star Wars");
+
+        })
             .contains("Star Wars");
     });
 
@@ -43,5 +47,15 @@ describe('CypressTest - Prosjekt 4', function() {
             .should("have.value", "All genres")
             .get("#searchBar")
             .should("have.value", "");
-    })
+    });
+
+    it("sorts by imdbrating", function () {
+        cy.visit("/");
+        cy.get("#sortPicker")
+            .select("imdb")
+            .get(".titleTextSmallShow").eq(0).then((firstMovie) => {
+                const title = firstMovie.text();
+                expect(title).to.contain("Bollywood im Alpenrausch");
+        });
+    });
 });

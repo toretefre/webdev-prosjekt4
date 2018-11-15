@@ -11,10 +11,14 @@ import './App.css';
 @observer
 class App extends Component {
 
+    constructor(props){
+        super(props);
+        this.setSortValue = this.setSortValue.bind(this);
+    }
+
   //ComponentDidMount loads 20 movies when the user enters the code
   //Adding eventlistener for scrolling (which is being used in handlescroll)
   componentDidMount() {
-      console.log(document.getElementById("searchBar").value);
       this.props.movieStore.fetchMovieData();
       document.addEventListener('scroll', this.handleScroll);
   }
@@ -80,17 +84,17 @@ class App extends Component {
 
   //Function that alters the sort value
     setSortValue = () => {
-        console.log(document.getElementById("sortPicker").value);
         this.props.movieStore.setSortValue(document.getElementById("sortPicker").value);
     };
 
   //-----RENDER----------
-  render() {
+
+    render() {
     return (
         <React.Fragment>
              <div id="headerContainer">
                 <MuiThemeProvider className="App">
-                  <SearchBar id="searchBar"
+                  <SearchBar id={"searchBar"}
                     value={this.props.movieStore.searchBarValue}
                     onChange={(text) => this.props.movieStore.searchBarValue = text}
                     onRequestSearch={() => this.fetchMovies(this.props.movieStore.searchBarValue)}
@@ -118,6 +122,7 @@ class App extends Component {
                                   <div>Rating:</div>
                                   <div id={"mySlider"}>
                                       <ReactSimpleRange
+                                          id={"slider"}
                                           label
                                           onChangeComplete={(element) => this.handleRatingChange(element.value)}
                                           min={1}
