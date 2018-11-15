@@ -1,13 +1,18 @@
 #movieList{
-   display: flex;
-   margin-top: 2%;
-   width: 85%;
-   border-radius: 5px;
+    display: flex;
+    margin-top: 2%;
+    width: 85%;
+    border-radius: 5px;
  }
 
+.innerMovieContainerBig{
+    width: 70%;
+    margin-left: 15%;
+}
 
 #movieListInner{
-  display: flex;
-  justify-content: flex-start;
-  flex-wrap: wrap;
+    display: flex;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    width: 100%
 }

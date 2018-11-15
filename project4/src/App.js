@@ -66,6 +66,7 @@ class App extends Component {
 
   //Function to clear searchparam and all filters
   clearAll = () => {
+      document.getElementById("sortPicker").value = "title";
       document.getElementById("genrePicker").value = "All genres";
       this.props.movieStore.searchBarValue = "";
       this.props.movieStore.clearAll();
@@ -106,7 +107,7 @@ class App extends Component {
                       <div id="filterAndButtonContainer">
                           <div className="filtersContainer">
                               <div id="genreContainer">
-                                  <select className="genrePicker" id={"genrePicker"} onChange={() => this.setGenre()}>
+                                  <select className="dropdown" id={"genrePicker"} onChange={() => this.setGenre()}>
                                       {this.props.movieStore.genres.map((genre) =>
                                           <option key={genre} value={genre} label={genre}/>
                                       )}
@@ -139,7 +140,7 @@ class App extends Component {
                               <div id={"sortAndViewSmallContainer"}>
                                   <div id={"sortContainer"}>
                                       <div id={"sortText"}>Sort by</div>
-                                      <select className="genrePicker" id={"sortPicker"} onChange={() => this.setSortValue(this.value)}>
+                                      <select className="dropdown" id={"sortPicker"} onChange={() => this.setSortValue(this.value)}>
                                           <option key={"sortTitle"} value={"title"} label={"Title"}/>
                                           <option key={"sortRating"} value={"imdb"} label={"IMDB Rating"}/>
                                       </select>
