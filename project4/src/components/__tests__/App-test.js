@@ -6,13 +6,17 @@ import MovieStore from "../../stores/MovieStore";
 import ShallowRenderer from "react-test-renderer/shallow";
 import { mount, shallow } from "enzyme";
 import {observable} from "mobx";
+import MovieList from "../MovieList";
 
 describe("App", () => {
     const movieStore = MovieStore;
     const testStore = {
-        genres : ["All genres", "Western","Comedy", "Action", "Crime", "Drama", "Musical", "Thriller", "Animation", "Adventure", "Family",
-                "Fantasy", "Documentary", "Sci-Fi", "Romance", "Biography", "Mystery", "Horror", "Music", "History",
-                "War", "Short", "Film-Noir", "Sport", "Talk-Show", "News", "Reality-TV", "Game-Show"],
+        fetchMovieData : jest.fn(),
+        setSortValue : jest.fn(),
+        clearAll : jest.fn(),
+        setGenre: jest.fn(),
+        setMinRating : jest.fn(),
+        genres : ["test"],
         movies: [
             {
                 _id: "testID",
@@ -46,42 +50,14 @@ describe("App", () => {
                 type: "test",
                 ratings: [1,2],
             },
-            {
-                _id: "testID2",
-                title: "test2",
-                year: 1969,
-                rated: "S",
-                runtime: 69,
-                countries: [],
-                genres: [
-                    "test2"
-                ],
-                director: "test2",
-                writers: [
-                    "test2"
-                ],
-                actors: [
-                    "test2",
-                ],
-                plot: null,
-                poster: null,
-                imdb: {
-                    id: "tt0132969",
-                    rating: 6.9,
-                    votes: 69
-                },
-                awards: {
-                    wins: 0,
-                    nominations: 0,
-                    text: ""
-                },
-                type: "test",
-
-            },
-
         ],
-        sortValue : "title",
     };
+
+    beforeAll(() => {
+        const div = document.createElement('div');
+        window.domNode = div;
+        document.body.appendChild(div);
+    });
 
 
     test('Switching from gridview to listview', () => {
@@ -105,6 +81,33 @@ describe("App", () => {
         movieStore.expandMovie = true;
         appComponent.find("#displayGrid").simulate("click");
         expect(movieStore.expandMovie).toBeFalsy();
+        appComponent.unmount();
+    });
+
+    test('Test go to top btn', () => {
+        const appComponent = mount(
+            <Provider movieStore = {movieStore}>
+                <App/>
+            </Provider>);
+
+        appComponent.find("#goToTopBtn").simulate("click");
+        expect(movieStore.expandMovie).toBeFalsy();
+        appComponent.unmount();
+    });
+
+    test('Test clearAll', () => {
+        const appComponent = mount(
+            <Provider movieStore = {testStore}>
+                <App movieStore = {testStore}/>
+            </Provider>);
+
+        appComponent.find("#sortPicker").simulate("change", {target:{value:"title"}});
+        appComponent.find("#genrePicker").simulate("change", {target:{value:"All genres"}});
+        appComponent.find("#clearSearchContainer").simulate("click");
+        expect(movieStore.searchBarValue).toBe("");
+        expect(movieStore.minRating).toBe(1);
+        expect(movieStore.genre).toBe("All genres");
+        expect(movieStore.sortValue).toBe("title");
         appComponent.unmount();
     });
 });

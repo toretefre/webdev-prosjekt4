@@ -76,9 +76,10 @@ describe("MovieList", () => {
 
     //Simple snapshot testing
      test('MovieList renders correctly?', () => {
+         let mockChangeView = jest.fn();
          const component =
-             (<Provider movieStore = {testStore}>
-                 <MovieList movieStore = {testStore}/>
+             (<Provider changeView = {mockChangeView} movieStore = {testStore}>
+                 <MovieList changeView = {mockChangeView} movieStore = {testStore}/>
              </Provider>);
          const instance = renderer.create(component).toJSON();
          expect(instance).toMatchSnapshot();

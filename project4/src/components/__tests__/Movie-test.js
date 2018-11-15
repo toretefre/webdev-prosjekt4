@@ -44,7 +44,7 @@ describe("Movie", () => {
         ]};
 
     //Simple snapshot testing
-    test('Movie renders correctly?', () => {
+    /*test('Movie renders correctly?', () => {
         const component =
             (<Provider movieStore = {testStore}>
                 <Movie
@@ -66,7 +66,7 @@ describe("Movie", () => {
             </Provider>);
         const instance = renderer.create(component).toJSON();
         expect(instance).toMatchSnapshot();
-    });
+    });*/
 
     //Test handleExpandMovie()
     test('Test handleExpandMovie()', () => {

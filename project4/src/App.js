@@ -11,11 +11,6 @@ import './App.css';
 @observer
 class App extends Component {
 
-    constructor(props){
-        super(props);
-        this.setSortValue = this.setSortValue.bind(this);
-    }
-
   //ComponentDidMount loads 20 movies when the user enters the code
   //Adding eventlistener for scrolling (which is being used in handlescroll)
   componentDidMount() {
@@ -36,8 +31,8 @@ class App extends Component {
   };
 
   //Gets the chosen genre from the the dropdown and passes this to the moviestore, which retrieves a new set of movies based on the genre
-  setGenre = () => {
-      this.props.movieStore.setGenre(document.getElementById("genrePicker").value);
+  setGenre = (e) => {
+      this.props.movieStore.setGenre(e.target.value);
   };
 
   //Function to handle change of selected minimum rating
@@ -70,8 +65,6 @@ class App extends Component {
 
   //Function to clear searchparam and all filters
   clearAll = () => {
-      document.getElementById("sortPicker").value = "title";
-      document.getElementById("genrePicker").value = "All genres";
       this.props.movieStore.searchBarValue = "";
       this.props.movieStore.clearAll();
   };
@@ -83,8 +76,8 @@ class App extends Component {
   };
 
   //Function that alters the sort value
-    setSortValue = () => {
-        this.props.movieStore.setSortValue(document.getElementById("sortPicker").value);
+    setSortValue = (e) => {
+        this.props.movieStore.setSortValue(e.target.value);
     };
 
   //-----RENDER----------
@@ -111,7 +104,7 @@ class App extends Component {
                       <div id="filterAndButtonContainer">
                           <div className="filtersContainer">
                               <div id="genreContainer">
-                                  <select className="dropdown" id={"genrePicker"} onChange={() => this.setGenre()}>
+                                  <select className="dropdown" id={"genrePicker"} value={this.props.movieStore.genre} onChange={(e) => this.setGenre(e)}>
                                       {this.props.movieStore.genres.map((genre) =>
                                           <option key={genre} value={genre} label={genre}/>
                                       )}
@@ -145,7 +138,7 @@ class App extends Component {
                               <div id={"sortAndViewSmallContainer"}>
                                   <div id={"sortContainer"}>
                                       <div id={"sortText"}>Sort by</div>
-                                      <select className="dropdown" id={"sortPicker"} onChange={() => this.setSortValue(this.value)}>
+                                      <select className="dropdown" id={"sortPicker"} value={this.props.movieStore.sortValue} onChange={(e) => this.setSortValue(e)}>
                                           <option key={"sortTitle"} value={"title"} label={"Title"}/>
                                           <option key={"sortRating"} value={"imdb"} label={"IMDB Rating"}/>
                                       </select>
