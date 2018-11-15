@@ -40,6 +40,7 @@ describe("Movie", () => {
 
             },
 
+
         ]};
 
     //Simple snapshot testing
