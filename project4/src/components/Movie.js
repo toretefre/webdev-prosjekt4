@@ -93,6 +93,7 @@ class Movie extends Component {
                           <div className="giveUserRating">
                               <p className="userRatingText">Give user-rating: </p>
                               <StarRatings
+                                  id={"star"+this.props.id}
                                   starRatedColor="#eac600"
                                   rating={this.tempStars}
                                   changeRating={this.onStarClick}
