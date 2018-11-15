@@ -106,15 +106,10 @@ class Movie extends Component {
                       </div>
                     </div>
                     <div className={this.props.movieStore.expandMovie ? "smallImgStarHide" : "smallImgStarShow"}>
-                        <StarRatings
-                            isSelectable={false}
-                            starRatedColor="#eac600"
-                            rating={this.props.userRating}
-                            numberOfStars={5}
-                            name='rating2'
-                            starDimension="15px"
-                            starSpacing="2px"
-                    />
+                        <a href={"https://www.imdb.com/title/" + this.props.imdbId} target="_blank" rel="noopener noreferrer">
+                            <img className="ratingImage" alt="" src={require("../assets/images/imdb.png")}/>
+                        </a>
+                        <div>{this.props.imdbRating} / 10</div>
                     </div>
                     <a className="movieLink" href={"#"+this.props.id}>
                         <div className={this.props.movieStore.expandMovie ? "titleTextSmallHide" : "titleTextSmallShow"}>{this.props.title}</div>
