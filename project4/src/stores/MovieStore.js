@@ -55,7 +55,6 @@ class MovieStore extends Component {
         } catch (error) {
             throw error;
         }
-
     };
 
     //Function to set the searchParameter when the user search for a movie
@@ -69,6 +68,10 @@ class MovieStore extends Component {
 
     @action setExpandMovie = (val) => {
         this.expandMovie = val;
+    };
+
+    @action setSearchBarValue = (val) => {
+        this.searchBarValue = val;
     };
 
     //Function to set the genre when the user filters on a genre

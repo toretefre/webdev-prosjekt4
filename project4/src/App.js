@@ -31,24 +31,24 @@ class App extends Component {
   };
 
   //Gets the chosen genre from the the dropdown and passes this to the moviestore, which retrieves a new set of movies based on the genre
-  setGenre = (e) => {
-      this.props.movieStore.setGenre(e.target.value);
+  setGenre = async (e) => {
+      await this.props.movieStore.setGenre(e.target.value);
   };
 
   //Function to handle change of selected minimum rating
-  handleRatingChange = (value) => {
-      this.props.movieStore.setMinRating(value);
+  handleRatingChange = async (value) => {
+      await this.props.movieStore.setMinRating(value);
   };
 
   //Function to fetch movies from API
-  fetchMovies = (searchText) => {
+  fetchMovies = async (searchText) => {
       document.getElementById("infoText").innerHTML = "Showing results for '" + searchText + "'";
-      this.props.movieStore.setSearchParam(searchText);
+      await this.props.movieStore.setSearchParam(searchText);
   };
 
   //Detects whether the user is scrolled to the bottom or not
     // It also checks whether to hide or show the button that navigates to the top
-  handleScroll = () =>{
+  handleScroll = async () =>{
       //If user scrolls down a little, show the button that navigates to the top
       if (document.body.scrollTop > 100 || document.documentElement.scrollTop > 100) {
           document.getElementById("goToTopBtn").style.opacity = "1";
@@ -59,14 +59,14 @@ class App extends Component {
       }
       //If the user is scrolled to the bottom, it will increase the number of movie fetched.
       if((document.documentElement.scrollTop + document.documentElement.clientHeight + 1) >= document.documentElement.scrollHeight){
-          this.props.movieStore.increaseFetchedMovies();
+          await this.props.movieStore.increaseFetchedMovies();
       }
   };
 
   //Function to clear searchparam and all filters
-  clearAll = () => {
+  clearAll = async () => {
       this.props.movieStore.searchBarValue = "";
-      this.props.movieStore.clearAll();
+      await this.props.movieStore.clearAll();
   };
 
   //Function that goes to the top of the page
@@ -75,9 +75,13 @@ class App extends Component {
       document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
   };
 
+  setSearchBarValue = (val) => {
+      this.props.movieStore.setSearchBarValue(val);
+  };
+
   //Function that alters the sort value
-    setSortValue = (e) => {
-        this.props.movieStore.setSortValue(e.target.value);
+    setSortValue = async (e) => {
+        await this.props.movieStore.setSortValue(e.target.value);
     };
 
   //-----RENDER----------
@@ -89,7 +93,7 @@ class App extends Component {
                 <MuiThemeProvider className="App">
                   <SearchBar id={"searchBar"}
                     value={this.props.movieStore.searchBarValue}
-                    onChange={(text) => this.props.movieStore.searchBarValue = text}
+                    onChange={(text) => this.setSearchBarValue(text)}
                     onRequestSearch={() => this.fetchMovies(this.props.movieStore.searchBarValue)}
                     hintText='Search for movies'
                     style={{

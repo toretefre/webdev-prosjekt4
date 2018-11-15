@@ -8,10 +8,12 @@ import ReplacementImage from "../assets/images/noimage.png";
 @observer
 class MovieList extends Component {
 
+
   //-----RENDER----------
   render() {
     return (
       <div id="movieList">
+
         <div id="movieListInner">
               {this.props.movieStore.movies.map(movie => {
                   return(

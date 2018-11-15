@@ -41,10 +41,10 @@ class Movie extends Component {
 
     //Function to handle a rating for a user
     //Saves the given stars for this session to this.tempStars
-    onStarClick = (nextValue) =>{
+    onStarClick = async (nextValue) =>{
         this.tempStars = nextValue;
         this.addNotification();
-        this.props.movieStore.putMovieRating(this.props.id, nextValue);
+        await this.props.movieStore.putMovieRating(this.props.id, nextValue);
     };
 
   //-----RENDER-----//
