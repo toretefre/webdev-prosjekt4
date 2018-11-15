@@ -9,6 +9,7 @@ body, html{
     overflow-x: hidden;
 }
 
+/* Header container start */
 .searchDiv{
     display: flex;
     flex-direction: row;
@@ -24,7 +25,9 @@ body, html{
     align-items: center;
     background-color: #26373a;
 }
+/* Header container start */
 
+/* Option bar start */
 #optionBar{
     display: flex;
     flex-direction: row;
@@ -37,90 +40,14 @@ body, html{
     color: white;
 }
 
-@media screen and (max-width: 900px) {
-    #filterAndButtonContainer{
-        flex-direction: column !important;
-        align-items: center;
-    }
-}
-
-@media screen and (max-width: 670px) {
-    #optionBar{
-        padding: 5px;
-    }
-    #filterAndButtonContainer{
-        width: 100% !important;
-        min-width: 1vw;
-        align-items: center;
-        justify-content: center;
-    }
-    .movieContainerSmall{
-        width: 90%;
-        margin-left: 2%;
-    }
-    #sliderContainer{
-        width: 80% !important;
-    }
-    .filtersContainer{
-        flex-direction: column !important;
-        align-items: center !important;
-        height: 10vh;
-        width: 100% !important;
-    }
-    #viewButtons{
-        display: none !important;
-    }
-    #sortAndViewBigContainer, #sortAndViewSmallContainer{
-        width: 100% !important;
-        justify-content: center !important;
-    }
-    #movieList{
-        margin-left: 7.5%;
-        align-items: center;
-        justify-content: center;
-    }
-    .innerMovieContainerBig{
-        flex-direction: column;
-        width: 80%;
-        margin-left: 0;
-    }
-    .movieInfoShow{
-        min-height: 50px;
-    }
-    .expandImage{
-        display:none;
-    }
-    .movieRatings{
-        flex-direction: column;
-        padding-top: 10px;
-    }
-    .imdbRatings{
-        padding-bottom: 5px;
-    }
-    .userRatings{
-        border-bottom: 1px solid grey;
-        border-top: 1px solid grey;
-        border-left: 0;
-        border-right: 0;
-    }
-    #goToTopBtn{
-        right: 15px !important;
-        bottom: 15px !important;
-    }
-}
-
 #filterAndButtonContainer{
     width: 80%;
     display: flex;
     flex-direction: row;
 }
+/* Option bar end */
 
-#mySlider{
-    margin: 0 10px;
-    width: 30%;
-    color:black;
-}
-
+/* Filters container end */
 .filtersContainer {
     display: flex;
     flex-direction: row;
@@ -134,6 +61,20 @@ body, html{
     box-shadow: inset 0 0 3px #1c1c1c;
 }
 
+#genreContainer{
+    display: flex;
+    align-items: center;
+    margin-left: 10px;
+}
+/* Filters container end */
+
+/*Slider container start */
+#mySlider{
+    margin: 0 10px;
+    width: 30%;
+    color:black;
+}
+
 #sliderContainer{
     width: 60%;
     display:flex;
@@ -143,18 +84,9 @@ body, html{
     min-width: 150px;
     margin-right: 10px;
 }
+/*Slider container end */
 
-#genreContainer{
-    display: flex;
-    align-items: center;
-    margin-left: 10px;
-}
-
-#sortPicker{
-    min-width: 175px;
-}
-
-/*DROPDOWN MENU */
+/*Dropdown lists start */
 /* From: https://codepen.io/vkjgr/pen/VYMeXp */
 select{
     color: black;
@@ -179,7 +111,7 @@ select{
     -moz-appearance: none;
 }
 
-select.genrePicker:focus {
+select.dropdown:focus {
     background-image:
             linear-gradient(45deg, green 50%, transparent 50%),
             linear-gradient(135deg, transparent 50%, green 50%),
@@ -197,7 +129,7 @@ select.genrePicker:focus {
     outline: 0;
 }
 
-select.genrePicker{
+select.dropdown{
     background-image:
             linear-gradient(45deg, transparent 50%, gray 50%),
             linear-gradient(135deg, gray 50%, transparent 50%),
@@ -212,8 +144,9 @@ select.genrePicker{
             1px 1.5em;
     background-repeat: no-repeat;
 }
-/*DROPDOWN MENU END */
+/*Dropdown lists end */
 
+/* Info text container start */
 #infoTextContainer{
     display: flex;
     justify-content: center;
@@ -253,6 +186,12 @@ select.genrePicker{
     max-height: 20px;
     padding: 4px;
 }
+/* Info text container end */
+
+/* Sort bar start */
+#sortPicker{
+    min-width: 175px;
+}
 
 #sortAndViewBigContainer{
     width: 55%;
@@ -260,6 +199,8 @@ select.genrePicker{
     flex-direction: row;
     justify-content: flex-end;
     padding: 5px;
+    height: 100%;
+    align-self: center;
 }
 
 #sortAndViewSmallContainer{
@@ -272,10 +213,6 @@ select.genrePicker{
     box-shadow: inset 0 0 3px #1c1c1c;
 }
 
-#viewButtons{
-    display: flex;
-}
-
 #sortContainer{
     display: flex;
     align-items: center;
@@ -284,6 +221,12 @@ select.genrePicker{
 
 #sortText{
     margin-right: 5px;
+}
+/* Sort bar end */
+
+/* Display buttons start */
+#viewButtons{
+    display: flex;
 }
 
 #displayList{
@@ -297,7 +240,6 @@ select.genrePicker{
     border: 1px solid #000;
     color:white;
     box-shadow: inset 0 0 3px #1c1c1c;
-
 }
 
 #displayList:focus, #displayGrid:focus{
@@ -316,12 +258,12 @@ select.genrePicker{
     font-size: 15px;
     font-weight: bold;
     box-shadow: inset 0 0 3px #1c1c1c;
-
 }
 
 .displayImg{
     width: 20px;
 }
+/* Display buttons end */
 
 #moviesContainer{
     display: flex;
@@ -336,6 +278,7 @@ select.genrePicker{
     margin: 0 10px;
 }
 
+/* Go to top button start*/
 #goToTopBtn{
     display: flex;
     justify-content: center;
@@ -356,3 +299,76 @@ select.genrePicker{
     width: 45px;
     height: 45px;
 }
+/* Go to top button end*/
+
+@media screen and (max-width: 1500px) {
+    .innerMovieContainerBig{
+        width: 90%;
+        margin-left: 5%;
+    }
+}
+
+/* Mobile styling start*/
+@media screen and (max-width: 950px) {
+    #optionBar, #sortAndViewBigContainer, #sortAndViewSmallContainer {
+        padding: 0;
+    }
+    #filterAndButtonContainer{
+        flex-direction: column !important;
+        width: 100% !important;
+        min-width: 1vw;
+        align-items: center;
+        justify-content: center;
+    }
+    .movieContainerSmall{
+        width: 90%;
+        margin-left: 2%;
+    }
+    #sliderContainer{
+        width: 80% !important;
+    }
+    .filtersContainer{
+        flex-direction: column !important;
+        align-items: center !important;
+        height: 150px;
+        width: 100% !important;
+    }
+    #viewButtons, .expandImage{
+        display: none !important;
+    }
+    #sortAndViewBigContainer, #sortAndViewSmallContainer{
+        width: 100% !important;
+        justify-content: center !important;
+    }
+    #movieList{
+        margin-left: 7.5%;
+        align-items: center;
+        justify-content: center;
+    }
+    .innerMovieContainerBig{
+        flex-direction: column;
+        width: 80%;
+        margin-left: 0;
+    }
+    .movieInfoShow{
+        min-height: 50px;
+    }
+    .movieRatings{
+        flex-direction: column;
+        padding-top: 10px;
+    }
+    .imdbRatings{
+        padding-bottom: 5px;
+    }
+    .userRatings{
+        border-bottom: 1px solid grey;
+        border-top: 1px solid grey;
+        border-left: 0;
+        border-right: 0;
+    }
+    #goToTopBtn{
+        right: 15px !important;
+        bottom: 15px !important;
+    }
+}
+/* Mobile styling end*/
