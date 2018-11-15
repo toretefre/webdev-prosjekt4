@@ -1,55 +1,121 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
 import Movie from "../Movie";
-import MovieStore from "../../stores/MovieStore";
 import {Provider} from "mobx-react";
+import { mount } from 'enzyme';
 
-describe("MovieStore", () => {
-    //Creating an instance of MovieStore
-    const movieStore = MovieStore;
+describe("Movie", () => {
+    const testStore = {
+        movies: [
+            {
+                _id: "testID2",
+                title: "test2",
+                year: 1969,
+                rated: "S",
+                runtime: 69,
+                countries: [],
+                genres: [
+                    "test2"
+                ],
+                director: "test2",
+                writers: [
+                    "test2"
+                ],
+                actors: [
+                    "test2",
+                ],
+                plot: null,
+                poster: null,
+                imdb: {
+                    id: "tt0132969",
+                    rating: 6.9,
+                    votes: 69
+                },
+                awards: {
+                    wins: 0,
+                    nominations: 0,
+                    text: ""
+                },
+                type: "test",
 
-    movieStore.movies = [{
-        _id: "testID",
-        title: "test",
-        year: 1962,
-        rated: "S",
-        runtime: 99,
-        countries: [],
-        genres: [
-            "test"
-        ],
-        director: "test",
-        writers: [
-            "test"
-        ],
-        actors: [
-            "test",
-        ],
-        plot: null,
-        poster: null,
-        imdb: {
-            id: "tt0132936",
-            rating: 5.1,
-            votes: 25
-        },
-        awards: {
-            wins: 0,
-            nominations: 0,
-            text: ""
-        },
-        type: "test"
-    }];
+            },
 
-    test("Movie Snapshot", () => {
-        const stepTree = renderer.create(<Movie movieStore = {movieStore}/>);
-        expect(stepTree).toMatchSnapshot();
+        ]};
+
+    //Simple snapshot testing
+    test('Movie renders correctly?', () => {
+        const component =
+            (<Provider movieStore = {testStore}>
+                <Movie
+                    movieStore = {testStore}
+                    key={testStore._id}
+                    id={testStore._id}
+                    title={testStore.title}
+                    plot={testStore.plot}
+                    poster={testStore.poster}
+                    genres={testStore.genres}
+
+                    userRating={testStore.ratings !== undefined
+                        ? testStore.ratings.reduce(function(a,b){return a+b;}) / testStore.ratings.length
+                        : 0}
+                    userRatingLength={testStore.ratings !== undefined
+                        ? testStore.ratings.length
+                        : 0}
+                />
+            </Provider>);
+        const instance = renderer.create(component).toJSON();
+        expect(instance).toMatchSnapshot();
     });
 
-    test("function handleExpandMovie", () => {
-        const movieComponent =
-            <Provider movieStore = {MovieStore}>
-                <Movie/>
-            </Provider>;
-        const movieInstance = renderer.create(movieComponent).getInstance();
+    //Test handleExpandMovie()
+    test('Test handleExpandMovie()', () => {
+        const testFunction = jest.fn();
+        const component = mount(
+            <Provider movieStore = {testStore}>
+                <Movie
+                    changeView={testFunction}
+                    key={testStore._id}
+                    id={"filmID"}
+                    title={testStore.title}
+                    plot={testStore.plot}
+                    poster={testStore.poster}
+                    genres={testStore.genres}
+                    userRating={testStore.ratings !== undefined
+                        ? testStore.ratings.reduce(function(a,b){return a+b;}) / testStore.ratings.length
+                        : 0}
+                    userRatingLength={testStore.ratings !== undefined
+                        ? testStore.ratings.length
+                        : 0}
+                />
+            </Provider>);
+        component.find("div#filmID").simulate("click");
+        expect(component.find(".movieContainerSmall").length).toEqual(1);
+        component.unmount();
+    });
+
+    //Test onStarClick()
+    test('Test onStarClick()', () => {
+        const testFunction = jest.fn();
+        const component = mount(
+            <Provider movieStore = {testStore}>
+                <Movie
+                    changeView={testFunction}
+                    key={testStore._id}
+                    id={"filmID"}
+                    title={testStore.title}
+                    plot={testStore.plot}
+                    poster={testStore.poster}
+                    genres={testStore.genres}
+                    userRating={testStore.ratings !== undefined
+                        ? testStore.ratings.reduce(function(a,b){return a+b;}) / testStore.ratings.length
+                        : 0}
+                    userRatingLength={testStore.ratings !== undefined
+                        ? testStore.ratings.length
+                        : 0}
+                />
+            </Provider>);
+        component.find("#starfilmID").simulate("click",{target:{value:1}});
+        expect(component.find("#mainMovieContainer").length).toEqual(1);
+        component.unmount();
     });
 });
