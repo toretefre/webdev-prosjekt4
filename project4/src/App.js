@@ -77,6 +77,12 @@ class App extends Component {
       document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
   };
 
+  //Function that alters the sort value
+    setSortValue = () => {
+        console.log(document.getElementById("sortPicker").value);
+        this.props.movieStore.setSortValue(document.getElementById("sortPicker").value);
+    };
+
   //-----RENDER----------
   render() {
     return (
@@ -128,13 +134,25 @@ class App extends Component {
                               </div>
 
                           </div>
-                          <div id={"displayButtons"}>
-                              <button id={this.props.movieStore.expandMovie ? "displayList" : "displayGrid"} onClick={() => this.changeView()}>
-                                  <img className="displayImg" alt="" src={this.props.movieStore.expandMovie ? require("./assets/images/gridwhite.png") : require("./assets/images/gridblack.png")}/>
-                              </button>
-                              <button id={this.props.movieStore.expandMovie ? "displayGrid" : "displayList"} onClick={() => this.changeView()}>
-                                  <img className="displayImg" alt="" src={this.props.movieStore.expandMovie ? require("./assets/images/listblack.png") : require("./assets/images/listwhite.png")}/>
-                              </button>
+
+                          <div id={"sortAndViewBigContainer"}>
+                              <div id={"sortAndViewSmallContainer"}>
+                                  <div id={"sortContainer"}>
+                                      <div id={"sortText"}>Sort by</div>
+                                      <select className="genrePicker" id={"sortPicker"} onChange={() => this.setSortValue(this.value)}>
+                                          <option key={"sortTitle"} value={"title"} label={"Title"}/>
+                                          <option key={"sortRating"} value={"imdb"} label={"IMDB Rating"}/>
+                                      </select>
+                                  </div>
+                                  <div id={"viewButtons"}>
+                                      <button id={this.props.movieStore.expandMovie ? "displayList" : "displayGrid"} onClick={() => this.changeView()}>
+                                          <img className="displayImg" alt="" src={this.props.movieStore.expandMovie ? require("./assets/images/gridwhite.png") : require("./assets/images/gridblack.png")}/>
+                                      </button>
+                                      <button id={this.props.movieStore.expandMovie ? "displayGrid" : "displayList"} onClick={() => this.changeView()}>
+                                          <img className="displayImg" alt="" src={this.props.movieStore.expandMovie ? require("./assets/images/listblack.png") : require("./assets/images/listwhite.png")}/>
+                                      </button>
+                                  </div>
+                              </div>
                           </div>
                       </div>
                   </div>
@@ -155,7 +173,7 @@ class App extends Component {
                     role={"button"}
                     onClick={this.goToTop}
                 >
-                    <img className="toTopImg" alt="Go to top" src={require("./assets/images/up.png")}/>
+                    <img className="toTopImg" alt="Go to top" src={require("./assets/images/arrow-up.png")}/>
                 </aside>
             </div>
         </React.Fragment>

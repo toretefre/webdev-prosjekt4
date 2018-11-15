@@ -37,6 +37,13 @@ body, html{
     color: white;
 }
 
+@media screen and (max-width: 900px) {
+    #filterAndButtonContainer{
+        flex-direction: column !important;
+        align-items: center;
+    }
+}
+
 @media screen and (max-width: 670px) {
     #optionBar{
         padding: 5px;
@@ -48,7 +55,8 @@ body, html{
         justify-content: center;
     }
     .movieContainerSmall{
-        width: 100%;
+        width: 90%;
+        margin-left: 2%;
     }
     #sliderContainer{
         width: 80% !important;
@@ -59,19 +67,46 @@ body, html{
         height: 10vh;
         width: 100% !important;
     }
-    #displayButtons{
-        visibility: hidden;
-        opacity: 0;
+    #viewButtons{
         display: none !important;
-        width: 0%;
+    }
+    #sortAndViewBigContainer, #sortAndViewSmallContainer{
+        width: 100% !important;
+        justify-content: center !important;
+    }
+    #movieList{
+        margin-left: 7.5%;
+        align-items: center;
+        justify-content: center;
     }
     .innerMovieContainerBig{
         flex-direction: column;
+        width: 80%;
+        margin-left: 0;
     }
     .movieInfoShow{
         min-height: 50px;
     }
-
+    .expandImage{
+        display:none;
+    }
+    .movieRatings{
+        flex-direction: column;
+        padding-top: 10px;
+    }
+    .imdbRatings{
+        padding-bottom: 5px;
+    }
+    .userRatings{
+        border-bottom: 1px solid grey;
+        border-top: 1px solid grey;
+        border-left: 0;
+        border-right: 0;
+    }
+    #goToTopBtn{
+        right: 15px !important;
+        bottom: 15px !important;
+    }
 }
 
 #filterAndButtonContainer{
@@ -92,7 +127,7 @@ body, html{
     justify-content: space-between;
     align-items: center;
     width: 40%;
-    min-width: 50vh;
+    min-width: 450px;
     padding: 10px;
     background-color: #26373a;
     border-radius: 5px;
@@ -115,6 +150,9 @@ body, html{
     margin-left: 10px;
 }
 
+#sortPicker{
+    min-width: 175px;
+}
 
 /*DROPDOWN MENU */
 /* From: https://codepen.io/vkjgr/pen/VYMeXp */
@@ -216,7 +254,7 @@ select.genrePicker{
     padding: 4px;
 }
 
-#displayButtons{
+#sortAndViewBigContainer{
     width: 55%;
     display: flex;
     flex-direction: row;
@@ -224,19 +262,42 @@ select.genrePicker{
     padding: 5px;
 }
 
+#sortAndViewSmallContainer{
+    display: flex;
+    justify-content: space-evenly;
+    min-width: 400px;
+    padding: 10px;
+    background-color: #26373a;
+    border-radius: 5px;
+    box-shadow: inset 0 0 3px #1c1c1c;
+}
+
+#viewButtons{
+    display: flex;
+}
+
+#sortContainer{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#sortText{
+    margin-right: 5px;
+}
+
 #displayList{
     display: flex;
     justify-content: center;
     align-items: center;
-  background-color: #26373a;
-  cursor: pointer;
+    background-color: #2f5356;
+    cursor: pointer;
     padding: 10px 20px;
-    border-top-right-radius: 5px;
-    border-bottom-right-radius: 5px;
     font-size: 15px;
     border: 1px solid #000;
     color:white;
     box-shadow: inset 0 0 3px #1c1c1c;
+
 }
 
 #displayList:focus, #displayGrid:focus{
@@ -248,12 +309,10 @@ select.genrePicker{
     display: flex;
     justify-content: center;
     align-items: center;
-  background-color: #f5de50;
+     background-color: #f5de50;
     cursor: pointer;
     border: 1px solid #000;
     padding: 10px 20px;
-    border-top-left-radius: 5px;
-    border-bottom-left-radius: 5px;
     font-size: 15px;
     font-weight: bold;
     box-shadow: inset 0 0 3px #1c1c1c;
@@ -287,12 +346,13 @@ select.genrePicker{
     bottom:50px;
     height:64px;
     width:64px;
-    background-color:yellow;
+    background-color: #f5de50;
     opacity: 0;
     cursor: pointer;
+    box-shadow: inset 0 0 10px #1c1c1c;
 }
 
 .toTopImg{
-    width: 65px;
-    height: 65px;
+    width: 45px;
+    height: 45px;
 }
