@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Movie from './Movie';
-import '../MovieList.css';
+import './styles/MovieList.css';
 import {inject, observer} from "mobx-react";
 import ReplacementImage from "../assets/images/noimage.png";
 
