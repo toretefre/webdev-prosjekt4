@@ -75,7 +75,26 @@ Axios sjekker først om det går an å hente ut, og dersom det ikke går blir de
 
 Axios ble valgt fordi !!!!!!
 
-React-simple-range ble valgt fordi !!!!!!
+### [React Simple Range](https://github.com/tjallen/react-simple-range) 
+
+For å justere IMDB-ratingen det filtreres på, bestemte vi oss for å bruke en slider. Vi fant fort ut at det da var hensiktsmessig å bruke et tredejepartsbibliotek.Etter litt leting og utprøving, falt valget på React Simple Range. Dette fordi det er et simpelt bibliotek, og at det var mye mer lettvint å style slideren med dette biblioteket enn med de andre vi prøvde. I tillegg innehar bibliotek alle funksjonalitetene vi var ute etter. React Simple Range kan implementeres som vist under. Legg merke til at vi ikke gir noen onChange-funksjon, noe som fører til en warning i konsollen som sier at komponenten ikke vil ha noen funksjon uten onChange. Denne kan vi se bort fra, ettersom onChangeComplete gir oss den funksjonaliteten vi trenger.
+    
+```jsx
+<ReactSimpleRange
+  id={"slider"}
+  label
+  onChangeComplete={(element) => this.handleRatingChange(element.value)}
+  min={1}
+  max={10}
+  step={1}
+  defaultValue={this.props.movieStore.minRating}
+  trackColor={"#000000"}
+  thumbColor={"#f5de50"}
+  sliderColor={"#f5de50"}
+  sliderSize={6}
+  thumbSize={13}
+ />
+``` 
 
 Material-UI-searchbar ble valgt fordi !!!!!!
 
@@ -327,8 +346,31 @@ Dette bør gi deg et svar som ligner på dette:
 
 # Testing
 
-Test driven development, see Blackboard for currently only test which is
-reaching 20/20 in score
+#### Brukstesting
+
+Vi har testet at siden har like funksjonaliteter i følgende nettlesere: 
+
+* Chrome
+* Safari
+* Vivaldi
+* Opera
+
+Brukstestingen vår har i stor grad foregått ved at vi har testet funksjonalitet på samme vis i alle de nevnte nettleserne. Under testene har vi fulgt listen over funksjonalitet under, og fått påfølgende resultater:
+
+
+| Test | Forventet resultat | Resultat |
+| --- | --- | --- |
+| Søk etter 'Star Wars'. | Alle filmer som inneholder Star Wars i tittelen kommer opp. | Alle filmer som inneholder Star Wars i tittelen kom opp. |
+| Trykk på en film. | Man skal få opp mer info om filmen. | Det kom opp mer info om filmen. |
+| Trykk på "Clear search"-knappen. | Søket skal bli nullstilt og alle filmer skal vises. | Søket ble nullstilt og alle filmer vises. |
+| Bytt sjanger | Kun filmer i den valgte sjangeren skal vises. | Kun filmer i den valgte sjangeren vises. |
+| Skru opp minimum IMDb-rating til 5. | Kun filmer med minimum 5 i rating på IMDb skal vises. | Kun filmer med minimum 5 i rating på IMDb vises. |
+| Sorter filmene etter IMDb-rating | Filmene skal vises i synkende rekkefølge, ut fra IMDb-rating. | Filmene vises i synkende rekkefølge, ut fra IMDb-rating. |
+| Sorter filmene etter tittel. | Filmene skal vises i alfabetisk rekkefølge, ut fra tittel. | Filmene skal vises i alfabetisk rekkefølge, ut fra tittel. | 
+| Gi en rating til en film. | Man skal få opp en bekreftelses-notifikasjon, og antall stjerner man gir skal vises helt til siden refreshes. Da skal stjernene bli grå igjen og den totale user-ratingen skal endres. | Man får opp en bekreftelses-notifikasjon, og antall stjerner gitt vises helt til siden ble refreshet. Da skal ble stjernene grå igjen og den totale user-ratingen ble endret. |
+
+
+Resultatet av alle testene var utelukkende som forventet. Alle funksjonene oppførte seg som de skulle, og vi fant ingen feil eller mangler. 
 
 # Dokumentasjon
 
