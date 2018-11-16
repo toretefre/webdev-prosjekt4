@@ -8,21 +8,26 @@ import ReplacementImage from "../assets/images/noimage.png";
 @observer
 class MovieList extends Component {
 
-
-  //-----RENDER----------
+  //-----RENDER-----//
   render() {
     return (
       <div id="movieList">
-
         <div id="movieListInner">
+            {/* For each Movie fetched and stored in MovieStore, return a Movie component with the corresponding props */}
               {this.props.movieStore.movies.map(movie => {
                   return(
                       <Movie key={movie._id}
                              id={movie._id}
                              title={movie.title}
                              plot={movie.plot}
+                             runtime={movie.runtime}
+                             actors={movie.actors.map((actor, i) => (movie.actors.length === i + 1)
+                                 ? actor + ""
+                                 : actor + ", ")}
                              poster={(movie.poster === null || movie.poster === undefined) ? ReplacementImage : movie.poster}
-                             genres={movie.genres.map(genre => genre + " ")}
+                             genres={movie.genres.map((genre, i) => (movie.genres.length === i + 1)
+                                 ? genre + ""
+                                 : genre + ", ")}
                              changeView={() => this.props.changeView()}
                              imdbRating={movie.imdb.rating}
                              imdbId={movie.imdb.id}

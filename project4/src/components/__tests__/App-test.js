@@ -1,12 +1,8 @@
 import React from 'react';
-import renderer from 'react-test-renderer';
-import App from "../../App";
+import App from "../App";
 import {Provider} from "mobx-react";
 import MovieStore from "../../stores/MovieStore";
-import ShallowRenderer from "react-test-renderer/shallow";
 import { mount, shallow } from "enzyme";
-import {observable} from "mobx";
-import MovieList from "../MovieList";
 
 describe("App", () => {
     const movieStore = MovieStore;

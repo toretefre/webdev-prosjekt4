@@ -1,5 +1,4 @@
 import React from 'react';
-import renderer from 'react-test-renderer';
 import Movie from "../Movie";
 import {Provider} from "mobx-react";
 import { mount } from 'enzyme';

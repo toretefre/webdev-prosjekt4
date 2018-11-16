@@ -3,6 +3,7 @@ import { Component } from 'react';
 import axios from "axios";
 
 //This is our store, where all the state is stored.
+//Below are all the observable variables where the state is saved
 class MovieStore extends Component {
     @observable fetchedMovies = 0;
     @observable expandMovie = false;
@@ -20,6 +21,8 @@ class MovieStore extends Component {
     @observable searchBarValue = "";
     @observable sortValue = "title";
 
+    //-----FUNCTIONS-----//
+
     //Function to retrieve data from our api.
     //It fetches data together a given searchparam from the user.
     //Axios will try to retrieve data, and then store the data in the "movies"-list
@@ -31,6 +34,7 @@ class MovieStore extends Component {
             this.tempSearchString = this.searchParam;
         }
 
+        //If the genre is All genres, the genreparameter is not incluuded in the endpoint
         if(this.genre === "All genres"){
             this.endpoint = 'http://it2810-32.idi.ntnu.no:8080/movies/' + this.searchParam + "?startindex=" + this.fetchedMovies + '&threshold='+this.minRating + '&sort=' + this.sortValue;
         }
@@ -38,6 +42,7 @@ class MovieStore extends Component {
             this.endpoint = 'http://it2810-32.idi.ntnu.no:8080/movies/' + this.searchParam + "?startindex=" + this.fetchedMovies + '&genre='+this.genre + '&threshold='+this.minRating + '&sort=' + this.sortValue;
         }
         try{
+            //Fetching from our database
             await axios.get(this.endpoint)
                 .then(res => {
                     this.movies = this.movies.slice().concat(res.data);
@@ -57,8 +62,8 @@ class MovieStore extends Component {
         }
     };
 
-    //Function to set the searchParameter when the user search for a movie
-    //Fetchedmovies, movies are cleared so the user the the first results from the database
+    //Function to set the searchParame when the user search for a movie
+    //Fetches movies, movies are cleared so the user the the first results from the database
     @action setSearchParam = async (val) => {
         this.searchParam = val;
         this.fetchedMovies = 0;
@@ -75,7 +80,7 @@ class MovieStore extends Component {
     };
 
     //Function to set the genre when the user filters on a genre
-    //Fetchedmovies, movies are cleared so the user the the first results from the database
+    //Fetches movies, movies are cleared so the user the the first results from the database
     @action setGenre = async (val) => {
         this.genre = val;
         this.fetchedMovies = 0;
@@ -83,8 +88,8 @@ class MovieStore extends Component {
         await this.fetchMovieData();
     };
 
-    //Function to set the searchParameter when the sets the minrating for a movie
-    //Fetchedmovies, movies are cleared so the user the the first results from the database
+    //Function to set the minrating when the sets the minrating for a movie
+    //Fetches movies, movies are cleared so the user the the first results from the database
     @action setMinRating = async (val) => {
         this.minRating = val;
         this.fetchedMovies = 0;
@@ -106,12 +111,15 @@ class MovieStore extends Component {
         await this.fetchMovieData();
     };
 
-    //Fetchedmovies, movies are cleared so the user the the first results from the database
+    //Function to increase number of fetched
+    //Fetches movies, movies are cleared so the user the the first results from the database
     @action increaseFetchedMovies = async () =>{
         this.fetchedMovies += 20;
         await this.fetchMovieData();
     };
 
+    //Function to set the sortvalue. (title or imdb)
+    //Fetches movies, movies are cleared so the user the the first results from the database
     @action setSortValue = async (val) => {
         this.sortValue = val;
         this.fetchedMovies = 0;
