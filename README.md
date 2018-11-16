@@ -239,10 +239,10 @@ og deretter:
 node server.js
 ```
 
-Dersom du vil sørge for at serveren kjører i bakgrunnen legger du til &:
+Dersom du vil sørge for at serveren kjører i bakgrunnen legger du til nohup og &:
 
 ```
-node server.js &
+nohup node server.js &
 ```
 
 I terminalvinduet ditt burde det da dukke opp en melding som forteller deg:
