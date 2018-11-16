@@ -21,7 +21,7 @@ class MovieList extends Component {
                              id={movie._id}
                              title={movie.title}
                              plot={movie.plot}
-                             poster={movie.poster === null ? ReplacementImage : movie.poster}
+                             poster={(movie.poster === null || movie.poster === undefined) ? ReplacementImage : movie.poster}
                              genres={movie.genres.map(genre => genre + " ")}
                              changeView={() => this.props.changeView()}
                              imdbRating={movie.imdb.rating}

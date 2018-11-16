@@ -301,12 +301,7 @@ select.dropdown{
 }
 /* Go to top button end*/
 
-@media screen and (max-width: 1500px) {
-    .innerMovieContainerBig{
-        width: 90%;
-        margin-left: 5%;
-    }
-}
+
 
 /* Mobile styling start*/
 @media screen and (max-width: 950px) {
