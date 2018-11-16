@@ -355,6 +355,7 @@ Vi har testet at siden har like funksjonaliteter i følgende nettlesere:
 * Vivaldi
 * Opera
 
+Vha Chrome developer tools, har vi også testet siden på Galaxy S5, Pixel 2, iPhone X og iPad.
 Brukstestingen vår har i stor grad foregått ved at vi har testet funksjonalitet på samme vis i alle de nevnte nettleserne. Under testene har vi fulgt listen over funksjonalitet under, og fått påfølgende resultater:
 
 
