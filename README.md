@@ -1,5 +1,43 @@
-Table of content missing due to normal Gitlab syntax not working in this
-on-premise version?
+# Moviebase
+
+- [Funksjonalitet](#funksjonalitet)
+- [Frontend](#frontend)
+- [Backend](#backend)
+- [Testing](#testing)
+- [Dokumentasjon](#dokumentasjon)
+
+
+# Funksjonalitet
+
+Moviebase er en prototype på en webapplikasjon som lar brukeren 
+søke i en katalog av filmer.
+
+Brukergrensesnittet (frontend) er basert på rammeverket React og 
+tilstandsverktøyet MobX. Presentasjonen av søkeresultat kan vises enten ved
+hjelp av fliser / "tiles", eller i tradisjonell listeform, 
+dette velges av bruker. Listeformen gir også brukeren mer informasjon om 
+hver film, dette inkluderer skuespillere, brukergenererte vurderinger, samt 
+spilletid.
+
+Serversiden (backend) er basert på løsningene Node, Express, og MongoDB, og
+er driftet av gruppen alene. Alt av filtrering og sortering løses på serverside
+ved hjelp av ulike databasekall i MongoDB. Dette sikrer at sortering og 
+filtrering utføres på hele resultatsettet, og ikke bare det som 
+tilfeldigvis er lastet inn på klienten.
+
+Applikasjonen støtter søk etter tittel, filtrering basert på filmsjanger og 
+IMDb-rating, samt alfabetisk sortering etter tittel, og synkende sortering på 
+bakgrunn av IMDb-rating. 
+
+Det er også implementert funksjonalitet for brukergenererte vurderinger, 
+dette blir gjort på en intuitiv måte ved å klikke på det antallet stjerner
+brukeren mener hver film fortjener. Ved klikk vil det komme en popup som 
+informerer bruker om handlingen som er utført. Vurderingen lagres deretter 
+persistent i databasen, og blir presentert fra og med neste innlasting. 
+
+Applikasjonen går utover det som er presentert i kravspesifikasjonen ved at vi 
+har utformet to forskjellige presentasjonsmoduser, listebasert og flisbasert.
+
 
 # Frontend
 
@@ -292,10 +330,11 @@ Dette bør gi deg et svar som ligner på dette:
 Test driven development, see Blackboard for currently only test which is
 reaching 20/20 in score
 
-# Kommentering og kodestruktur
+# Dokumentasjon
 
-Vi har fokusert svært mye på å gjøre koden lett lesbar, og enkel å inspisere
-for eksterne. Dette mener vi er oppnådd gjennom mange og presise kommentarer
+Når det gjelder dokumentasjon, har vi fokusert svært mye på å gjøre 
+koden lett lesbar, og enkel å inspisere for eksterne. 
+Dette mener vi er oppnådd gjennom mange og presise kommentarer
 der vi mener dette har vært nødvendig, og en gjennomtenkt kodestruktur som skal
 gjøre det enkelt å skjønne hva som er gjort hvor.
 
