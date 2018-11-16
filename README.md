@@ -122,7 +122,7 @@ Vi trengte naturligvis å ha en søkebar på siden vår, og etter å ha undersø
 ```
 
 
-### React Notifications Component
+### [React Notifications Component](https://www.npmjs.com/package/react-notifications-component)
 
 Vi bruker [React Notifications Component](https://www.npmjs.com/package/react-notifications-component) for å gi brukeren tilbakemelding når det er gitt rating på en film. Vi valgte å gå for denne komponenten da den var lett å bruke, og hadde et simpelt design som de fleste kjenner igjen. I tillegg er det viktig for å brukeren å få tilbakemelding på endringer som er gjort. Det var enkelt å opprette en notifikasjon, og vi brukte følgende:
 
@@ -166,7 +166,7 @@ For å justere IMDB-ratingen det filtreres på, bestemte vi oss for å bruke en 
  />
 ``` 
 
-### React Star Ratings
+### [React Star Ratings](https://www.npmjs.com/package/react-star-ratings)
 
 Vi bruker [React Star Ratings](https://www.npmjs.com/package/react-star-ratings) for at brukeren skulle kunne gi rating på en film. Dette lagres persistent i databasen. Denne kompontenen var veldig enkel å bruke, og brukeren trykker på en stjerne for å gi rating. Da vil en melding poppe opp i høyre hjørne, som en tilbakemeldingen på at ratingen er gitt. Komponenten ser slik ut:
 
@@ -194,7 +194,7 @@ Siden vår består av tre komponenter; App, MovieList og Movie. Vi anser kompone
 I tillegg til komponentene, har vi også en MovieStore, som inneholder alt av state og korresponderende funksjoner.
 Bildet under viser komponentstrukturen:
 
-![Komponentstruktur](https://i.imgur.com/Gqm8LDt.png)
+![Komponentstruktur](https://imgur.com/aNL1Ndj.png)
 
 ### Komponenter
 
