@@ -186,7 +186,7 @@ Vi bruker [React Star Ratings](https://www.npmjs.com/package/react-star-ratings)
 
 Funksjonen `putMovieRating` i MovieStore.js blir da kalt og ratingen lagres på databasen. 
 
-# Komponenter og Store
+## Komponenter og Store
 
 ### Komponentstruktur
 
