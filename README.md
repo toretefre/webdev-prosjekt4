@@ -103,7 +103,24 @@ Når vi skal hente ut data fra databasen vår, gjennom apiet, kjører følgende 
 
 Axios henter data fra APIet vårt gjennom en endpoint. Denne enpointen varierer utifra hva ønsker å se på nettsiden. Se [Backend-Funksjonalitet](#backend###funksjonlitet) for mer.
 
-### Material-UI
+### [Material Search Bar](https://www.npmjs.com/package/material-ui-search-bar)
+
+Vi trengte naturligvis å ha en søkebar på siden vår, og etter å ha undersøkt alternativene, kom vi frem til at det var en god løsning å implementere tredejepartsbiblioteket Material Search Bar. Denne søkebaren må ha kontrollert input, altså at input-verdien må være lagret i state, og det var perfekt for oss som skulle bruke Mobx. SearcBar er veldig enkelt og intuitivt å ta i bruk, og fungerer utmerket. Vi implementerte det slik:
+
+```js
+<SearchBar id={"searchBar"}
+    value={this.props.movieStore.searchBarValue}
+    onChange={(text) => this.setSearchBarValue(text)}
+    onRequestSearch={() => this.fetchMovies(this.props.movieStore.searchBarValue)}
+    hintText='Search for movies'
+    style={{
+      margin: '5px 0',
+      width: "60%",
+      borderRadius: "7px",
+    }}
+/>
+```
+
 
 ### React Notifications Component
 
@@ -169,12 +186,27 @@ Vi bruker [React Star Ratings](https://www.npmjs.com/package/react-star-ratings)
 
 Funksjonen `putMovieRating` i MovieStore.js blir da kalt og ratingen lagres på databasen. 
 
-### Valg av komponenter
+# Komponenter og Store
 
-Vi valgte våre frontend-komponenter fordi de var godt dokumenterte og enkle
-å komme i gang med. MobX ble særlig valgt over Redux, da Redux mange steder
-på internett ble fremstilt som mer omfattende og vanskeligere å komme i gang 
-med.
+### Komponentstruktur
+
+Siden vår består av tre komponenter; App, MovieList og Movie. Vi anser komponentvalgene som hensiktsmessige i den forstand at vi oppnår så mye gjenbruk av kode som mulig. Inndelingen av komponenter bidrar også til å gjøre koden lett lesbar og forståelig, og vi har tatt utgangspunkt i best practise. 
+I tillegg til komponentene, har vi også en MovieStore, som inneholder alt av state og korresponderende funksjoner.
+Bildet under viser komponentstrukturen:
+
+![Komponentstruktur](https://i.imgur.com/Gqm8LDt.png)
+
+### Komponenter
+
+* Movie.js
+    * Returnerer én enkelt film, inkludert bilde, tittel, sammendrag, rating osv.
+    
+* MovieList.js
+    * Lager en liste bestående Movie-komponenter. Er altså en liste med filmer.
+    
+* App.js
+    * Inneholder det grunnleggende brukergrensesnittet, bestående av blant annet tredjepartskomponenter. Returnerer også MovieList-komponenten.   
+
 
 # Backend
 
@@ -226,13 +258,13 @@ hva som skjer ved API-kall og enkelt kan endre på kallene sine.
 APIet er tilgjengelig i nettleser, og du kan sjekke status slik:
 
 ```
-GET it2810-32.idi.ntnu.no:8080
+GET ít2810-32.idi.ntnu.no:8080
 ```
 
 Du kan hente ut en komplett JSON over alle oppføringer i databasen med:
 
 ```
-GET it2810-32.idi.ntnu.no:8080/movies
+GET ít2810-32.idi.ntnu.no:8080/movies
 ```
 
 
@@ -241,7 +273,7 @@ GET it2810-32.idi.ntnu.no:8080/movies
 Dersom du vil søke i databasen, kan dette utføres med:
 
 ```
-GET it2810-32.idi.ntnu.no:8080/movies/søketerm
+GET ít2810-32.idi.ntnu.no:8080/movies/søketerm
 ``` 
 
 Søketerm er ikke casesensitiv, og sjekker om noen titler inneholder strengen du søker etter.
@@ -252,19 +284,19 @@ Søketerm er ikke casesensitiv, og sjekker om noen titler inneholder strengen du
 Dersom du vil filtrere på sjanger kan dette gjøres ved å sette queries som vist under:
 
 ```
-GET it2810-32.idi.ntnu.no:8080/movies/søketerm?genre=sjanger
+GET ít2810-32.idi.ntnu.no:8080/movies/søketerm?genre=sjanger
 ```
 
 Dersom du vil filtrere på IMDb-rating, der argumentet er minimumsvurdering gjøres det slik:
 
 ```
-GET it2810-32.idi.ntnu.no:8080/movies/søketerm?threshold=minimumsvurdering
+GET ít2810-32.idi.ntnu.no:8080/movies/søketerm?threshold=minimumsvurdering
 ```
 
 APIet støtter også infinite scrolling, dette løses ved å gi argumentet startindex. Hvis du vil laste de 20 første treffene kan denne droppes. Dersom du vil laste de neste 20 setter du startindex til 20, som vist under:
 
 ```
-GET it2810-32.idi.ntnu.no:8080/movies/søketerm?startindex=20
+GET ít2810-32.idi.ntnu.no:8080/movies/søketerm?startindex=20
 ```
 
 
