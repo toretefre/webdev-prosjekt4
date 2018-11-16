@@ -128,7 +128,26 @@ addNotification() {
 
 Her kunne vi enkelt spesifisere alt fra tittel til hvordan type notifikasjon det skulle være.
 
-### React Simple Range 
+### [React Simple Range](https://github.com/tjallen/react-simple-range) 
+
+For å justere IMDB-ratingen det filtreres på, bestemte vi oss for å bruke en slider. Vi fant fort ut at det da var hensiktsmessig å bruke et tredejepartsbibliotek.Etter litt leting og utprøving, falt valget på React Simple Range. Dette fordi det er et simpelt bibliotek, og at det var mye mer lettvint å style slideren med dette biblioteket enn med de andre vi prøvde. I tillegg innehar bibliotek alle funksjonalitetene vi var ute etter. React Simple Range kan implementeres som vist under. Legg merke til at vi ikke gir noen onChange-funksjon, noe som fører til en warning i konsollen som sier at komponenten ikke vil ha noen funksjon uten onChange. Denne kan vi se bort fra, ettersom onChangeComplete gir oss den funksjonaliteten vi trenger.
+    
+```jsx
+<ReactSimpleRange
+  id={"slider"}
+  label
+  onChangeComplete={(element) => this.handleRatingChange(element.value)}
+  min={1}
+  max={10}
+  step={1}
+  defaultValue={this.props.movieStore.minRating}
+  trackColor={"#000000"}
+  thumbColor={"#f5de50"}
+  sliderColor={"#f5de50"}
+  sliderSize={6}
+  thumbSize={13}
+ />
+``` 
 
 ### React Star Ratings
 
@@ -397,6 +416,33 @@ Dette bør gi deg et svar som ligner på dette:
 
 # Testing
 
+#### Brukstesting
+
+Vi har testet at siden har like funksjonaliteter i følgende nettlesere: 
+
+* Chrome
+* Safari
+* Vivaldi
+* Opera
+
+Vha Chrome developer tools, har vi også testet siden på Galaxy S5, Pixel 2, iPhone X og iPad.
+Brukstestingen vår har i stor grad foregått ved at vi har testet funksjonalitet på samme vis i alle de nevnte nettleserne. Under testene har vi fulgt listen over funksjonalitet under, og fått påfølgende resultater:
+
+
+| Test | Forventet resultat | Resultat |
+| --- | --- | --- |
+| Søk etter 'Star Wars'. | Alle filmer som inneholder Star Wars i tittelen kommer opp. | Alle filmer som inneholder Star Wars i tittelen kom opp. |
+| Trykk på en film. | Man skal få opp mer info om filmen. | Det kom opp mer info om filmen. |
+| Trykk på "Clear search"-knappen. | Søket skal bli nullstilt og alle filmer skal vises. | Søket ble nullstilt og alle filmer vises. |
+| Bytt sjanger | Kun filmer i den valgte sjangeren skal vises. | Kun filmer i den valgte sjangeren vises. |
+| Skru opp minimum IMDb-rating til 5. | Kun filmer med minimum 5 i rating på IMDb skal vises. | Kun filmer med minimum 5 i rating på IMDb vises. |
+| Sorter filmene etter IMDb-rating | Filmene skal vises i synkende rekkefølge, ut fra IMDb-rating. | Filmene vises i synkende rekkefølge, ut fra IMDb-rating. |
+| Sorter filmene etter tittel. | Filmene skal vises i alfabetisk rekkefølge, ut fra tittel. | Filmene skal vises i alfabetisk rekkefølge, ut fra tittel. | 
+| Gi en rating til en film. | Man skal få opp en bekreftelses-notifikasjon, og antall stjerner man gir skal vises helt til siden refreshes. Da skal stjernene bli grå igjen og den totale user-ratingen skal endres. | Man får opp en bekreftelses-notifikasjon, og antall stjerner gitt vises helt til siden ble refreshet. Da skal ble stjernene grå igjen og den totale user-ratingen ble endret. |
+
+Resultatet av alle testene var utelukkende som forventet. Alle funksjonene oppførte seg som de skulle, og vi fant ingen feil eller mangler. 
+
+
 ## Jest
 
 Vi bruker [Jest](https://jestjs.io/) for å teste applikasjonens funksjonalitet og underliggende arkitektur. Dette har vi gjort på det vi selv anser som en god og systematisk måte, som er dokumentert under. Vi har hatt fokus på å oppnå en akseptabel testcoverage, uten å bruke i overkant mye ressursser på dette i henhold til tidsfristen vi har hatt. I tillegg bruker vi [Enzyme](https://airbnb.io/enzyme/docs/guides/jest.html) som gjør det lettere å manipulere React komponenter. 
@@ -418,6 +464,23 @@ Vi har skrevet følgende enhetstester:
 | function increaseFetchedMovies | Verifiserer at funksjonen increaseFetchedMovies fungerer. Funksjonen øker variabelen `fetchedMovies` med 20. Sjekker så at variabelen endret seg til 20. |
 | function fetchMovieData | Verifiserer at funksjonen fetchMovieData fungerer. **NB**: Funksjonen henter data fra et faktisk API, og testen vil ikke kjøre dersom man ikke har tilgang til apiet. Setter en rekke verdier som sjanger, minratin og en søketekst. Deretter blir endpointet satt til å hente data med disse satte verdiene. Oppretter så en mock av Axios, og som kjører onGet på data fra et testAPI. Deretter kjøres funksjonen fetchMovieData. Sjekker til slutt av tittelen på filmen som ble hentet fra fetchMovieData, stemmer overens med det mocken av Axios hentet fra testApiet. |
 | function putMovieRating | Verifiserer at funksjonen putMovieRating fungerer. Gjør det samme som testen over med å sette ulike variabler. Oppretter en mock av Axios som kjører onPut fra data fra et testAPI. Deretter kjøres funksjonen putMovieRating med de samme verdiene. Når dette har skjedd sjekkes det at ratingen som ble satt inn på testfilmen i funksjonen putMovieRating, stemmer overens med ratingen fra testAPIet.  |
+
+#### Movie-test.
+
+| Test | Beskrivelse |
+| ------ | ------ |
+| function handleExpandMovie() | Verifiserer at funksjonen handleExpandMovie fungerer, og at movie-containeren går fra å være liten til å bli stor. Finner en film vha ID, og simulerer et klikk på filmen. Sjekker så at det finnes en stor movie container. |
+| function onStarClick() | Verifiserer at funksjonen onStarClick fungerer, og at det dukker opp en notifikasjon når den kjøres. Finner en StarRating-komponent vha ID, simulerer en change på den, og sjekker at det finnes en notifikasjon. |
+
+
+#### App-test.
+
+| Test | Beskrivelse |
+| ------ | ------ |
+| Switching from gridView to listView | Verifiserer at knappen som endrer layouten til å være listebasert fungerer ved å simulere et klikk på den, og sjekker funksjonen som skal gjøre det blir fyrt av slik at store-verdien expandMovie blir true. |
+| Switching from listView to gridVie  | Verifiserer at knappen som endrer layouten til å være gridbasert fungerer ved å simulere et klikk på den, og sjekker funksjonen som skal gjøre det blir fyrt av slik at store-verdien expandMovie blir false. |
+| function goToTop() | Verifiserer at knappen som skal sende brukeren helt til toppen av siden fungerer. Finner knappen vha id, simulerer et klikk på den, og sjekker at man er på toppen. |
+| function clearAll() | Verifiserer at "clear search"-knappen faktisk clearer søket. Finner knappen, simulerer et klikk på den, og sjekker at alle verdiene har blitt satt tilbake til sine originale verdier. |  
 
 #### Coverage 
 
