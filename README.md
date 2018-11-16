@@ -194,7 +194,7 @@ Spørringen under bør gi deg treff 20-40 for filmer med tittel Battlefield,
 som har sjangeren Action og en IMDb-rating over eller lik 5.4:
 
 ```
-ít2810-32.idi.ntnu.no:8080/movies/battlefield?genre=action&threshold=5.4&startindex=20
+it2810-32.idi.ntnu.no:8080/movies/battlefield?genre=action&threshold=5.4&startindex=20
 ```
 
 Du kan også spørre etter alle filmer som tilfredsstiller krav om sjanger, 
@@ -202,7 +202,7 @@ IMDb-rating og startindex. Spørringen under returnerer trekk 40-60 av filmene
 som har sjangeren Dokumentar med over 8.1 i IMDb-rating.
 
 ```
-ít2810-32.idi.ntnu.no:8080/movies/?genre=Documentary&threshold=8.1&startindex=40
+it2810-32.idi.ntnu.no:8080/movies/?genre=Documentary&threshold=8.1&startindex=40
 ```
 
 ### Valg av komponenter
@@ -226,13 +226,13 @@ hva som skjer ved API-kall og enkelt kan endre på kallene sine.
 APIet er tilgjengelig i nettleser, og du kan sjekke status slik:
 
 ```
-GET ít2810-32.idi.ntnu.no:8080
+GET it2810-32.idi.ntnu.no:8080
 ```
 
 Du kan hente ut en komplett JSON over alle oppføringer i databasen med:
 
 ```
-GET ít2810-32.idi.ntnu.no:8080/movies
+GET it2810-32.idi.ntnu.no:8080/movies
 ```
 
 
@@ -241,7 +241,7 @@ GET ít2810-32.idi.ntnu.no:8080/movies
 Dersom du vil søke i databasen, kan dette utføres med:
 
 ```
-GET ít2810-32.idi.ntnu.no:8080/movies/søketerm
+GET it2810-32.idi.ntnu.no:8080/movies/søketerm
 ``` 
 
 Søketerm er ikke casesensitiv, og sjekker om noen titler inneholder strengen du søker etter.
@@ -252,19 +252,19 @@ Søketerm er ikke casesensitiv, og sjekker om noen titler inneholder strengen du
 Dersom du vil filtrere på sjanger kan dette gjøres ved å sette queries som vist under:
 
 ```
-GET ít2810-32.idi.ntnu.no:8080/movies/søketerm?genre=sjanger
+GET it2810-32.idi.ntnu.no:8080/movies/søketerm?genre=sjanger
 ```
 
 Dersom du vil filtrere på IMDb-rating, der argumentet er minimumsvurdering gjøres det slik:
 
 ```
-GET ít2810-32.idi.ntnu.no:8080/movies/søketerm?threshold=minimumsvurdering
+GET it2810-32.idi.ntnu.no:8080/movies/søketerm?threshold=minimumsvurdering
 ```
 
 APIet støtter også infinite scrolling, dette løses ved å gi argumentet startindex. Hvis du vil laste de 20 første treffene kan denne droppes. Dersom du vil laste de neste 20 setter du startindex til 20, som vist under:
 
 ```
-GET ít2810-32.idi.ntnu.no:8080/movies/søketerm?startindex=20
+GET it2810-32.idi.ntnu.no:8080/movies/søketerm?startindex=20
 ```
 
 
