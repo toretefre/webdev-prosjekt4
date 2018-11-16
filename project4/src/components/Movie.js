@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import '../Movie.css';
+import './styles/Movie.css';
 import {inject, observer} from "mobx-react";
 import ReplacementImage from "../assets/images/noimage.png";
 import StarRatings from 'react-star-ratings';

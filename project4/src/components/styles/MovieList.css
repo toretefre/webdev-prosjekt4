@@ -1,0 +1,25 @@
+#movieList{
+    display: flex;
+    margin-top: 2%;
+    width: 85%;
+    border-radius: 5px;
+ }
+
+.innerMovieContainerBig{
+    width: 70%;
+    margin-left: 12.5%;
+}
+
+#movieListInner{
+    display: flex;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    width: 100%
+}
+
+@media screen and (max-width: 1500px) {
+    .innerMovieContainerBig{
+        width: 90%;
+        margin-left: 1.5%;
+    }
+}
