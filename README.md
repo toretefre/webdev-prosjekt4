@@ -194,7 +194,7 @@ Spørringen under bør gi deg treff 20-40 for filmer med tittel Battlefield,
 som har sjangeren Action og en IMDb-rating over eller lik 5.4:
 
 ```
-it2810-32.idi.ntnu.no:8080/movies/battlefield?genre=action&threshold=5.4&startindex=20
+GET it2810-32.idi.ntnu.no:8080/movies/battlefield?genre=action&threshold=5.4&startindex=20
 ```
 
 Du kan også spørre etter alle filmer som tilfredsstiller krav om sjanger, 
@@ -202,7 +202,7 @@ IMDb-rating og startindex. Spørringen under returnerer trekk 40-60 av filmene
 som har sjangeren Dokumentar med over 8.1 i IMDb-rating.
 
 ```
-it2810-32.idi.ntnu.no:8080/movies/?genre=Documentary&threshold=8.1&startindex=40
+GET it2810-32.idi.ntnu.no:8080/movies/?genre=Documentary&threshold=8.1&startindex=40
 ```
 
 ### Valg av komponenter
@@ -346,7 +346,7 @@ Du kan deretter begynne å bruke våre [APIer](Api).
 
 Hvis du vil stoppe en serverinstans som kjører i bakgrunnen, logger du på 
 serveren, og taster inn en kommando for å vise alle prosesser som kjører på 
-sereren:
+serveren:
 
 ```
 ps ax
@@ -395,7 +395,7 @@ use movieDB
 Under databaser har vi en collection som heter "movieDetails". 
 For å liste litt derfra kan du skrive:
 ```
-db.movieDetails.findOne()`` eller ``db.movieDetails.find()
+db.movieDetails.find()
 ```
 
 ### Eksempel
@@ -404,7 +404,7 @@ Vi har også en eksempelspørring.
 Den gir deg alle filmer med tittel som inneholder "west side story":
 
 ```
-db.movieDetails.find({{ "title" : "west side story" }})
+db.movieDetails.find({{ "title" : "West Side Story" }})
 ```
 
 Dette bør gi deg et svar som ligner på dette:
