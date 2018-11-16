@@ -3,17 +3,18 @@ import {inject, observer} from "mobx-react";
 import SearchBar from 'material-ui-search-bar';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import ReactSimpleRange from 'react-simple-range';
-import MovieList from './components/MovieList.js';
-import './App.css';
-
+import MovieList from './MovieList.js';
+import './styles/App.css';
 
 @inject('movieStore')
 @observer
 class App extends Component {
 
+  //-----LIFECYCLE-----//
+
   //ComponentDidMount loads 20 movies when the user enters the code
   //Adding eventlistener for scrolling (which is being used in handlescroll)
-  componentDidMount() {
+  componentDidMount () {
       this.props.movieStore.fetchMovieData();
       document.addEventListener('scroll', this.handleScroll);
   }
@@ -23,9 +24,10 @@ class App extends Component {
       document.removeEventListener('scroll', this.handleScroll);
   }
 
+  //-----FUNCTIONS-----//
+
   //Function to change the view between grid and list.
   //The function sets the value of the observable variable "expandmovie" to the opposite value (true/false)
-  //Changes the color of the grid and list buttons.
   changeView = () => {
     this.props.movieStore.setExpandMovie(!this.props.movieStore.expandMovie);
   };
@@ -47,7 +49,7 @@ class App extends Component {
   };
 
   //Detects whether the user is scrolled to the bottom or not
-    // It also checks whether to hide or show the button that navigates to the top
+  //It also checks whether to hide or show the button that navigates to the top
   handleScroll = async () =>{
       //If user scrolls down a little, show the button that navigates to the top
       if (document.body.scrollTop > 100 || document.documentElement.scrollTop > 100) {
@@ -65,7 +67,7 @@ class App extends Component {
 
   //Function to clear searchparam and all filters
   clearAll = async () => {
-      this.props.movieStore.searchBarValue = "";
+      this.props.movieStore.setSearchBarValue("");
       await this.props.movieStore.clearAll();
   };
 
@@ -75,18 +77,19 @@ class App extends Component {
       document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
   };
 
+  //Setting the searchbarvalue which is being stored in movieStore
   setSearchBarValue = (val) => {
       this.props.movieStore.setSearchBarValue(val);
   };
 
   //Function that alters the sort value
-    setSortValue = async (e) => {
-        await this.props.movieStore.setSortValue(e.target.value);
-    };
+  setSortValue = async (e) => {
+      await this.props.movieStore.setSortValue(e.target.value);
+  };
 
-  //-----RENDER----------
+  //-----RENDER-----//
 
-    render() {
+  render() {
     return (
         <React.Fragment>
              <div id="headerContainer">
@@ -115,7 +118,7 @@ class App extends Component {
                                   </select>
                               </div>
                               <div id="sliderContainer">
-                                  <img className="ratingImage" alt="" src={require("./assets/images/imdb.png")}/>
+                                  <img className="ratingImage" alt="" src={require("../assets/images/imdb.png")}/>
                                   <div>Rating:</div>
                                   <div id={"mySlider"}>
                                       <ReactSimpleRange
@@ -149,10 +152,10 @@ class App extends Component {
                                   </div>
                                   <div id={"viewButtons"}>
                                       <button id={this.props.movieStore.expandMovie ? "displayList" : "displayGrid"} onClick={() => this.changeView()}>
-                                          <img className="displayImg" alt="" src={this.props.movieStore.expandMovie ? require("./assets/images/gridwhite.png") : require("./assets/images/gridblack.png")}/>
+                                          <img className="displayImg" alt="" src={this.props.movieStore.expandMovie ? require("../assets/images/gridwhite.png") : require("../assets/images/gridblack.png")}/>
                                       </button>
                                       <button id={this.props.movieStore.expandMovie ? "displayGrid" : "displayList"} onClick={() => this.changeView()}>
-                                          <img className="displayImg" alt="" src={this.props.movieStore.expandMovie ? require("./assets/images/listblack.png") : require("./assets/images/listwhite.png")}/>
+                                          <img className="displayImg" alt="" src={this.props.movieStore.expandMovie ? require("../assets/images/listblack.png") : require("../assets/images/listwhite.png")}/>
                                       </button>
                                   </div>
                               </div>
@@ -164,7 +167,7 @@ class App extends Component {
                     Showing all movies
                   </div>
                     <div onClick={() => this.clearAll()} id="clearSearchContainer">
-                        <img id="infoContainerImg" alt="" src={require("./assets/images/waste-bin.png")}/>
+                        <img id="infoContainerImg" alt="" src={require("../assets/images/waste-bin.png")}/>
                         Clear search
                     </div>
                 </div>
@@ -176,7 +179,7 @@ class App extends Component {
                     role={"button"}
                     onClick={this.goToTop}
                 >
-                    <img className="toTopImg" alt="Go to top" src={require("./assets/images/arrow-up.png")}/>
+                    <img className="toTopImg" alt="Go to top" src={require("../assets/images/arrow-up.png")}/>
                 </aside>
             </div>
         </React.Fragment>
