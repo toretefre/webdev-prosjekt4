@@ -370,6 +370,24 @@ Brukstestingen vår har i stor grad foregått ved at vi har testet funksjonalite
 | Gi en rating til en film. | Man skal få opp en bekreftelses-notifikasjon, og antall stjerner man gir skal vises helt til siden refreshes. Da skal stjernene bli grå igjen og den totale user-ratingen skal endres. | Man får opp en bekreftelses-notifikasjon, og antall stjerner gitt vises helt til siden ble refreshet. Da skal ble stjernene grå igjen og den totale user-ratingen ble endret. |
 
 
+#### Movie-test.
+
+| Test | Beskrivelse |
+| ------ | ------ |
+| handleExpandMovie | 	Verifiserer at funksjonen handleExpandMovie fungerer, og at movie-containeren går fra å være liten til å bli stor. |
+| onStarClick | Verifiserer at funksjonen onStarClick fungerer, og at det dukker opp en notifikasjon når den kjøres. |
+
+
+#### App-test.
+
+| Test | Beskrivelse |
+| ------ | ------ |
+| Switching from gridView to listView | Verifiserer at knappen som endrer layouten til å være listebasert fungerer, og funksjonen som skal gjøre det blir fyrt av slik at store-verdien expandMovie blir true. |
+| Switching from listView to gridVie  | Verifiserer at knappen som endrer layouten til å være gridbasert fungerer, og funksjonen som skal gjøre det blir fyrt av slik at store-verdien expandMovie blir false. |
+| goToTop | Verifiserer at knappen som skal sende brukeren helt til toppen av siden fungerer. Finner knappen vha id, trykker på den, og sjekker at man er på toppen. |
+| clearAll | Verifiserer at "clear search"-knappen faktisk clearer søket. Finner knappen, trykker på den, og sjekker at alle verdiene har blitt satt tilbake til sine originale verdier. |  
+
+
 Resultatet av alle testene var utelukkende som forventet. Alle funksjonene oppførte seg som de skulle, og vi fant ingen feil eller mangler. 
 
 # Dokumentasjon
